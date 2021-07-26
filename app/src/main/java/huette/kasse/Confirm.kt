@@ -9,6 +9,6 @@ class Confirm : AppCompatActivity() {
         setContentView(R.layout.confirm)
 
         // Nur auf 8 setzen, wenn man von Szene/Activity bezahlen kommt
-        MainActivity().function = 8
+        Variables.function = 8
     }
 }

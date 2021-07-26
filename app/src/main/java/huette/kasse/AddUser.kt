@@ -17,20 +17,22 @@ class AddUser : AppCompatActivity() {
         val tfFirstName: EditText = findViewById(R.id.tfFirstName)
         val tfLastName: EditText = findViewById(R.id.tfLastName)
 
+        val layoutNames: LinearLayout = findViewById(R.id.linearLayoutNames)
+        layoutNames.removeAllViews()
+        for (i in 0 until Variables.alBtnUsers.size){
+            layoutNames.addView(Variables.alBtnUsers.get(i))
+        }
 
-        Toast.makeText(
-            applicationContext, "MainActivity().function: ${MainActivity().function}",
-            Toast.LENGTH_SHORT
-        ).show()
+        Variables.function = 1
 
         btnAddUser2.setOnClickListener() {
 
-            Toast.makeText(
-                applicationContext, "MainActivity().function: ${MainActivity().function}",
+            /*Toast.makeText(
+                applicationContext, "MainActivity().function: ${Variables.function}",
                 Toast.LENGTH_SHORT
-            ).show()
+            ).show()*/
 
-            if (MainActivity().function == 1) {
+            if (Variables.function == 1) {
 
                 val layout: LinearLayout = findViewById(R.id.linearLayoutNames)
                 val firstName: String = tfFirstName.text.toString()
@@ -40,8 +42,8 @@ class AddUser : AppCompatActivity() {
 
                 if (!firstName.equals("") && !lastName.equals("")) {
                     // Prüfen, ob Nutzer schon vorhanden
-                    for (i in 0 until MainActivity().alUsers.size) {
-                        if (MainActivity().alUsers.get(i).userID.equals(userID)) {
+                    for (i in 0 until Variables.alUsers.size) {
+                        if (Variables.alUsers.get(i).userID.equals(userID)) {
                             error = 1
                             break
                         }
@@ -54,8 +56,8 @@ class AddUser : AppCompatActivity() {
 
                         btnUser.setText("$firstName\n$lastName")
                         btnUser.setTag(userID)
-                        MainActivity().alUsers.add(User(firstName, lastName, userID))
-                        MainActivity().alBtnUsers.add(btnUser)
+                        Variables.alUsers.add(User(firstName, lastName, userID))
+                        Variables.alBtnUsers.add(btnUser)
 
                         Toast.makeText(
                             applicationContext, "$firstName $lastName angelegt",
@@ -65,7 +67,7 @@ class AddUser : AppCompatActivity() {
                         tfFirstName.text.clear()
                         tfLastName.text.clear()
 
-                        MainActivity().sortLists(layout)
+                        Variables.sortLists(layout)
 
                         btnUser.setOnClickListener() {
                             MainActivity().buttonClicked(btnUser)

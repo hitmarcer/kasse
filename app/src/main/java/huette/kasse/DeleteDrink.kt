@@ -8,6 +8,6 @@ class DeleteDrink : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.delete_drink)
 
-        MainActivity().function = 5
+        Variables.function = 5
     }
 }

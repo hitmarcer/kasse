@@ -8,6 +8,6 @@ class EditDrinks : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_drinks)
 
-        MainActivity().function = 3
+        Variables.function = 3
     }
 }

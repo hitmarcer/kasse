@@ -8,6 +8,6 @@ class DeleteUser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.delete_user)
 
-        MainActivity().function = 2
+        Variables.function = 2
     }
 }

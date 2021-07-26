@@ -10,17 +10,6 @@ import androidx.appcompat.view.ContextThemeWrapper
 
 class MainActivity : AppCompatActivity() {
 
-    var alBtnUsers: ArrayList<Button> = ArrayList<Button>()
-    var alBtnDrinks: ArrayList<Button> = ArrayList<Button>()
-    var alUsers: ArrayList<User> = ArrayList<User>()
-    var alDrinks: ArrayList<Drink> = ArrayList<Drink>()
-    //Test123
-
-    val pw = ""
-
-    var function: Int = 0
-    var activeUser: String = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,6 +26,12 @@ class MainActivity : AppCompatActivity() {
         val btnUebersicht: Button = findViewById(R.id.btnUebersicht)
         val btnFullscreen: Button = findViewById(R.id.btnFullscreen)
 
+        val layoutNames: LinearLayout = findViewById(R.id.linearLayoutNames)
+        layoutNames.removeAllViews()
+        for (i in 0 until Variables.alBtnUsers.size){
+            layoutNames.addView(Variables.alBtnUsers.get(i))
+        }
+
         btnFullscreen.setOnClickListener() {
             enableFullscreen(decorView)
         }
@@ -51,12 +46,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnEditDrinks.setOnClickListener() {
-            function = 3
+            Variables.function = 3
             startActivity(Intent(this, Password::class.java))
         }
 
         btnPay.setOnClickListener() {
-            function = 7
+            Variables.function = 7
             startActivity(Intent(this, Password::class.java))
         }
 
@@ -79,17 +74,17 @@ class MainActivity : AppCompatActivity() {
         // 8 	= Wirklich bezahlen
         // 9 	= Benutzer wirklich löschen bestätigt
 
-        val function: Int = function
+        val function: Int = Variables.function
 
         // Getränk zu Name hinzufügen, also Szene addDrinkToUser mit diesem
         // Benutzer aufrufen
         if (function == 1) {
-            activeUser = btn.getTag().toString()
+            Variables.activeUser = btn.getTag().toString()
             startActivity(Intent(this, AddDrinkToUser::class.java))
 
         // 2 	= Benutzer löschen
         } else if(function == 2){
-            activeUser = btn.getTag().toString()
+            Variables.activeUser = btn.getTag().toString()
             startActivity(Intent(this, DeleteUser::class.java))
 
         // 3 	= Angebot verwalten
@@ -119,18 +114,6 @@ class MainActivity : AppCompatActivity() {
         // 9 	= Benutzer wirklich löschen bestätigt
         } else if(function == 9){
 
-        }
-    }
-
-    fun sortLists(layout: LinearLayout) {
-        alUsers.sortWith(compareBy({ it.userID }))
-        alBtnUsers.sortWith(compareBy({ it.tag.toString() }))
-        /*alBtnUsers = alBtnUsers.sortedWith(compareBy({ it.tag.toString() })) as ArrayList<Button>*/
-
-        layout.removeAllViews()
-
-        for (i in 0 until alBtnUsers.size) {
-            layout.addView(alBtnUsers.get(i))
         }
     }
 
