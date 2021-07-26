@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     var alBtnDrinks: ArrayList<Button> = ArrayList<Button>()
     var alUsers: ArrayList<User> = ArrayList<User>()
     var alDrinks: ArrayList<Drink> = ArrayList<Drink>()
-    //Test
+    //Test123
 
     val pw = ""
 
