@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="huette.kasse">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Kasse">
+        <activity
+            android:name=".Uebersicht"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Pay"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EditDrink"
+            android:parentActivityName=".EditDrinks" />
+        <activity
+            android:name=".DeleteDrink"
+            android:parentActivityName=".EditDrinks" />
+        <activity
+            android:name=".Confirm"
+            android:parentActivityName=".Pay" />
+        <activity
+            android:name=".AddUser"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddDrink"
+            android:parentActivityName=".EditDrinks" />
+        <activity
+            android:name=".EditDrinks"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".DeleteUser"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddDrinkToUser"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Password"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

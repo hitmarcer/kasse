@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Kasse</string>
+    <string name="fullscreen">Vollbild</string>
+    <string name="add">Add</string>
+    <string name="anlegen">Anlegen</string>
+    <string name="firstName">Vorname</string>
+    <string name="lastName">Nachname</string>
+    <string name="addUser">Name\nhinzufügen</string>
+    <string name="namesDescription">Namen</string>
+    <string name="drinksDescription">Drinks</string>
+    <string name="price">Preis €</string>
+    <string name="drink">Getränk</string>
+    <string name="no">Nein</string>
+    <string name="yes">Ja</string>
+    <string name="deleteDrink">Getränk löschen</string>
+    <string name="deleteUser">Name löschen</string>
+    <string name="editDrinks">Angebot verwalten</string>
+    <string name="edit">Ändern</string>
+    <string name="confirm">Bestätigen</string>
+    <string name="passwort">Passwort</string>
+    <string name="pay">Bezahlen</string>
+    <string name="uebersicht">Übersicht</string>
+    <string name="name">Name</string>
+    <string name="addDrink">Getränk hinzufügen</string>
+</resources>

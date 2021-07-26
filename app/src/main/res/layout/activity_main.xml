@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollViewNames"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/namesDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutNames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutControlMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewNames"
+        tools:layout_editor_absoluteX="30dp">
+
+        <Button
+            android:id="@+id/btnAddUser"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/addUser"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:backgroundTint="@color/buttongreen" />
+
+        <Button
+            android:id="@+id/btnDeleteUser"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/deleteUser"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:backgroundTint="@color/buttongreen" />
+
+        <Button
+            android:id="@+id/btnEditDrinks"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/editDrinks"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:backgroundTint="@color/buttongreen" />
+
+        <Button
+            android:id="@+id/btnPay"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/pay"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:backgroundTint="@color/buttongreen" />
+
+        <Button
+            android:id="@+id/btnUebersicht"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/uebersicht"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:backgroundTint="@color/buttongreen" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutFullMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:gravity="end"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btnFullscreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="@string/fullscreen"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:backgroundTint="@color/buttongreen" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

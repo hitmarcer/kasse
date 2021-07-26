@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollViewDrinks"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/drinksDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutNames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutControlEditDrinks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewDrinks">
+
+        <Button
+            android:id="@+id/btnAddDrink"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/addDrink"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:backgroundTint="@color/buttongreen" />
+
+        <Button
+            android:id="@+id/btnDeleteDrink"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/deleteDrink"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:backgroundTint="@color/buttongreen" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBottomEditDrinks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/layoutControlEditDrinks">
+
+        <TextView
+            android:id="@+id/tvEditDrinks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/editDrinks"
+            android:textSize="48sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
