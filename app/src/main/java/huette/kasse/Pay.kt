@@ -8,6 +8,6 @@ class Pay : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pay)
 
-        MainActivity().function = 7
+        Variables.function = 7
     }
 }

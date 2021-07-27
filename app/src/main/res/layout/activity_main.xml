@@ -7,7 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <HorizontalScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewNames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<HorizontalScrollView
         android:id="@+id/horizontalScrollViewNames"
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -26,7 +34,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal" />
-    </HorizontalScrollView>
+    </HorizontalScrollView>-->
 
     <LinearLayout
         android:id="@+id/layoutControlMain"
@@ -35,7 +43,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewNames"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewNames"
         tools:layout_editor_absoluteX="30dp">
 
         <Button
@@ -43,7 +51,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="230dp"
             android:layout_height="230dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:text="@string/addUser"

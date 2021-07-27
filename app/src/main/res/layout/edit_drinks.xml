@@ -6,35 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollViewDrinks"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewEditDrinks"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:contentDescription="@string/drinksDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/linearLayoutNames"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" />
-    </HorizontalScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/layoutControlEditDrinks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewDrinks">
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewEditDrinks"
+        tools:layout_editor_absoluteX="20dp">
 
         <Button
             android:id="@+id/btnAddDrink"
@@ -65,9 +53,9 @@
         android:id="@+id/layoutBottomEditDrinks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:gravity="center"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutControlEditDrinks">
 
         <TextView

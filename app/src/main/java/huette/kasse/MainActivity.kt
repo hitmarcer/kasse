@@ -4,22 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.ContextThemeWrapper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
-
-    var alBtnUsers: ArrayList<Button> = ArrayList<Button>()
-    var alBtnDrinks: ArrayList<Button> = ArrayList<Button>()
-    var alUsers: ArrayList<User> = ArrayList<User>()
-    var alDrinks: ArrayList<Drink> = ArrayList<Drink>()
-    //Test123
-
-    val pw = ""
-
-    var function: Int = 0
-    var activeUser: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +26,31 @@ class MainActivity : AppCompatActivity() {
         val btnUebersicht: Button = findViewById(R.id.btnUebersicht)
         val btnFullscreen: Button = findViewById(R.id.btnFullscreen)
 
+        val recyclerViewNames: RecyclerView = findViewById(R.id.recyclerViewNames)
+
+        // Zu Testzwecken
+        Variables.addUser("Marc", "Bohner")
+        Variables.addUser("Adrian", "Sugg")
+        Variables.addUser("Tim", "Disch")
+
+        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers)
+
+        recyclerViewNames.adapter = namesAdapter
+        recyclerViewNames.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        namesAdapter.notifyDataSetChanged()
+
+        /*val layoutNames: LinearLayout = findViewById(R.id.linearLayoutNames)
+        layoutNames.removeAllViews()
+        for (i in 0 until Variables.alBtnUsers.size){
+            layoutNames.addView(Variables.alBtnUsers.get(i))
+        }*/
+
         btnFullscreen.setOnClickListener() {
             enableFullscreen(decorView)
         }
 
         btnAddUser.setOnClickListener() {
-            val intent: Intent = Intent(this, AddUser::class.java)
             startActivity(Intent(this, AddUser::class.java))
         }
 
@@ -51,12 +59,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnEditDrinks.setOnClickListener() {
-            function = 3
+            Variables.function = 3
             startActivity(Intent(this, Password::class.java))
         }
 
         btnPay.setOnClickListener() {
-            function = 7
+            Variables.function = 7
             startActivity(Intent(this, Password::class.java))
         }
 
@@ -79,17 +87,17 @@ class MainActivity : AppCompatActivity() {
         // 8 	= Wirklich bezahlen
         // 9 	= Benutzer wirklich löschen bestätigt
 
-        val function: Int = function
+        val function: Int = Variables.function
 
         // Getränk zu Name hinzufügen, also Szene addDrinkToUser mit diesem
         // Benutzer aufrufen
         if (function == 1) {
-            activeUser = btn.getTag().toString()
+            Variables.activeUser = btn.getTag().toString()
             startActivity(Intent(this, AddDrinkToUser::class.java))
 
         // 2 	= Benutzer löschen
         } else if(function == 2){
-            activeUser = btn.getTag().toString()
+            Variables.activeUser = btn.getTag().toString()
             startActivity(Intent(this, DeleteUser::class.java))
 
         // 3 	= Angebot verwalten
@@ -122,18 +130,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun sortLists(layout: LinearLayout) {
-        alUsers.sortWith(compareBy({ it.userID }))
-        alBtnUsers.sortWith(compareBy({ it.tag.toString() }))
-        /*alBtnUsers = alBtnUsers.sortedWith(compareBy({ it.tag.toString() })) as ArrayList<Button>*/
-
-        layout.removeAllViews()
-
-        for (i in 0 until alBtnUsers.size) {
-            layout.addView(alBtnUsers.get(i))
-        }
-    }
-
     private fun enableFullscreen(decorView: View) {
         decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
                 // Set the content to appear under the system bars so that the
@@ -144,15 +140,5 @@ class MainActivity : AppCompatActivity() {
                 // Hide the nav bar and status bar
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
-    }
-
-    private fun addButton(firstName: String, lastName: String) {
-        val context: ContextThemeWrapper =
-            ContextThemeWrapper(baseContext, R.style.buttonNamesStyle)
-        val layout: LinearLayout = findViewById(R.id.linearLayoutNames)
-        val button: Button = Button(context)
-        button.setText("${firstName}\n${lastName}")
-
-        layout.addView(button)
     }
 }

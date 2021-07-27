@@ -17,10 +17,10 @@ class Password : AppCompatActivity() {
 
         btnConfirm.setOnClickListener() {
             val password = tfPassword.text.toString()
-            if (password.equals(MainActivity().pw)) {
-                if(MainActivity().function == 3){
+            if (password.equals(Variables.pw)) {
+                if(Variables.function == 3){
                     startActivity(Intent(this, EditDrinks::class.java))
-                } else if (MainActivity().function == 7){
+                } else if (Variables.function == 7){
                     startActivity(Intent(this, Pay::class.java))
                 }
             } else {
