@@ -3,10 +3,10 @@ package huette.kasse
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.ContextThemeWrapper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class AddUser : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,11 +17,19 @@ class AddUser : AppCompatActivity() {
         val tfFirstName: EditText = findViewById(R.id.tfFirstName)
         val tfLastName: EditText = findViewById(R.id.tfLastName)
 
-        val layoutNames: LinearLayout = findViewById(R.id.linearLayoutNames)
+        val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewAddUser)
+
+        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers)
+
+        recyclerViewAddUser.adapter = namesAdapter
+        recyclerViewAddUser.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        /*val layoutNames: LinearLayout = findViewById(R.id.linearLayoutNames)
         layoutNames.removeAllViews()
         for (i in 0 until Variables.alBtnUsers.size){
             layoutNames.addView(Variables.alBtnUsers.get(i))
-        }
+        }*/
 
         Variables.function = 1
 
@@ -34,54 +42,37 @@ class AddUser : AppCompatActivity() {
 
             if (Variables.function == 1) {
 
-                val layout: LinearLayout = findViewById(R.id.linearLayoutNames)
+                //val layout: LinearLayout = findViewById(R.id.linearLayoutNames)
                 val firstName: String = tfFirstName.text.toString()
                 val lastName: String = tfLastName.text.toString()
-                val userID: String = "${firstName}_${lastName}"
-                var error: Int = 0
+                val error: Int = Variables.addUser(firstName, lastName)
 
-                if (!firstName.equals("") && !lastName.equals("")) {
-                    // Prüfen, ob Nutzer schon vorhanden
-                    for (i in 0 until Variables.alUsers.size) {
-                        if (Variables.alUsers.get(i).userID.equals(userID)) {
-                            error = 1
-                            break
-                        }
-                    }
+                if (error == 0) {
+                    Toast.makeText(
+                        applicationContext, "$firstName $lastName angelegt",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-                    if (error == 0) {
-                        val contextWrapper: ContextThemeWrapper =
-                            ContextThemeWrapper(baseContext, R.style.buttonNamesStyle)
-                        val btnUser: Button = Button(contextWrapper)
+                    tfFirstName.text.clear()
+                    tfLastName.text.clear()
 
-                        btnUser.setText("$firstName\n$lastName")
-                        btnUser.setTag(userID)
-                        Variables.alUsers.add(User(firstName, lastName, userID))
-                        Variables.alBtnUsers.add(btnUser)
+                    namesAdapter.notifyDataSetChanged()
 
-                        Toast.makeText(
-                            applicationContext, "$firstName $lastName angelegt",
-                            Toast.LENGTH_LONG
-                        ).show()
-
-                        tfFirstName.text.clear()
-                        tfLastName.text.clear()
-
-                        Variables.sortLists(layout)
-
-                        btnUser.setOnClickListener() {
-                            MainActivity().buttonClicked(btnUser)
-                        }
-                    } else {
-                        Toast.makeText(
-                            applicationContext, "Name schon vorhanden",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                } else {
+                    //startActivity(Intent(this, AddUser::class.java))
+                } else if (error == 1) {
+                    Toast.makeText(
+                        applicationContext, "Name schon vorhanden",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (error == 2) {
                     Toast.makeText(
                         applicationContext, "Vorname und Nachname eingeben",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        applicationContext, "Unknown error",
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
             }

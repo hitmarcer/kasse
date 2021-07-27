@@ -1,23 +1,9 @@
 package huette.kasse
 
 import android.widget.Button
-import android.widget.LinearLayout
 
 class Variables {
     companion object{
-        fun sortLists(layout: LinearLayout) {
-            alUsers.sortWith(compareBy({ it.userID }))
-            alBtnUsers.sortWith(compareBy({ it.tag.toString() }))
-            /*alBtnUsers = alBtnUsers.sortedWith(compareBy({ it.tag.toString() })) as ArrayList<Button>*/
-
-            layout.removeAllViews()
-
-            for (i in 0 until alBtnUsers.size) {
-                layout.addView(alBtnUsers.get(i))
-            }
-        }
-
-        var alBtnUsers: ArrayList<Button> = ArrayList<Button>()
         var alBtnDrinks: ArrayList<Button> = ArrayList<Button>()
         var alUsers: ArrayList<User> = ArrayList<User>()
         var alDrinks: ArrayList<Drink> = ArrayList<Drink>()
@@ -26,5 +12,49 @@ class Variables {
 
         var function: Int = 0
         var activeUser: String = ""
+
+        fun sortLists() {
+            alUsers.sortWith(compareBy({ it.userID }))
+            /*alBtnUsers = alBtnUsers.sortedWith(compareBy({ it.tag.toString() })) as ArrayList<Button>*/
+        }
+
+        fun addUser(firstName: String, lastName: String): Int {
+            val userID: String = "${firstName.lowercase()}_${lastName.lowercase()}"
+            var error: Int = 0
+
+            if (!firstName.equals("") && !lastName.equals("")) {
+                for (i in 0 until alUsers.size) {
+                    if (alUsers.get(i).userID.equals(userID)) {
+                        return 1
+                    }
+                }
+
+                alUsers.add(User(firstName, lastName, userID))
+                sortLists()
+
+                return 0
+            } else {
+                // Vorname oder Nachname nicht gefüllt
+                return 2
+            }
+        }
+
+        fun addDrink(drinkName: String, price: Double): Int {
+            val drinkID: String = drinkName.lowercase()
+
+            if (!drinkName.equals("") && price <= 0.0) {
+                for (i in 0 until alDrinks.size) {
+                    if (drinkID.equals(alDrinks.get(i).drinkID)) {
+                        return 1
+                    }
+                }
+            } else if (drinkName.equals("")) {
+                return 2
+            } else if (price <= 0) {
+                return 3
+            }
+
+            return 0
+        }
     }
 }

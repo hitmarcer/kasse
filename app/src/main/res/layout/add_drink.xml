@@ -6,16 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAddDrink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/layoutAddDrink"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewAddDrink">
 
         <EditText
             android:id="@+id/tfDrinkName"
@@ -38,10 +47,10 @@
             android:ems="10"
             android:fontFamily="sans-serif-medium"
             android:hint="@string/price"
+            android:importantForAutofill="no"
             android:inputType="numberDecimal"
             android:textSize="34sp"
-            tools:ignore="TextContrastCheck"
-            android:importantForAutofill="no" />
+            tools:ignore="TextContrastCheck" />
 
         <Button
             android:id="@+id/btnAddDrink2"

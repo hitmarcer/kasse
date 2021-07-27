@@ -7,7 +7,7 @@ class User : Comparable<Any?> {
     var firstName = ""
     var lastName = ""
     var userID = ""
-    var alDrinks = ArrayList<Drink>()
+    private var alDrinks = ArrayList<Drink>()
     private val alDrinksBackup = ArrayList<Drink>()
     private val alDrinksTemp = ArrayList<Drink>()
     private var bezahlt = true
@@ -87,10 +87,10 @@ class User : Comparable<Any?> {
         get() {
             var payment = 0.0
             for (i in alDrinks.indices) {
-                payment += alDrinks[i].getPrice() * alDrinks[i].getAmount()
+                payment += alDrinks[i].price * alDrinks[i].amount
                 println(
-                    "Name: " + userID + "   Drink: " + alDrinks[i].getDrinkID()
-                            + "   Anzahl: " + alDrinks[i].getAmount() + "   Preis: " + alDrinks[i].getPrice() + " €"
+                    "Name: " + userID + "   Drink: " + alDrinks[i].drinkID
+                            + "   Anzahl: " + alDrinks[i].amount + "   Preis: " + alDrinks[i].price + " €"
                 )
             }
             return payment

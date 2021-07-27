@@ -6,7 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <HorizontalScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAddUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<HorizontalScrollView
         android:id="@+id/horizontalScrollViewNames"
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -26,40 +34,42 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal" />
-    </HorizontalScrollView>
+    </HorizontalScrollView>-->
 
     <LinearLayout
         android:id="@+id/layoutAddUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewNames">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewAddUser">
 
         <EditText
             android:id="@+id/tfFirstName"
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:autofillHints="no"
             android:ems="10"
             android:fontFamily="sans-serif-medium"
             android:hint="@string/firstName"
             android:inputType="textPersonName|textCapWords"
-            android:textSize="34sp"
-            android:autofillHints="no"/>
+            android:textSize="34sp" />
 
         <EditText
             android:id="@+id/tfLastName"
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:autofillHints="no"
             android:ems="10"
             android:fontFamily="sans-serif-medium"
             android:hint="@string/lastName"
             android:inputType="textPersonName|textCapWords"
-            android:textSize="34sp"
-            android:autofillHints="no"/>
+            android:textSize="34sp" />
 
         <Button
             android:id="@+id/btnAddUser2"

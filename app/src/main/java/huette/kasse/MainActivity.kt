@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.ContextThemeWrapper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,18 +26,31 @@ class MainActivity : AppCompatActivity() {
         val btnUebersicht: Button = findViewById(R.id.btnUebersicht)
         val btnFullscreen: Button = findViewById(R.id.btnFullscreen)
 
-        val layoutNames: LinearLayout = findViewById(R.id.linearLayoutNames)
+        val recyclerViewNames: RecyclerView = findViewById(R.id.recyclerViewNames)
+
+        // Zu Testzwecken
+        Variables.addUser("Marc", "Bohner")
+        Variables.addUser("Adrian", "Sugg")
+        Variables.addUser("Tim", "Disch")
+
+        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers)
+
+        recyclerViewNames.adapter = namesAdapter
+        recyclerViewNames.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        namesAdapter.notifyDataSetChanged()
+
+        /*val layoutNames: LinearLayout = findViewById(R.id.linearLayoutNames)
         layoutNames.removeAllViews()
         for (i in 0 until Variables.alBtnUsers.size){
             layoutNames.addView(Variables.alBtnUsers.get(i))
-        }
+        }*/
 
         btnFullscreen.setOnClickListener() {
             enableFullscreen(decorView)
         }
 
         btnAddUser.setOnClickListener() {
-            val intent: Intent = Intent(this, AddUser::class.java)
             startActivity(Intent(this, AddUser::class.java))
         }
 
@@ -127,15 +140,5 @@ class MainActivity : AppCompatActivity() {
                 // Hide the nav bar and status bar
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
-    }
-
-    private fun addButton(firstName: String, lastName: String) {
-        val context: ContextThemeWrapper =
-            ContextThemeWrapper(baseContext, R.style.buttonNamesStyle)
-        val layout: LinearLayout = findViewById(R.id.linearLayoutNames)
-        val button: Button = Button(context)
-        button.setText("${firstName}\n${lastName}")
-
-        layout.addView(button)
     }
 }
