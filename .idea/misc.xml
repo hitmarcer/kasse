@@ -8,6 +8,8 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.11231884057971014" />
         <entry key="app/src/main/res/layout/add_user.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/edit_drinks.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/names_drinks.xml" value="0.1" />
       </map>
     </option>
   </component>

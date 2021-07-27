@@ -12,15 +12,15 @@ class EditDrinks : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_drinks)
 
-        val btnAddDrink: Button = findViewById(R.id.btnAddUser)
+        val btnAddDrink: Button = findViewById(R.id.btnAddDrink)
         val btnDeleteDrink: Button = findViewById(R.id.btnDeleteDrink)
 
-        val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewEditDrinks)
+        val recyclerViewEditDrinks: RecyclerView = findViewById(R.id.recyclerViewEditDrinks)
 
         val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinks)
 
-        recyclerViewAddUser.adapter = drinksAdapter
-        recyclerViewAddUser.layoutManager =
+        recyclerViewEditDrinks.adapter = drinksAdapter
+        recyclerViewEditDrinks.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         btnAddDrink.setOnClickListener() {

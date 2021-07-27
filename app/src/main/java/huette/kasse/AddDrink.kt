@@ -17,12 +17,12 @@ class AddDrink : AppCompatActivity() {
         val tfDrinkName: EditText = findViewById(R.id.tfDrinkName)
         val tfPrice: EditText = findViewById(R.id.tfPrice)
 
-        val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewAddDrink)
+        val recyclerViewAddDrink: RecyclerView = findViewById(R.id.recyclerViewAddDrink)
 
         val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinks)
 
-        recyclerViewAddUser.adapter = drinksAdapter
-        recyclerViewAddUser.layoutManager =
+        recyclerViewAddDrink.adapter = drinksAdapter
+        recyclerViewAddDrink.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         btnAddDrink2.setOnClickListener() {
@@ -57,7 +57,10 @@ class AddDrink : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-
+                Toast.makeText(
+                    applicationContext, "Unknow error",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
