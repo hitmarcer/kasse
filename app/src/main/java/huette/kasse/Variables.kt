@@ -15,6 +15,7 @@ class Variables {
 
         fun sortLists() {
             alUsers.sortWith(compareBy({ it.userID }))
+            alDrinks.sortWith(compareBy({ it.drinkID }))
             /*alBtnUsers = alBtnUsers.sortedWith(compareBy({ it.tag.toString() })) as ArrayList<Button>*/
         }
 
@@ -42,19 +43,23 @@ class Variables {
         fun addDrink(drinkName: String, price: Double): Int {
             val drinkID: String = drinkName.lowercase()
 
-            if (!drinkName.equals("") && price <= 0.0) {
+            if (!drinkName.equals("") && price >= 0.0) {
                 for (i in 0 until alDrinks.size) {
                     if (drinkID.equals(alDrinks.get(i).drinkID)) {
                         return 1
                     }
                 }
+                alDrinks.add(Drink(drinkName, drinkID, price))
+
+                return 0
             } else if (drinkName.equals("")) {
                 return 2
             } else if (price <= 0) {
                 return 3
+            } else {
+                return 10
             }
 
-            return 0
         }
     }
 }

@@ -25,57 +25,48 @@ class AddUser : AppCompatActivity() {
         recyclerViewAddUser.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        /*val layoutNames: LinearLayout = findViewById(R.id.linearLayoutNames)
-        layoutNames.removeAllViews()
-        for (i in 0 until Variables.alBtnUsers.size){
-            layoutNames.addView(Variables.alBtnUsers.get(i))
-        }*/
-
-        Variables.function = 1
-
         btnAddUser2.setOnClickListener() {
+            val firstName: String = tfFirstName.text.toString()
+            val lastName: String = tfLastName.text.toString()
+            val error: Int = Variables.addUser(firstName, lastName)
 
             /*Toast.makeText(
                 applicationContext, "MainActivity().function: ${Variables.function}",
                 Toast.LENGTH_SHORT
             ).show()*/
 
-            if (Variables.function == 1) {
+            if (error == 0) {
+                Toast.makeText(
+                    applicationContext, "$firstName $lastName angelegt",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-                //val layout: LinearLayout = findViewById(R.id.linearLayoutNames)
-                val firstName: String = tfFirstName.text.toString()
-                val lastName: String = tfLastName.text.toString()
-                val error: Int = Variables.addUser(firstName, lastName)
+                tfFirstName.text.clear()
+                tfLastName.text.clear()
 
-                if (error == 0) {
-                    Toast.makeText(
-                        applicationContext, "$firstName $lastName angelegt",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                namesAdapter.notifyDataSetChanged()
 
-                    tfFirstName.text.clear()
-                    tfLastName.text.clear()
-
-                    namesAdapter.notifyDataSetChanged()
-
-                    //startActivity(Intent(this, AddUser::class.java))
-                } else if (error == 1) {
-                    Toast.makeText(
-                        applicationContext, "Name schon vorhanden",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else if (error == 2) {
-                    Toast.makeText(
-                        applicationContext, "Vorname und Nachname eingeben",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Toast.makeText(
-                        applicationContext, "Unknown error",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                //startActivity(Intent(this, AddUser::class.java))
+            } else if (error == 1) {
+                Toast.makeText(
+                    applicationContext, "Name schon vorhanden",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (error == 2) {
+                Toast.makeText(
+                    applicationContext, "Vorname und Nachname eingeben",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    applicationContext, "Unknown error",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+    }
+
+    override fun onBackPressed() {
+
     }
 }

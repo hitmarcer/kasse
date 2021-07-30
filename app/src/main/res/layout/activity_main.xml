@@ -15,104 +15,56 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<HorizontalScrollView
-        android:id="@+id/horizontalScrollViewNames"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:contentDescription="@string/namesDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/linearLayoutNames"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" />
-    </HorizontalScrollView>-->
-
     <LinearLayout
         android:id="@+id/layoutControlMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewNames"
         tools:layout_editor_absoluteX="30dp">
 
         <Button
             android:id="@+id/btnAddUser"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            style="@style/mainButtonStyle"
             android:text="@string/addUser"
-            android:textColor="@color/white"
-            android:textSize="30sp"
             app:backgroundTint="@color/buttongreen" />
 
         <Button
             android:id="@+id/btnDeleteUser"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            style="@style/mainButtonStyle"
             android:text="@string/deleteUser"
-            android:textColor="@color/white"
-            android:textSize="30sp"
             app:backgroundTint="@color/buttongreen" />
 
         <Button
             android:id="@+id/btnEditDrinks"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            style="@style/mainButtonStyle"
             android:text="@string/editDrinks"
-            android:textColor="@color/white"
-            android:textSize="30sp"
             app:backgroundTint="@color/buttongreen" />
 
         <Button
             android:id="@+id/btnPay"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            style="@style/mainButtonStyle"
             android:text="@string/pay"
-            android:textColor="@color/white"
-            android:textSize="30sp"
             app:backgroundTint="@color/buttongreen" />
 
         <Button
             android:id="@+id/btnUebersicht"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            style="@style/mainButtonStyle"
             android:text="@string/uebersicht"
-            android:textColor="@color/white"
-            android:textSize="30sp"
             app:backgroundTint="@color/buttongreen" />
+        <!--android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_margin="10dp"
+        android:text="@string/uebersicht"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:backgroundTint="@color/buttongreen" />-->
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/layoutFullMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -130,6 +82,6 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             app:backgroundTint="@color/buttongreen" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

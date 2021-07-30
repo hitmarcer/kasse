@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val btnEditDrinks: Button = findViewById(R.id.btnEditDrinks)
         val btnPay: Button = findViewById(R.id.btnPay)
         val btnUebersicht: Button = findViewById(R.id.btnUebersicht)
-        val btnFullscreen: Button = findViewById(R.id.btnFullscreen)
+        //val btnFullscreen: Button = findViewById(R.id.btnFullscreen)
 
         val recyclerViewNames: RecyclerView = findViewById(R.id.recyclerViewNames)
 
@@ -46,9 +46,9 @@ class MainActivity : AppCompatActivity() {
             layoutNames.addView(Variables.alBtnUsers.get(i))
         }*/
 
-        btnFullscreen.setOnClickListener() {
+        /*btnFullscreen.setOnClickListener() {
             enableFullscreen(decorView)
-        }
+        }*/
 
         btnAddUser.setOnClickListener() {
             startActivity(Intent(this, AddUser::class.java))
@@ -140,5 +140,9 @@ class MainActivity : AppCompatActivity() {
                 // Hide the nav bar and status bar
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
+    }
+
+    override fun onBackPressed() {
+
     }
 }

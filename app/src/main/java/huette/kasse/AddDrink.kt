@@ -28,7 +28,6 @@ class AddDrink : AppCompatActivity() {
         btnAddDrink2.setOnClickListener() {
             val drinkName: String = tfDrinkName.text.toString()
             val price: Double = tfPrice.text.toString().toDouble()
-
             val error: Int = Variables.addDrink(drinkName, price)
 
             if (error == 0) {
@@ -58,11 +57,15 @@ class AddDrink : AppCompatActivity() {
                 ).show()
             } else {
                 Toast.makeText(
-                    applicationContext, "Unknow error",
+                    applicationContext, "Unknown error",
                     Toast.LENGTH_SHORT
                 ).show()
             }
         }
+
+    }
+
+    override fun onBackPressed() {
 
     }
 }
