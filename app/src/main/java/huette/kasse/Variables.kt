@@ -7,6 +7,7 @@ class Variables {
         var alBtnDrinks: ArrayList<Button> = ArrayList<Button>()
         var alUsers: ArrayList<User> = ArrayList<User>()
         var alDrinks: ArrayList<Drink> = ArrayList<Drink>()
+        var position: Int = 0
 
         val pw = ""
 

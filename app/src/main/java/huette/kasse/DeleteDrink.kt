@@ -18,4 +18,8 @@ class DeleteDrink : AppCompatActivity() {
         recyclerViewAddUser.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
+
+    override fun onBackPressed() {
+
+    }
 }

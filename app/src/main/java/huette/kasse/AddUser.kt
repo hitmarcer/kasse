@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class AddUser : AppCompatActivity() {
+class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_user)
@@ -19,7 +19,7 @@ class AddUser : AppCompatActivity() {
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewAddUser)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers)
+        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers, this)
 
         recyclerViewAddUser.adapter = namesAdapter
         recyclerViewAddUser.layoutManager =
@@ -64,6 +64,10 @@ class AddUser : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    override fun OnItemClick(position: Int) {
+        Toast.makeText(this, "Position: ${position} geklickt Add User", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {
