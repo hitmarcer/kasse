@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         }
 
         btnDeleteUser.setOnClickListener() {
-            startActivity(Intent(this, DeleteUser::class.java))
+            Toast.makeText(this, "Wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
+        //startActivity(Intent(this, DeleteUser::class.java))
         }
 
         btnEditDrinks.setOnClickListener() {
