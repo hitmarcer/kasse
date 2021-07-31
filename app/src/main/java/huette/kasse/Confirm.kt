@@ -19,6 +19,7 @@ class Confirm : AppCompatActivity() {
         val position: Int = Variables.position
 
         // Function 2: Benutzer wirklich löschen
+        // Function 5: Drink löschen
         // Function 8: Auf bezahlt setzen
 
         if (Variables.function == 2) {
@@ -30,7 +31,7 @@ class Confirm : AppCompatActivity() {
         } else if (Variables.function == 8) {
             val firstName: String = Variables.alUsers.get(position).firstName
             val lastName: String = Variables.alUsers.get(position).lastName
-            tvConfirm.setText("${firstName} ${lastName} wirklich auf bezahlt setzen?")
+            tvConfirm.setText("${firstName} ${lastName} (${Variables.alUsers.get(position).userAmount}) wirklich auf bezahlt setzen?")
         }
 
         btnYes.setOnClickListener() {
