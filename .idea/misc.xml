@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layout/delete_user.xml" value="0.1" />
         <entry key="app/src/main/res/layout/edit_drinks.xml" value="0.1" />
         <entry key="app/src/main/res/layout/names_drinks.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/password.xml" value="0.1" />
         <entry key="app/src/main/res/layout/pay.xml" value="0.1" />
       </map>
     </option>
