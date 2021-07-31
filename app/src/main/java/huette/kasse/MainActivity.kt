@@ -2,7 +2,6 @@ package huette.kasse
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +13,7 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val decorView: View = getWindow().decorView
+        //val decorView: View = getWindow().decorView
 
         //enableFullscreen(decorView)
 
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         Variables.addDrink("Bier", 1.5)
         Variables.addDrink("Shot", 1.0)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers, this)
+        val namesAdapter = NamesAdapter(this, Variables.alUsers, this)
 
         recyclerViewNames.adapter = namesAdapter
         recyclerViewNames.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -73,7 +72,11 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         startActivity(Intent(this, AddDrinkToUser::class.java))
     }
 
-    fun buttonClicked(btn: Button) {
+    override fun onBackPressed() {
+
+    }
+
+    /*fun buttonClicked(btn: Button) {
         // Funktionen:
         // 1 	= Getränk zu Name hinzufügen, also Szene addDrinkToUserScene mit diesem
         // Benutzer aufrufen
@@ -127,9 +130,9 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         } else if(function == 9){
 
         }
-    }
+    }*/
 
-    private fun enableFullscreen(decorView: View) {
+    /*private fun enableFullscreen(decorView: View) {
         decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
                 // Set the content to appear under the system bars so that the
                 // content doesn't resize when the system bars hide and show.
@@ -139,9 +142,5 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
                 // Hide the nav bar and status bar
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
-    }
-
-    override fun onBackPressed() {
-
-    }
+    }*/
 }
