@@ -20,6 +20,9 @@ class User : Comparable<Any?> {
     }
 
     fun isBezahlt(): Boolean {
+        // Wenn payAmount <= 0 dann false, ansonsten true
+        bezahlt = payAmount <= 0
+
         return bezahlt
     }
 
@@ -48,7 +51,19 @@ class User : Comparable<Any?> {
     }
 
     fun addAmountToDrink(drink: Drink) {
-        drink.addAmount()
+        var isKnown: Boolean = false
+        var posDrinks: Int = 0
+        for (i in alDrinks.indices) {
+            if (alDrinks.get(i).drinkID.equals(drink.drinkID)) {
+                posDrinks = i
+                isKnown = true
+            }
+        }
+        if (isKnown) {
+            alDrinks.get(posDrinks).addAmount()
+        } else {
+            addDrink(Drink(drink.drinkName, drink.drinkID, drink.price))
+        }
         setBezahlt(false)
     }
 
@@ -95,12 +110,14 @@ class User : Comparable<Any?> {
             }
             return payment
         }
+
     val userData: String
         get() {
             var message = ""
             message = "$firstName $lastName: "
             return message
         }
+
     val userAmount: String
         get() {
             var message = ""
@@ -117,7 +134,7 @@ class User : Comparable<Any?> {
         return 0
     }
 
-    companion object {
+    /*companion object {
         var userComparator = Comparator<User> { u1, u2 ->
             val user1 = u1.userID.toUpperCase()
             val user2 = u2.userID.toUpperCase()
@@ -128,5 +145,5 @@ class User : Comparable<Any?> {
             // descending order
             // return StudentName2.compareTo(StudentName1);
         }
-    }
+    }*/
 }

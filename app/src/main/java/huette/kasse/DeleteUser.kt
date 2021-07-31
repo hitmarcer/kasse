@@ -1,5 +1,6 @@
 package huette.kasse
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,11 +19,13 @@ class DeleteUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers, this)
 
         recyclerViewAddUser.adapter = namesAdapter
-        recyclerViewAddUser.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewAddUser.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun OnItemClick(position: Int) {
-        Toast.makeText(this, "Position: ${position} geklickt Delete User", Toast.LENGTH_SHORT).show()
+        Variables.position = position
+        startActivity(Intent(this, Confirm::class.java))
     }
 
     override fun onBackPressed() {

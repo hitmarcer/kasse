@@ -1,5 +1,6 @@
 package huette.kasse
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,17 @@ class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
     }
 
     override fun OnItemClick(position: Int) {
-        Toast.makeText(this, "Position: ${position} geklickt Pay", Toast.LENGTH_SHORT).show()
+        if (!Variables.hasPayed(position)) {
+            Variables.function = 8
+            Variables.position = position
+            startActivity(Intent(this, Confirm::class.java))
+        } else {
+            val firstName: String = Variables.alUsers.get(position).firstName
+            val lastName: String = Variables.alUsers.get(position).lastName
+
+            Toast.makeText(this, "${firstName} ${lastName} hat schon bezahlt", Toast.LENGTH_SHORT).show()
+        }
     }
+
+    override fun onBackPressed() {}
 }

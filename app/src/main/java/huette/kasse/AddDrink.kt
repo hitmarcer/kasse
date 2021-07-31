@@ -1,5 +1,6 @@
 package huette.kasse
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -8,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class AddDrink : AppCompatActivity() {
+class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_drink)
@@ -19,7 +20,7 @@ class AddDrink : AppCompatActivity() {
 
         val recyclerViewAddDrink: RecyclerView = findViewById(R.id.recyclerViewAddDrink)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinks)
+        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinks, this)
 
         recyclerViewAddDrink.adapter = drinksAdapter
         recyclerViewAddDrink.layoutManager =
@@ -62,6 +63,10 @@ class AddDrink : AppCompatActivity() {
                 ).show()
             }
         }
+
+    }
+
+    override fun OnItemClick(position: Int) {
 
     }
 

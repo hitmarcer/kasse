@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class EditDrinks : AppCompatActivity() {
+class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_drinks)
@@ -17,7 +17,7 @@ class EditDrinks : AppCompatActivity() {
 
         val recyclerViewEditDrinks: RecyclerView = findViewById(R.id.recyclerViewEditDrinks)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinks)
+        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinks, this)
 
         recyclerViewEditDrinks.adapter = drinksAdapter
         recyclerViewEditDrinks.layoutManager =
@@ -30,5 +30,14 @@ class EditDrinks : AppCompatActivity() {
         btnDeleteDrink.setOnClickListener() {
             startActivity(Intent(this, DeleteDrink::class.java))
         }
+    }
+
+    override fun OnItemClick(position: Int) {
+        Variables.position = position
+        startActivity(Intent(this, Confirm::class.java))
+    }
+
+    override fun onBackPressed() {
+
     }
 }
