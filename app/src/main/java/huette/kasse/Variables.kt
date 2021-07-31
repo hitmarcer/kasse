@@ -3,10 +3,11 @@ package huette.kasse
 import android.widget.Button
 
 class Variables {
-    companion object{
+    companion object {
         var alBtnDrinks: ArrayList<Button> = ArrayList<Button>()
         var alUsers: ArrayList<User> = ArrayList<User>()
         var alDrinks: ArrayList<Drink> = ArrayList<Drink>()
+        var position: Int = 0
 
         val pw = ""
 
@@ -60,6 +61,10 @@ class Variables {
                 return 10
             }
 
+        }
+
+        fun hasPayed(position: Int): Boolean {
+            return alUsers.get(position).isBezahlt()
         }
     }
 }

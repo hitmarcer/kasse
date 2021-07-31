@@ -8,28 +8,53 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-class DrinksAdapter constructor(): RecyclerView.Adapter<DrinksAdapter.DrinksViewHolder>() {
+class DrinksAdapter constructor() : RecyclerView.Adapter<DrinksAdapter.DrinksViewHolder>() {
     lateinit var alDrinks: ArrayList<Drink>
     lateinit var context: Context
+    lateinit var listener: OnItemClickListener
 
-    constructor(ct: Context, alDrinks: ArrayList<Drink>) : this() {
+    constructor(
+        ct: Context,
+        alDrinks: ArrayList<Drink>,
+        listener: OnItemClickListener
+    ) : this() {
         this.context = ct
         this.alDrinks = alDrinks
+        this.listener = listener
     }
 
-    class DrinksViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DrinksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         val tfContent: TextView = itemView.findViewById(R.id.tvContent)
 
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position: Int = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.OnItemClick(position)
+            }
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrinksAdapter.DrinksViewHolder {
+    interface OnItemClickListener {
+        fun OnItemClick(position: Int)
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): DrinksAdapter.DrinksViewHolder {
         var inflater: LayoutInflater = LayoutInflater.from(context)
-        val view: View = inflater.inflate(R.layout.names_drinks, parent,false)
-        return DrinksAdapter.DrinksViewHolder(view)
+        val view: View = inflater.inflate(R.layout.names_drinks, parent, false)
+        return DrinksViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: DrinksViewHolder, position: Int) {
-        val drinkName: String = "${Variables.alDrinks.get(position).drinkName}\n${Variables.alDrinks.get(position).price} €"
+    override fun onBindViewHolder(holder: DrinksAdapter.DrinksViewHolder, position: Int) {
+        val drinkName: String =
+            "${Variables.alDrinks.get(position).drinkName}\n${Variables.alDrinks.get(position).price} €"
         holder.tfContent.setText(drinkName)
     }
 
