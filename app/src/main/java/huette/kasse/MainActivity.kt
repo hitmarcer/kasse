@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         Variables.addUser("Marc", "Bohner")
         Variables.addUser("Adrian", "Sugg")
         Variables.addUser("Tim", "Disch")
+        Variables.addUser("Tobias", "Fink")
+        Variables.addUser("Luisa", "Gapp")
+        Variables.addUser("Ramona", "Kessler")
+        Variables.addUser("Niko", "Hahn")
+        Variables.addUser("Julia", "Gapp")
         Variables.addDrink("Bier", 1.5)
         Variables.addDrink("Shot", 1.0)
 

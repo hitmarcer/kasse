@@ -29,32 +29,27 @@
         <Button
             android:id="@+id/btnAddUser"
             style="@style/mainButtonStyle"
-            android:text="@string/addUser"
-            app:backgroundTint="@color/buttongreen" />
+            android:text="@string/addUser"/>
 
         <Button
             android:id="@+id/btnDeleteUser"
             style="@style/mainButtonStyle"
-            android:text="@string/deleteUser"
-            app:backgroundTint="@color/buttongreen" />
+            android:text="@string/deleteUser"/>
 
         <Button
             android:id="@+id/btnEditDrinks"
             style="@style/mainButtonStyle"
-            android:text="@string/editDrinks"
-            app:backgroundTint="@color/buttongreen" />
+            android:text="@string/editDrinks"/>
 
         <Button
             android:id="@+id/btnPay"
             style="@style/mainButtonStyle"
-            android:text="@string/pay"
-            app:backgroundTint="@color/buttongreen" />
+            android:text="@string/pay"/>
 
         <Button
             android:id="@+id/btnUebersicht"
             style="@style/mainButtonStyle"
-            android:text="@string/uebersicht"
-            app:backgroundTint="@color/buttongreen" />
+            android:text="@string/uebersicht"/>
         <!--android:layout_width="230dp"
         android:layout_height="230dp"
         android:layout_margin="10dp"

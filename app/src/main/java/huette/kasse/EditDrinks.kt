@@ -3,6 +3,7 @@ package huette.kasse
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +34,7 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     }
 
     override fun OnItemClick(position: Int) {
-        Variables.position = position
-        startActivity(Intent(this, Confirm::class.java))
+        Toast.makeText(this, "Getränke können noch nicht bearbeitet werden", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {
