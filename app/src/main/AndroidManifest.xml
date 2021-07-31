@@ -11,38 +11,50 @@
         android:theme="@style/Theme.Kasse">
         <activity
             android:name=".Uebersicht"
+            android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Pay"
+            android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditDrink"
+            android:screenOrientation="landscape"
             android:parentActivityName=".EditDrinks" />
         <activity
             android:name=".DeleteDrink"
+            android:screenOrientation="landscape"
             android:parentActivityName=".EditDrinks" />
         <activity
             android:name=".Confirm"
+            android:screenOrientation="landscape"
             android:parentActivityName=".Pay" />
         <activity
             android:name=".AddUser"
+            android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddDrink"
+            android:screenOrientation="landscape"
             android:parentActivityName=".EditDrinks" />
         <activity
             android:name=".EditDrinks"
+            android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".DeleteUser"
+            android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddDrinkToUser"
+            android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Password"
+            android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
