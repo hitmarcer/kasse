@@ -62,7 +62,9 @@ class User : Comparable<Any?> {
         if (isKnown) {
             alDrinks.get(posDrinks).addAmount()
         } else {
-            addDrink(Drink(drink.drinkName, drink.drinkID, drink.price))
+            val drink: Drink = Drink(drink.drinkName, drink.drinkID, drink.price)
+            drink.addAmount()
+            addDrink(drink)
         }
         setBezahlt(false)
     }
