@@ -2,6 +2,7 @@ package huette.kasse
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +22,7 @@ class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     }
 
     override fun OnItemClick(position: Int) {
-        Variables.position = position
-        startActivity(Intent(this, Confirm::class.java))
+        Toast.makeText(this, "Getränk löschen wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {
