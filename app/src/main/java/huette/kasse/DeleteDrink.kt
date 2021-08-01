@@ -22,7 +22,7 @@ class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     }
 
     override fun OnItemClick(position: Int) {
-        Toast.makeText(this, "Getränk löschen wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Getränk löschen wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {

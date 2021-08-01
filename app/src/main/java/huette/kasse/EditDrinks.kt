@@ -29,7 +29,8 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         }
 
         btnDeleteDrink.setOnClickListener() {
-            startActivity(Intent(this, DeleteDrink::class.java))
+            Toast.makeText(this, "Getränk löschen wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
+            //startActivity(Intent(this, DeleteDrink::class.java))
         }
     }
 
