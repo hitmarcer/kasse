@@ -4,6 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import huette.kasse.data.daos.DrinkDao
+import huette.kasse.data.daos.UserDao
+import huette.kasse.data.daos.UserDrinksDao
+import huette.kasse.data.entities.Drink
+import huette.kasse.data.entities.User
+import huette.kasse.data.entities.UserDrinks
 
 @Database(entities = [User::class, Drink::class, UserDrinks::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {

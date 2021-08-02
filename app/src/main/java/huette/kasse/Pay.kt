@@ -14,7 +14,7 @@ class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         val recyclerViewPay: RecyclerView = findViewById(R.id.recyclerViewPay)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUserOlds, this)
+        val namesAdapter: NamesAdapter = NamesAdapter(this, this)
 
         recyclerViewPay.adapter = namesAdapter
         recyclerViewPay.layoutManager =

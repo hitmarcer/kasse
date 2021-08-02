@@ -5,10 +5,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import huette.kasse.data.UserViewModel
+import huette.kasse.data.entities.User
 
 class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
+    // UserViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_user)
@@ -19,16 +26,24 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewAddUser)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUserOlds, this)
+        val namesAdapter: NamesAdapter = NamesAdapter(this, this)
 
         recyclerViewAddUser.adapter = namesAdapter
         recyclerViewAddUser.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+        val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        //userViewModel.addUser(User("Marc", "Bohner"))
+
+        userViewModel.getAllUsers.observe(this, Observer { users ->
+            namesAdapter.setData(users)
+        })
+
+
         btnAddUser2.setOnClickListener() {
             val firstName: String = tfFirstName.text.toString()
             val lastName: String = tfLastName.text.toString()
-            val error: Int = Variables.addUser(firstName, lastName)
+            val error: Int = addUser(userViewModel, firstName, lastName)
 
             /*Toast.makeText(
                 applicationContext, "MainActivity().function: ${Variables.function}",
@@ -44,7 +59,7 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
                 tfFirstName.text.clear()
                 tfLastName.text.clear()
 
-                namesAdapter.notifyDataSetChanged()
+                //namesAdapter.notifyDataSetChanged()
 
                 //startActivity(Intent(this, AddUser::class.java))
             } else if (error == 1) {
@@ -63,6 +78,25 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    fun addUser(userViewModel: UserViewModel, firstName: String, lastName: String): Int {
+        val userID: String = "${firstName.lowercase()}_${lastName.lowercase()}"
+        var error: Int = 0
+
+        if (!firstName.equals("") && !lastName.equals("")) {
+            // Doppelte checken bevor dann eingetragen wird
+                /*if(check_doubles(firstName, lastName) {
+                    return 1
+                } else {*/
+
+            userViewModel.addUser(User(firstName, lastName))
+            return 0
+            //}
+        } else {
+            // Vorname oder Nachname nicht gefüllt
+            return 2
         }
     }
 

@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import huette.kasse.data.entities.UserDrinks
+import huette.kasse.data.repositories.UserDrinksRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -1,10 +1,11 @@
-package huette.kasse.data
+package huette.kasse.data.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import huette.kasse.data.entities.UserDrinks
 
 @Dao
 interface UserDrinksDao {
