@@ -35,6 +35,7 @@ class Variables {
 
                 alUserOlds.add(UserOld(firstName, lastName, userID))
                 //userDatabase.userDao().addUser(User(firstName = firstName, lastName = lastName))
+                //test
                 sortLists()
 
                 return 0
