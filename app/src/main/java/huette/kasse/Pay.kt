@@ -14,7 +14,7 @@ class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         val recyclerViewPay: RecyclerView = findViewById(R.id.recyclerViewPay)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers, this)
+        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUserOlds, this)
 
         recyclerViewPay.adapter = namesAdapter
         recyclerViewPay.layoutManager =
@@ -28,8 +28,8 @@ class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
             Variables.position = position
             startActivity(Intent(this, Confirm::class.java))
         } else {
-            val firstName: String = Variables.alUsers.get(position).firstName
-            val lastName: String = Variables.alUsers.get(position).lastName
+            val firstName: String = Variables.alUserOlds.get(position).firstName
+            val lastName: String = Variables.alUserOlds.get(position).lastName
 
             Toast.makeText(this, "${firstName} ${lastName} hat schon bezahlt", Toast.LENGTH_SHORT).show()
         }

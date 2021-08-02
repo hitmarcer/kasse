@@ -3,13 +3,13 @@ package huette.kasse
 import java.util.*
 
 
-class User : Comparable<Any?> {
+class UserOld : Comparable<Any?> {
     var firstName = ""
     var lastName = ""
     var userID = ""
-    private var alDrinks = ArrayList<Drink>()
-    private val alDrinksBackup = ArrayList<Drink>()
-    private val alDrinksTemp = ArrayList<Drink>()
+    private var alDrinks = ArrayList<DrinkOld>()
+    private val alDrinksBackup = ArrayList<DrinkOld>()
+    private val alDrinksTemp = ArrayList<DrinkOld>()
     private var bezahlt = true
 
     constructor() {}
@@ -45,16 +45,16 @@ class User : Comparable<Any?> {
     val fullName: String
         get() = "$firstName $lastName"
 
-    fun addDrink(drink: Drink) {
-        alDrinks.add(drink)
+    fun addDrink(drinkOld: DrinkOld) {
+        alDrinks.add(drinkOld)
         setBezahlt(false)
     }
 
-    fun addAmountToDrink(drink: Drink) {
+    fun addAmountToDrink(drinkOld: DrinkOld) {
         var isKnown: Boolean = false
         var posDrinks: Int = 0
         for (i in alDrinks.indices) {
-            if (alDrinks.get(i).drinkID.equals(drink.drinkID)) {
+            if (alDrinks.get(i).drinkID.equals(drinkOld.drinkID)) {
                 posDrinks = i
                 isKnown = true
             }
@@ -62,9 +62,9 @@ class User : Comparable<Any?> {
         if (isKnown) {
             alDrinks.get(posDrinks).addAmount()
         } else {
-            val drink: Drink = Drink(drink.drinkName, drink.drinkID, drink.price)
-            drink.addAmount()
-            addDrink(drink)
+            val drinkOld: DrinkOld = DrinkOld(drinkOld.drinkName, drinkOld.drinkID, drinkOld.price)
+            drinkOld.addAmount()
+            addDrink(drinkOld)
         }
         setBezahlt(false)
     }

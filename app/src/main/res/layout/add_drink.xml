@@ -47,10 +47,10 @@
             android:ems="10"
             android:fontFamily="sans-serif-medium"
             android:hint="@string/price"
-            android:importantForAutofill="no"
             android:inputType="numberDecimal"
             android:textSize="34sp"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck"
+            android:autofillHints="no" />
 
         <Button
             android:id="@+id/btnAddDrink2"

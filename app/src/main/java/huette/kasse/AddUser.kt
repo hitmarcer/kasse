@@ -19,7 +19,7 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewAddUser)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers, this)
+        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUserOlds, this)
 
         recyclerViewAddUser.adapter = namesAdapter
         recyclerViewAddUser.layoutManager =

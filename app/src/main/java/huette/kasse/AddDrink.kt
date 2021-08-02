@@ -1,6 +1,5 @@
 package huette.kasse
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -20,7 +19,7 @@ class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val recyclerViewAddDrink: RecyclerView = findViewById(R.id.recyclerViewAddDrink)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinks, this)
+        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinkOlds, this)
 
         recyclerViewAddDrink.adapter = drinksAdapter
         recyclerViewAddDrink.layoutManager =
@@ -28,12 +27,20 @@ class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         btnAddDrink2.setOnClickListener() {
             val drinkName: String = tfDrinkName.text.toString()
-            val price: Double = tfPrice.text.toString().toDouble()
+            var price: Double = 0.0
+
+            // Programm bricht ab, wenn im Textfeld nichts drin steht und Methode toDouble() ausgeführt wird
+            if(tfPrice.text.toString().equals("")) {
+                price = 0.0
+            } else {
+                price = tfPrice.text.toString().toDouble()
+            }
+
             val error: Int = Variables.addDrink(drinkName, price)
 
             if (error == 0) {
                 Toast.makeText(
-                    applicationContext, "$drinkName angelegt",
+                    this, "$drinkName angelegt",
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -43,27 +50,26 @@ class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
                 drinksAdapter.notifyDataSetChanged()
             } else if (error == 1) {
                 Toast.makeText(
-                    applicationContext, "$drinkName ist schon vorhanden",
+                    this, "$drinkName ist schon vorhanden",
                     Toast.LENGTH_SHORT
                 ).show()
             } else if (error == 2) {
                 Toast.makeText(
-                    applicationContext, "Getränk eingeben",
+                    this, "Getränk eingeben",
                     Toast.LENGTH_SHORT
                 ).show()
             } else if (error == 3) {
                 Toast.makeText(
-                    applicationContext, "Preis eingeben",
+                    this, "Preis eingeben",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
                 Toast.makeText(
-                    applicationContext, "Unknown error",
+                    this, "Unknown error",
                     Toast.LENGTH_SHORT
                 ).show()
             }
         }
-
     }
 
     override fun OnItemClick(position: Int) {
