@@ -6,20 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import huette.kasse.data.entities.Drink
+import huette.kasse.data.entities.User
 import java.util.*
 
 class DrinksAdapter constructor() : RecyclerView.Adapter<DrinksAdapter.DrinksViewHolder>() {
-    lateinit var alDrinkOlds: ArrayList<DrinkOld>
+    private var drinksList = emptyList<Drink>()
     lateinit var context: Context
     lateinit var listener: OnItemClickListener
 
     constructor(
         ct: Context,
-        alDrinkOlds: ArrayList<DrinkOld>,
         listener: OnItemClickListener
     ) : this() {
         this.context = ct
-        this.alDrinkOlds = alDrinkOlds
         this.listener = listener
     }
 
@@ -54,12 +54,17 @@ class DrinksAdapter constructor() : RecyclerView.Adapter<DrinksAdapter.DrinksVie
 
     override fun onBindViewHolder(holder: DrinksAdapter.DrinksViewHolder, position: Int) {
         val drinkName: String =
-            "${Variables.alDrinkOlds.get(position).drinkName}\n${Variables.alDrinkOlds.get(position).price} €"
+            "${drinksList[position].drinkName}\n${drinksList[position].price} €"
         holder.tfContent.setText(drinkName)
     }
 
     override fun getItemCount(): Int {
-        val i: Int = Variables.alDrinkOlds.size
+        val i: Int = drinksList.size
         return i
+    }
+
+    fun setData(drinks: List<Drink>) {
+        this.drinksList = drinks
+        notifyDataSetChanged()
     }
 }
