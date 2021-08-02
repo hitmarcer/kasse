@@ -3,10 +3,14 @@ package huette.kasse
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import huette.kasse.data.DrinksViewModel
+import huette.kasse.data.UserViewModel
 
-class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
+class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener, NamesAdapter.OnItemClickListener {
     lateinit var tvAddDrinkToUser: TextView
     lateinit var fullName: String
     var userPosition: Int = 0
@@ -17,11 +21,26 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val recyclerViewAddDrinkToUser: RecyclerView = findViewById(R.id.recyclerViewAddDrinkToUser)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinkOlds, this)
+        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, this)
+        val namesAdapter: NamesAdapter = NamesAdapter(this, this)
 
         recyclerViewAddDrinkToUser.adapter = drinksAdapter
         recyclerViewAddDrinkToUser.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // UserViewModel
+        val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+        userViewModel.getAllUsers.observe(this, Observer { users ->
+            namesAdapter.setData(users)
+        })
+
+        // drinkViewModel
+        val drinkViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
+
+        drinkViewModel.getAllDrinks.observe(this, Observer { drinks ->
+            drinksAdapter.setData(drinks)
+        })
 
         tvAddDrinkToUser = findViewById(R.id.tvAddDrinkUser)
         fullName = Variables.alUserOlds.get(Variables.position).firstName + " " + Variables.alUserOlds.get(Variables.position).lastName
