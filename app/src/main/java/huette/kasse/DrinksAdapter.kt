@@ -9,17 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
 class DrinksAdapter constructor() : RecyclerView.Adapter<DrinksAdapter.DrinksViewHolder>() {
-    lateinit var alDrinks: ArrayList<Drink>
+    lateinit var alDrinkOlds: ArrayList<DrinkOld>
     lateinit var context: Context
     lateinit var listener: OnItemClickListener
 
     constructor(
         ct: Context,
-        alDrinks: ArrayList<Drink>,
+        alDrinkOlds: ArrayList<DrinkOld>,
         listener: OnItemClickListener
     ) : this() {
         this.context = ct
-        this.alDrinks = alDrinks
+        this.alDrinkOlds = alDrinkOlds
         this.listener = listener
     }
 
@@ -54,12 +54,12 @@ class DrinksAdapter constructor() : RecyclerView.Adapter<DrinksAdapter.DrinksVie
 
     override fun onBindViewHolder(holder: DrinksAdapter.DrinksViewHolder, position: Int) {
         val drinkName: String =
-            "${Variables.alDrinks.get(position).drinkName}\n${Variables.alDrinks.get(position).price} €"
+            "${Variables.alDrinkOlds.get(position).drinkName}\n${Variables.alDrinkOlds.get(position).price} €"
         holder.tfContent.setText(drinkName)
     }
 
     override fun getItemCount(): Int {
-        val i: Int = Variables.alDrinks.size
+        val i: Int = Variables.alDrinkOlds.size
         return i
     }
 }

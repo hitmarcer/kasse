@@ -10,8 +10,6 @@ import com.google.gson.reflect.TypeToken
 
 import com.google.gson.GsonBuilder
 
-import com.google.gson.Gson
-
 import java.io.File
 import java.io.Reader
 import java.lang.reflect.Type
@@ -40,12 +38,12 @@ class JSON {
 
     //private String jsonDaten 		= "";
     private var fw: FileWriter? = null
-    private val users = ArrayList<User>()
-    private val drinks = ArrayList<Drink>()
+    private val users = ArrayList<UserOld>()
+    private val drinks = ArrayList<DrinkOld>()
     private var readerUsers: Reader? = null
     private var readerDrinks: Reader? = null
-    private val userType: Type = object : TypeToken<List<User?>?>() {}.type
-    private val drinkType: Type = object : TypeToken<List<Drink?>?>() {}.type
+    private val userType: Type = object : TypeToken<List<UserOld?>?>() {}.type
+    private val drinkType: Type = object : TypeToken<List<DrinkOld?>?>() {}.type
 
     fun JSON() {
         checkPath()
@@ -65,14 +63,14 @@ class JSON {
         setJSON(users, drinks)
     }
 
-    fun getUsers(): ArrayList<User>? {
+    fun getUsers(): ArrayList<UserOld>? {
         for (i in users.indices) {
             System.out.println("In JSON ist Nutzer " + users[i].fullName)
         }
         return users
     }
 
-    fun getDrinks(): ArrayList<Drink>? {
+    fun getDrinks(): ArrayList<DrinkOld>? {
         return drinks
     }
 
@@ -87,7 +85,7 @@ class JSON {
             try {
                 readerUsers = Files.newBufferedReader(filePathUsers)
                 // In Array lesen war einfacher, dann anschließend in ArrayList users
-                val usersList: List<User> = gson.fromJson(readerUsers, userType)
+                val usersList: List<UserOld> = gson.fromJson(readerUsers, userType)
                 for (i in usersList.indices) {
                     users.add(usersList[i])
                 }
@@ -116,7 +114,7 @@ class JSON {
             try {
                 readerDrinks = Files.newBufferedReader(filePathDrinks)
                 // In Array lesen war einfacher, dann anschließend in ArrayList users
-                val drinksList: List<Drink> = gson.fromJson(readerDrinks, drinkType)
+                val drinksList: List<DrinkOld> = gson.fromJson(readerDrinks, drinkType)
                 for (i in drinksList.indices) {
                     drinks.add(drinksList[i])
                 }
@@ -134,21 +132,21 @@ class JSON {
         }
     }
 
-    fun setJSON(users: ArrayList<User?>?) {
+    fun setJSON(userOlds: ArrayList<UserOld?>?) {
         try {
             fw = FileWriter(fileUsers)
-            fw!!.write(gson.toJson(users))
+            fw!!.write(gson.toJson(userOlds))
             fw!!.close()
         } catch (e: IOException) {
             e.printStackTrace()
         }
     }
 
-    fun setJSON(users: ArrayList<User>?, drinks: ArrayList<Drink>?) {
+    fun setJSON(userOlds: ArrayList<UserOld>?, drinkOlds: ArrayList<DrinkOld>?) {
         // Benutzer in Json schreiben
         try {
             fw = FileWriter(fileUsers)
-            fw!!.write(gson.toJson(users))
+            fw!!.write(gson.toJson(userOlds))
             fw!!.close()
         } catch (e: IOException) {
             e.printStackTrace()
@@ -157,7 +155,7 @@ class JSON {
         // Drinks in Json schreiben
         try {
             fw = FileWriter(fileDrinks)
-            fw!!.write(gson.toJson(drinks))
+            fw!!.write(gson.toJson(drinkOlds))
             fw!!.close()
         } catch (e: IOException) {
             e.printStackTrace()

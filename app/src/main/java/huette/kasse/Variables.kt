@@ -1,12 +1,14 @@
 package huette.kasse
 
 import android.widget.Button
+import huette.kasse.data.AppDatabase
 
 class Variables {
     companion object {
         var alBtnDrinks: ArrayList<Button> = ArrayList<Button>()
-        var alUsers: ArrayList<User> = ArrayList<User>()
-        var alDrinks: ArrayList<Drink> = ArrayList<Drink>()
+        var alUserOlds: ArrayList<UserOld> = ArrayList<UserOld>()
+        var alDrinkOlds: ArrayList<DrinkOld> = ArrayList<DrinkOld>()
+        lateinit var userDatabase: AppDatabase
         var position: Int = 0
 
         val pw = ""
@@ -15,8 +17,8 @@ class Variables {
         var activeUser: String = ""
 
         fun sortLists() {
-            alUsers.sortWith(compareBy({ it.userID }))
-            alDrinks.sortWith(compareBy({ it.drinkID }))
+            alUserOlds.sortWith(compareBy({ it.userID }))
+            alDrinkOlds.sortWith(compareBy({ it.drinkID }))
             /*alBtnUsers = alBtnUsers.sortedWith(compareBy({ it.tag.toString() })) as ArrayList<Button>*/
         }
 
@@ -25,13 +27,14 @@ class Variables {
             var error: Int = 0
 
             if (!firstName.equals("") && !lastName.equals("")) {
-                for (i in 0 until alUsers.size) {
-                    if (alUsers.get(i).userID.equals(userID)) {
+                for (i in 0 until alUserOlds.size) {
+                    if (alUserOlds.get(i).userID.equals(userID)) {
                         return 1
                     }
                 }
 
-                alUsers.add(User(firstName, lastName, userID))
+                alUserOlds.add(UserOld(firstName, lastName, userID))
+                //userDatabase.userDao().addUser(User(firstName = firstName, lastName = lastName))
                 sortLists()
 
                 return 0
@@ -44,13 +47,13 @@ class Variables {
         fun addDrink(drinkName: String, price: Double): Int {
             val drinkID: String = drinkName.lowercase()
 
-            if (!drinkName.equals("") && price >= 0.0) {
-                for (i in 0 until alDrinks.size) {
-                    if (drinkID.equals(alDrinks.get(i).drinkID)) {
+            if (!drinkID.equals("") && price > 0.0) {
+                for (i in 0 until alDrinkOlds.size) {
+                    if (drinkID.equals(alDrinkOlds.get(i).drinkID)) {
                         return 1
                     }
                 }
-                alDrinks.add(Drink(drinkName, drinkID, price))
+                alDrinkOlds.add(DrinkOld(drinkName, drinkID, price))
 
                 return 0
             } else if (drinkName.equals("")) {
@@ -64,7 +67,7 @@ class Variables {
         }
 
         fun hasPayed(position: Int): Boolean {
-            return alUsers.get(position).isBezahlt()
+            return alUserOlds.get(position).isBezahlt()
         }
     }
 }

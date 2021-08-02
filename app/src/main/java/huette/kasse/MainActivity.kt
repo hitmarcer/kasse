@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         Variables.addDrink("Bier", 1.5)
         Variables.addDrink("Shot", 1.0)
 
-        val namesAdapter = NamesAdapter(this, Variables.alUsers, this)
+        val namesAdapter = NamesAdapter(this, Variables.alUserOlds, this)
 
         recyclerViewNames.adapter = namesAdapter
         recyclerViewNames.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

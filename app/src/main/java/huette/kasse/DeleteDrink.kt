@@ -1,8 +1,6 @@
 package huette.kasse
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +12,7 @@ class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewDeleteDrink)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinks, this)
+        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinkOlds, this)
 
         recyclerViewAddUser.adapter = drinksAdapter
         recyclerViewAddUser.layoutManager =
