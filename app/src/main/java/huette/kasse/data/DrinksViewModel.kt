@@ -4,12 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import huette.kasse.data.entities.Drink
+import huette.kasse.data.repositories.DrinkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DrinksViewModel(application: Application): AndroidViewModel(application) {
 
-    private val getAllDrinks: LiveData<List<Drink>>
+    val getAllDrinks: LiveData<List<Drink>>
     private val repository: DrinkRepository
 
     init{

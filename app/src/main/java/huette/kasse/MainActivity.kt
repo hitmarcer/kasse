@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import huette.kasse.data.UserViewModel
 
 class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
@@ -29,23 +32,31 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         val recyclerViewNames: RecyclerView = findViewById(R.id.recyclerViewNames)
 
         // Zu Testzwecken
-        Variables.addUser("Marc", "Bohner")
+        /*Variables.addUser("Marc", "Bohner")
         Variables.addUser("Adrian", "Sugg")
         Variables.addUser("Tim", "Disch")
         Variables.addUser("Tobias", "Fink")
         Variables.addUser("Luisa", "Gapp")
         Variables.addUser("Ramona", "Kessler")
         Variables.addUser("Niko", "Hahn")
-        Variables.addUser("Julia", "Gapp")
+        Variables.addUser("Julia", "Gapp")*/
         Variables.addDrink("Bier", 1.5)
         Variables.addDrink("Shot", 1.0)
 
-        val namesAdapter = NamesAdapter(this, Variables.alUserOlds, this)
+        val namesAdapter = NamesAdapter(this, this)
 
         recyclerViewNames.adapter = namesAdapter
         recyclerViewNames.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        namesAdapter.notifyDataSetChanged()
+        // UserViewModel
+        val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        //userViewModel.addUser(User("Marc", "Bohner"))
+
+        userViewModel.getAllUsers.observe(this, Observer { users ->
+            namesAdapter.setData(users)
+        })
+
+        //namesAdapter.notifyDataSetChanged()
 
         btnAddUser.setOnClickListener() {
             startActivity(Intent(this, AddUser::class.java))

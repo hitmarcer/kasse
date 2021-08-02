@@ -1,14 +1,13 @@
 package huette.kasse
 
 import android.widget.Button
-import huette.kasse.data.AppDatabase
 
 class Variables {
     companion object {
         var alBtnDrinks: ArrayList<Button> = ArrayList<Button>()
         var alUserOlds: ArrayList<UserOld> = ArrayList<UserOld>()
         var alDrinkOlds: ArrayList<DrinkOld> = ArrayList<DrinkOld>()
-        lateinit var userDatabase: AppDatabase
+        //lateinit var database: AppDatabase
         var position: Int = 0
 
         val pw = ""
@@ -34,8 +33,7 @@ class Variables {
                 }
 
                 alUserOlds.add(UserOld(firstName, lastName, userID))
-                //userDatabase.userDao().addUser(User(firstName = firstName, lastName = lastName))
-                //test
+               //database.userDao().addUser(User(firstName = firstName, lastName = firstName))
                 sortLists()
 
                 return 0
@@ -55,6 +53,11 @@ class Variables {
                     }
                 }
                 alDrinkOlds.add(DrinkOld(drinkName, drinkID, price))
+                //database.drinkDao().addDrink(Drink(drinkName, price))
+
+                //val drinks = database.drinkDao().getAllDrinks()
+
+
 
                 return 0
             } else if (drinkName.equals("")) {

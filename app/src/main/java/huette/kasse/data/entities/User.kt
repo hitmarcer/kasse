@@ -1,4 +1,4 @@
-package huette.kasse.data
+package huette.kasse.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -14,4 +14,6 @@ data class User(
     val lastName: String,
     @ColumnInfo(name = "paid")
     val paid: Boolean,
-)
+){
+    constructor(firstName: String, lastName: String) : this(0, firstName, lastName, false)
+}

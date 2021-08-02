@@ -1,4 +1,4 @@
-package huette.kasse.data
+package huette.kasse.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

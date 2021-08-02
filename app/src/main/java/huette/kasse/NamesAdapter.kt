@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.util.*
+import huette.kasse.data.entities.User
 
 class NamesAdapter constructor(): RecyclerView.Adapter<NamesAdapter.NamesViewHolder>() {
-    lateinit var alUserOlds: ArrayList<UserOld>
+    //lateinit var alUserOlds: ArrayList<UserOld>
+    private var userList = emptyList<User>()
     lateinit var context: Context
     lateinit var listener: OnItemClickListener
 
-    constructor(ct: Context, alUserOlds: ArrayList<UserOld>, listener: OnItemClickListener) : this() {
+    constructor(ct: Context, listener: OnItemClickListener) : this() {
         this.context = ct
-        this.alUserOlds = alUserOlds
         this.listener = listener
     }
 
@@ -46,12 +46,17 @@ class NamesAdapter constructor(): RecyclerView.Adapter<NamesAdapter.NamesViewHol
     }
 
     override fun onBindViewHolder(holder: NamesViewHolder, position: Int) {
-        val name: String = "${Variables.alUserOlds.get(position).firstName}\n${Variables.alUserOlds.get(position).lastName}"
+        val name: String = "${userList[position].firstName}\n${userList[position].lastName}"
         holder.tfContent.setText(name)
     }
 
     override fun getItemCount(): Int {
-        val i: Int = Variables.alUserOlds.size
+        val i: Int = userList.size
         return i
+    }
+
+    fun setData(users: List<User>) {
+        this.userList = users
+        notifyDataSetChanged()
     }
 }

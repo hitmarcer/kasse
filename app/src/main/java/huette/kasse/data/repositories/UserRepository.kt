@@ -1,6 +1,8 @@
-package huette.kasse.data
+package huette.kasse.data.repositories
 
 import androidx.lifecycle.LiveData
+import huette.kasse.data.daos.UserDao
+import huette.kasse.data.entities.User
 
 class UserRepository(private val userDao: UserDao) {
 
@@ -10,7 +12,7 @@ class UserRepository(private val userDao: UserDao) {
         userDao.addUser(user)
     }
 
-    suspend fun getBezahlt(firstName: String, lastName: String): Boolean{
+    fun getBezahlt(firstName: String, lastName: String): Boolean{
         return userDao.getBezahlt(firstName, lastName)
     }
 }

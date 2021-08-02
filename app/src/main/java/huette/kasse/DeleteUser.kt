@@ -15,7 +15,7 @@ class DeleteUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewDeleteUser)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUserOlds, this)
+        val namesAdapter: NamesAdapter = NamesAdapter(this, this)
 
         recyclerViewAddUser.adapter = namesAdapter
         recyclerViewAddUser.layoutManager =

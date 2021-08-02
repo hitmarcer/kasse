@@ -1,10 +1,11 @@
-package huette.kasse.data
+package huette.kasse.data.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import huette.kasse.data.entities.User
 
 @Dao
 interface UserDao {
@@ -16,6 +17,6 @@ interface UserDao {
     fun getAllUsers(): LiveData<List<User>>
 
     @Query("SELECT paid FROM users WHERE firstName LIKE :firstName AND lastName LIKE :lastName")
-    suspend fun getBezahlt(firstName: String, lastName: String): Boolean
+    fun getBezahlt(firstName: String, lastName: String): Boolean
 
 }
