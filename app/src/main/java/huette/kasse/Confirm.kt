@@ -23,49 +23,49 @@ class Confirm : AppCompatActivity() {
         // Function 8: Auf bezahlt setzen
 
         if (Variables.function == 2) {
-            val firstName: String = Variables.alUsers.get(position).firstName
-            val lastName: String = Variables.alUsers.get(position).lastName
+            val firstName: String = Variables.alUserOlds.get(position).firstName
+            val lastName: String = Variables.alUserOlds.get(position).lastName
             tvConfirm.setText("${firstName} ${lastName} wirklich löschen?")
         } else if (Variables.function == 5) {
-            tvConfirm.setText("${Variables.alDrinks.get(position).drinkName} wirklich löschen?")
+            tvConfirm.setText("${Variables.alDrinkOlds.get(position).drinkName} wirklich löschen?")
         } else if (Variables.function == 8) {
-            val firstName: String = Variables.alUsers.get(position).firstName
-            val lastName: String = Variables.alUsers.get(position).lastName
-            tvConfirm.setText("${firstName} ${lastName} (${Variables.alUsers.get(position).userAmount}) wirklich auf bezahlt setzen?")
+            val firstName: String = Variables.alUserOlds.get(position).firstName
+            val lastName: String = Variables.alUserOlds.get(position).lastName
+            tvConfirm.setText("${firstName} ${lastName} (${Variables.alUserOlds.get(position).userAmount}) wirklich auf bezahlt setzen?")
         }
 
         btnYes.setOnClickListener() {
             if (Variables.function == 2) {
-                val firstName: String = Variables.alUsers.get(position).firstName
-                val lastName: String = Variables.alUsers.get(position).lastName
+                val firstName: String = Variables.alUserOlds.get(position).firstName
+                val lastName: String = Variables.alUserOlds.get(position).lastName
                 Toast.makeText(this, "${firstName} ${lastName} wurde gelöscht", Toast.LENGTH_SHORT).show()
-                Variables.alUsers.removeAt(position)
+                Variables.alUserOlds.removeAt(position)
                 startActivity(Intent(this, DeleteUser::class.java))
             } else if (Variables.function == 5) {
-                Toast.makeText(this, "${Variables.alDrinks.get(position).drinkName} wurde gelöscht", Toast.LENGTH_SHORT).show()
-                Variables.alDrinks.removeAt(position)
+                Toast.makeText(this, "${Variables.alDrinkOlds.get(position).drinkName} wurde gelöscht", Toast.LENGTH_SHORT).show()
+                Variables.alDrinkOlds.removeAt(position)
                 startActivity(Intent(this, DeleteDrink::class.java))
             } else if (Variables.function == 8) {
-                val firstName: String = Variables.alUsers.get(position).firstName
-                val lastName: String = Variables.alUsers.get(position).lastName
+                val firstName: String = Variables.alUserOlds.get(position).firstName
+                val lastName: String = Variables.alUserOlds.get(position).lastName
                 Toast.makeText(this, "${firstName} ${lastName} wurde auf bezahlt gesetzt", Toast.LENGTH_SHORT).show()
-                Variables.alUsers.get(position).setBezahlt(true)
+                Variables.alUserOlds.get(position).setBezahlt(true)
                 startActivity(Intent(this, Pay::class.java))
             }
         }
 
         btnNo.setOnClickListener() {
             if (Variables.function == 2) {
-                val firstName: String = Variables.alUsers.get(position).firstName
-                val lastName: String = Variables.alUsers.get(position).lastName
+                val firstName: String = Variables.alUserOlds.get(position).firstName
+                val lastName: String = Variables.alUserOlds.get(position).lastName
                 Toast.makeText(this, "${firstName} ${lastName} wurde nicht gelöscht", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, DeleteUser::class.java))
             } else if (Variables.function == 5) {
-                Toast.makeText(this, "${Variables.alDrinks.get(position).drinkName} wurde nicht gelöscht", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "${Variables.alDrinkOlds.get(position).drinkName} wurde nicht gelöscht", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, DeleteDrink::class.java))
             } else if (Variables.function == 8) {
-                val firstName: String = Variables.alUsers.get(position).firstName
-                val lastName: String = Variables.alUsers.get(position).lastName
+                val firstName: String = Variables.alUserOlds.get(position).firstName
+                val lastName: String = Variables.alUserOlds.get(position).lastName
                 Toast.makeText(this, "${firstName} ${lastName} wurde nicht auf bezahlt gesetzt", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, Pay::class.java))
             }

@@ -18,7 +18,7 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val recyclerViewEditDrinks: RecyclerView = findViewById(R.id.recyclerViewEditDrinks)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinks, this)
+        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinkOlds, this)
 
         recyclerViewEditDrinks.adapter = drinksAdapter
         recyclerViewEditDrinks.layoutManager =

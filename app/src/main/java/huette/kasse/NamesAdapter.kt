@@ -4,19 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
 class NamesAdapter constructor(): RecyclerView.Adapter<NamesAdapter.NamesViewHolder>() {
-    lateinit var alUsers: ArrayList<User>
+    lateinit var alUserOlds: ArrayList<UserOld>
     lateinit var context: Context
     lateinit var listener: OnItemClickListener
 
-    constructor(ct: Context, alUsers: ArrayList<User>, listener: OnItemClickListener) : this() {
+    constructor(ct: Context, alUserOlds: ArrayList<UserOld>, listener: OnItemClickListener) : this() {
         this.context = ct
-        this.alUsers = alUsers
+        this.alUserOlds = alUserOlds
         this.listener = listener
     }
 
@@ -47,12 +46,12 @@ class NamesAdapter constructor(): RecyclerView.Adapter<NamesAdapter.NamesViewHol
     }
 
     override fun onBindViewHolder(holder: NamesViewHolder, position: Int) {
-        val name: String = "${Variables.alUsers.get(position).firstName}\n${Variables.alUsers.get(position).lastName}"
+        val name: String = "${Variables.alUserOlds.get(position).firstName}\n${Variables.alUserOlds.get(position).lastName}"
         holder.tfContent.setText(name)
     }
 
     override fun getItemCount(): Int {
-        val i: Int = Variables.alUsers.size
+        val i: Int = Variables.alUserOlds.size
         return i
     }
 }

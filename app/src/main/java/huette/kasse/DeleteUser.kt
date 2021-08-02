@@ -2,7 +2,6 @@ package huette.kasse
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +15,7 @@ class DeleteUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewDeleteUser)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUsers, this)
+        val namesAdapter: NamesAdapter = NamesAdapter(this, Variables.alUserOlds, this)
 
         recyclerViewAddUser.adapter = namesAdapter
         recyclerViewAddUser.layoutManager =

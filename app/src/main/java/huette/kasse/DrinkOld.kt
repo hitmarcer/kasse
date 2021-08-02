@@ -1,6 +1,6 @@
 package huette.kasse
 
-class Drink {
+class DrinkOld {
 
     var drinkName = ""
     var drinkID = ""
