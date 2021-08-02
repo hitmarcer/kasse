@@ -1,9 +1,12 @@
-package huette.kasse
+package huette.kasse.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import huette.kasse.DrinksAdapter
+import huette.kasse.R
+import huette.kasse.Variables
 
 class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {

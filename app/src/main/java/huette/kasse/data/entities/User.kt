@@ -11,9 +11,7 @@ data class User(
     @ColumnInfo(name = "firstname")
     val firstName: String,
     @ColumnInfo(name = "lastname")
-    val lastName: String,
-    @ColumnInfo(name = "paid")
-    val paid: Boolean,
+    val lastName: String
 ){
-    constructor(firstName: String, lastName: String) : this(0, firstName, lastName, false)
+    constructor(firstName: String, lastName: String): this(0, firstName, lastName)
 }

@@ -1,4 +1,4 @@
-package huette.kasse
+package huette.kasse.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import huette.kasse.DrinksAdapter
+import huette.kasse.R
+import huette.kasse.Variables
 
 class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {

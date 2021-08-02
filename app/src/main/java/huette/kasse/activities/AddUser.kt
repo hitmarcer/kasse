@@ -1,4 +1,4 @@
-package huette.kasse
+package huette.kasse.activities
 
 import android.os.Bundle
 import android.widget.Button
@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import huette.kasse.NamesAdapter
+import huette.kasse.R
 import huette.kasse.data.UserViewModel
 import huette.kasse.data.entities.User
 

@@ -1,4 +1,4 @@
-package huette.kasse
+package huette.kasse.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import huette.kasse.R
+import huette.kasse.Variables
 
 class Confirm : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

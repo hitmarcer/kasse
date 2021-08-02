@@ -8,7 +8,7 @@ class UserDrinksRepository(private val userDrinksDao: UserDrinksDao) {
 
     val getAllData: LiveData<List<UserDrinks>> = userDrinksDao.getAllData()
 
-    suspend fun addDrinkToUser(userDrinks: UserDrinks){
+    fun addDrinkToUser(userDrinks: UserDrinks){
         userDrinksDao.addDrinkToUser(userDrinks)
     }
 

@@ -1,4 +1,4 @@
-package huette.kasse
+package huette.kasse.activities
 
 import android.os.Bundle
 import android.widget.TextView
@@ -7,10 +7,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import huette.kasse.DrinksAdapter
+import huette.kasse.NamesAdapter
+import huette.kasse.R
+import huette.kasse.Variables
 import huette.kasse.data.DrinksViewModel
 import huette.kasse.data.UserViewModel
 
-class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener, NamesAdapter.OnItemClickListener {
+class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener,
+    NamesAdapter.OnItemClickListener {
     lateinit var tvAddDrinkToUser: TextView
     lateinit var fullName: String
     var userPosition: Int = 0
@@ -43,7 +48,9 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener, N
         })
 
         tvAddDrinkToUser = findViewById(R.id.tvAddDrinkUser)
-        fullName = Variables.alUserOlds.get(Variables.position).firstName + " " + Variables.alUserOlds.get(Variables.position).lastName
+        fullName = Variables.alUserOlds.get(Variables.position).firstName + " " + Variables.alUserOlds.get(
+            Variables.position
+        ).lastName
         userPosition = Variables.position
         tvAddDrinkToUser.setText("${fullName}\n${Variables.alUserOlds.get(userPosition).userAmount}")
     }
