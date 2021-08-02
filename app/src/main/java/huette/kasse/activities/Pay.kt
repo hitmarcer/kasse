@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.NamesAdapter
 import huette.kasse.R
 import huette.kasse.Variables
+import huette.kasse.data.entities.User
 
 class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
     }
 
-    override fun OnItemClick(position: Int) {
+    override fun OnItemClick(position: Int, users: List<User>) {
         if (!Variables.hasPayed(position)) {
             Variables.function = 8
             Variables.position = position

@@ -34,13 +34,13 @@ class DrinksAdapter constructor() : RecyclerView.Adapter<DrinksAdapter.DrinksVie
         override fun onClick(v: View?) {
             val position: Int = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                listener.OnItemClick(position)
+                listener.OnItemClick(position, drinksList)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun OnItemClick(position: Int)
+        fun OnItemClick(position: Int, drinks: List<Drink>)
     }
 
     override fun onCreateViewHolder(

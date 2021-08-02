@@ -5,11 +5,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import huette.kasse.DrinkOld
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
 import huette.kasse.Variables
+import huette.kasse.data.DrinksViewModel
+import huette.kasse.data.UserViewModel
+import huette.kasse.data.entities.Drink
+import huette.kasse.data.entities.User
 
 class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,11 +29,17 @@ class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val recyclerViewAddDrink: RecyclerView = findViewById(R.id.recyclerViewAddDrink)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinkOlds, this)
+        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, this)
 
         recyclerViewAddDrink.adapter = drinksAdapter
         recyclerViewAddDrink.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        val drinksViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
+
+        drinksViewModel.getAllDrinks.observe(this, Observer { users ->
+            drinksAdapter.setData(users)
+        })
 
         btnAddDrink2.setOnClickListener() {
             val drinkName: String = tfDrinkName.text.toString()
@@ -39,7 +52,7 @@ class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
                 price = tfPrice.text.toString().toDouble()
             }
 
-            val error: Int = Variables.addDrink(drinkName, price)
+            val error: Int = addDrink(drinksViewModel, drinkName, price)
 
             if (error == 0) {
                 Toast.makeText(
@@ -50,7 +63,7 @@ class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
                 tfDrinkName.text.clear()
                 tfPrice.text.clear()
 
-                drinksAdapter.notifyDataSetChanged()
+                //drinksAdapter.notifyDataSetChanged()
             } else if (error == 1) {
                 Toast.makeText(
                     this, "$drinkName ist schon vorhanden",
@@ -75,7 +88,25 @@ class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         }
     }
 
-    override fun OnItemClick(position: Int) {
+    fun addDrink(drinksViewModel: DrinksViewModel, drinkName: String, price: Double): Int {
+        val drinkID: String = drinkName.lowercase()
+
+        if (!drinkID.equals("") && price > 0.0) {
+            // Doppelte checken
+
+            drinksViewModel.addDrink(Drink(drinkName, price))
+            return 0
+        } else if (drinkName.equals("")) {
+            return 2
+        } else if (price <= 0) {
+            return 3
+        } else {
+            return 10
+        }
+
+    }
+
+    override fun OnItemClick(position: Int, drinks: List<Drink>) {
 
     }
 

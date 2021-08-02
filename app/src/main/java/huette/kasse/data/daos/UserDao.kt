@@ -16,7 +16,4 @@ interface UserDao {
     @Query("SELECT * FROM users ORDER BY firstname, lastname ASC")
     fun getAllUsers(): LiveData<List<User>>
 
-    @Query("SELECT paid FROM users WHERE firstName LIKE :firstName AND lastName LIKE :lastName")
-    fun getBezahlt(firstName: String, lastName: String): Boolean
-
 }

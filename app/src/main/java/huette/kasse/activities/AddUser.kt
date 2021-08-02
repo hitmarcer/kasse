@@ -102,7 +102,7 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         }
     }
 
-    override fun OnItemClick(position: Int) {
+    override fun OnItemClick(position: Int, users: List<User>) {
         Toast.makeText(this, "Position: ${position} geklickt Add User", Toast.LENGTH_SHORT).show()
     }
 

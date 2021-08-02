@@ -33,11 +33,4 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         return repository.getAllUsers
     }
 
-    fun getBezahlt(firstName: String, lastName: String): Boolean {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getBezahlt(firstName, lastName)
-        }
-        return repository.getBezahlt(firstName, lastName)
-    }
-
 }

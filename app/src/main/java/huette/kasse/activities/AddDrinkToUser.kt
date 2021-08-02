@@ -2,6 +2,7 @@ package huette.kasse.activities
 
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,11 +12,16 @@ import huette.kasse.DrinksAdapter
 import huette.kasse.NamesAdapter
 import huette.kasse.R
 import huette.kasse.Variables
+import huette.kasse.data.AppDatabase
+import huette.kasse.data.AppDatabase_Impl
 import huette.kasse.data.DrinksViewModel
 import huette.kasse.data.UserViewModel
+import huette.kasse.data.daos.UserDrinksDao
+import huette.kasse.data.entities.Drink
+import huette.kasse.data.entities.User
+import huette.kasse.data.entities.UserDrinks
 
-class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener,
-    NamesAdapter.OnItemClickListener {
+class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     lateinit var tvAddDrinkToUser: TextView
     lateinit var fullName: String
     var userPosition: Int = 0
@@ -27,18 +33,18 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener,
         val recyclerViewAddDrinkToUser: RecyclerView = findViewById(R.id.recyclerViewAddDrinkToUser)
 
         val drinksAdapter: DrinksAdapter = DrinksAdapter(this, this)
-        val namesAdapter: NamesAdapter = NamesAdapter(this, this)
+        //val namesAdapter: NamesAdapter = NamesAdapter(this, this)
 
         recyclerViewAddDrinkToUser.adapter = drinksAdapter
         recyclerViewAddDrinkToUser.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // UserViewModel
-        val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        /*val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         userViewModel.getAllUsers.observe(this, Observer { users ->
             namesAdapter.setData(users)
-        })
+        })*/
 
         // drinkViewModel
         val drinkViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
@@ -48,20 +54,31 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener,
         })
 
         tvAddDrinkToUser = findViewById(R.id.tvAddDrinkUser)
-        fullName = Variables.alUserOlds.get(Variables.position).firstName + " " + Variables.alUserOlds.get(
-            Variables.position
-        ).lastName
+        fullName = Variables.user.firstName + " " + Variables.user.lastName
         userPosition = Variables.position
-        tvAddDrinkToUser.setText("${fullName}\n${Variables.alUserOlds.get(userPosition).userAmount}")
+        tvAddDrinkToUser.setText("${fullName}\n")
     }
 
-    override fun OnItemClick(position: Int) {
+    override fun OnItemClick(position: Int, drinks: List<Drink>) {
         Variables.position = position
-        Variables.alUserOlds.get(userPosition).addAmountToDrink(Variables.alDrinkOlds.get(position))
-        tvAddDrinkToUser.setText("${fullName}\n${Variables.alUserOlds.get(userPosition).userAmount}")
+        Variables.drink = drinks.get(position)
+
+        Toast.makeText(this, "Kann noch nicht hinzugefügt werden, auf dem Weg", Toast.LENGTH_SHORT).show()
+
+
+/*
+        val database: AppDatabase = AppDatabase.getDatabase(this)
+
+        database.userDrinksDao().addDrinkToUser(UserDrinks(Variables.user.id, Variables.drink.id))*/
+        //Variables.alUserOlds.get(userPosition).addAmountToDrink(Variables.alDrinkOlds.get(position))
+        //tvAddDrinkToUser.setText("${fullName}\n${Variables.alUserOlds.get(userPosition).userAmount}")
     }
 
     override fun onBackPressed() {
 
     }
+
+    /*override fun OnItemClick(position: Int, users: List<User>) {
+        TODO("Not yet implemented")
+    }*/
 }

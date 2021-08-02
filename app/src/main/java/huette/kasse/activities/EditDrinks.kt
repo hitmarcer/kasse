@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
 import huette.kasse.Variables
+import huette.kasse.data.DrinksViewModel
+import huette.kasse.data.entities.Drink
 
 class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,11 +25,17 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val recyclerViewEditDrinks: RecyclerView = findViewById(R.id.recyclerViewEditDrinks)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, Variables.alDrinkOlds, this)
+        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, this)
 
         recyclerViewEditDrinks.adapter = drinksAdapter
         recyclerViewEditDrinks.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        val drinksViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
+
+        drinksViewModel.getAllDrinks.observe(this, Observer { users ->
+            drinksAdapter.setData(users)
+        })
 
         btnAddDrink.setOnClickListener() {
             startActivity(Intent(this, AddDrink::class.java))
@@ -37,7 +47,7 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         }
     }
 
-    override fun OnItemClick(position: Int) {
+    override fun OnItemClick(position: Int, drinks: List<Drink>) {
         Toast.makeText(this, "Getränke können noch nicht bearbeitet werden", Toast.LENGTH_SHORT).show()
     }
 
