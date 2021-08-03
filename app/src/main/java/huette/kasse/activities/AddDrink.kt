@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
+import huette.kasse.data.AppDatabase
 import huette.kasse.data.viewmodels.DrinksViewModel
 import huette.kasse.data.entities.Drink
 
@@ -42,7 +43,7 @@ class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
             var price: Double = 0.0
 
             // Programm bricht ab, wenn im Textfeld nichts drin steht und Methode toDouble() ausgeführt wird
-            if(tfPrice.text.toString().equals("")) {
+            if (tfPrice.text.toString().equals("")) {
                 price = 0.0
             } else {
                 price = tfPrice.text.toString().toDouble()
@@ -85,10 +86,16 @@ class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     }
 
     fun addDrink(drinksViewModel: DrinksViewModel, drinkName: String, price: Double): Int {
-        val drinkID: String = drinkName.lowercase()
 
-        if (!drinkID.equals("") && price > 0.0) {
+        if (!drinkName.equals("") && price > 0.0) {
             // Doppelte checken
+            val drink = AppDatabase.getDatabase(application).drinkDao().getDrinkByName(drinkName)
+
+            if(drink != null){
+                if(drinkName.equals(drink.drinkName)){
+                    return 1
+                }
+            }
 
             drinksViewModel.addDrink(Drink(drinkName, price))
             return 0

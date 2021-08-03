@@ -19,4 +19,8 @@ class UserRepository(private val userDao: UserDao) {
     fun getAllUsersList(): List<User> {
         return userDao.getAllUsersList()
     }
+
+    fun getUserByName(firstname: String, lastname: String): User {
+        return userDao.getUserByName(firstname, lastname)
+    }
 }

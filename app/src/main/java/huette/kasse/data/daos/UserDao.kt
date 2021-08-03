@@ -22,4 +22,7 @@ interface UserDao {
     @Query("SELECT * FROM users ORDER BY firstname, lastname ASC")
     fun getAllUsersList(): List<User>
 
+    @Query("SELECT * FROM users WHERE firstname = :firstname AND lastname = :lastname")
+    fun getUserByName(firstname: String, lastname: String): User
+
 }
