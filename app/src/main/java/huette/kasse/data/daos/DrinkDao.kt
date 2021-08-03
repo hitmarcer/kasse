@@ -19,4 +19,7 @@ interface DrinkDao {
     @Query("SELECT * FROM drinks WHERE id = :drink_id")
     fun getSingleDrink(drink_id: Int): Drink
 
+    @Query("SELECT * FROM drinks WHERE drinkname = :name")
+    fun getDrinkByName(name: String): Drink
+
 }

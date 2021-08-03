@@ -48,4 +48,11 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         return repository.getAllUsersList()
     }
 
+    fun getUserByName(firstname: String, lastname: String): User {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getUserByName(firstname, lastname)
+        }
+        return  repository.getUserByName(firstname, lastname)
+    }
+
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.NamesAdapter
 import huette.kasse.R
+import huette.kasse.data.AppDatabase
 import huette.kasse.data.viewmodels.UserViewModel
 import huette.kasse.data.entities.User
 
@@ -88,10 +89,14 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         var error: Int = 0
 
         if (!firstName.equals("") && !lastName.equals("")) {
-            // Doppelte checken bevor dann eingetragen wird
-                /*if(check_doubles(firstName, lastName) {
+            // Doppelte checken
+            val user = AppDatabase.getDatabase(application).userDao().getUserByName(firstName, lastName)
+
+            if(user != null){
+                if(firstName.equals(user.firstName) && lastName.equals((user.lastName))){
                     return 1
-                } else {*/
+                }
+            }
 
             userViewModel.addUser(User(firstName, lastName))
             return 0
