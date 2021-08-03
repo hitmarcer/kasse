@@ -9,14 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import huette.kasse.DrinkOld
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
-import huette.kasse.Variables
-import huette.kasse.data.DrinksViewModel
-import huette.kasse.data.UserViewModel
+import huette.kasse.data.viewmodels.DrinksViewModel
 import huette.kasse.data.entities.Drink
-import huette.kasse.data.entities.User
 
 class AddDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {

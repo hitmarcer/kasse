@@ -12,4 +12,12 @@ class UserDrinksRepository(private val userDrinksDao: UserDrinksDao) {
         userDrinksDao.addDrinkToUser(userDrinks)
     }
 
+    fun getUnpaid(userid: Int): Double {
+        return userDrinksDao.getUnpaid(userid)
+    }
+
+    fun setPaid(userid: Int) {
+        userDrinksDao.setPaid(userid)
+    }
+
 }

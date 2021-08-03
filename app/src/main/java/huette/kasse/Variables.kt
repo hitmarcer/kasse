@@ -74,9 +74,9 @@ class Variables {
             }
 
         }*/
-
+/*
         fun hasPayed(position: Int): Boolean {
             return alUserOlds.get(position).isBezahlt()
-        }
+        }*/
     }
 }

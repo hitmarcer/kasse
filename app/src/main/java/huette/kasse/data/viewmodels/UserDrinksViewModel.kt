@@ -1,9 +1,10 @@
-package huette.kasse.data
+package huette.kasse.data.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import huette.kasse.data.AppDatabase
 import huette.kasse.data.entities.UserDrinks
 import huette.kasse.data.repositories.UserDrinksRepository
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,19 @@ class UserDrinksViewModel(application: Application): AndroidViewModel(applicatio
     fun addDrinkToUser(userDrink: UserDrinks){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addDrinkToUser(userDrink)
+        }
+    }
+
+    fun getUnpaid(userid: Int): Double {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getUnpaid(userid)
+        }
+        return repository.getUnpaid(userid)
+    }
+
+    fun setPaid(userid: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.setPaid(userid)
         }
     }
 

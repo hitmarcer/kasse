@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
-import huette.kasse.Variables
-import huette.kasse.data.DrinksViewModel
+import huette.kasse.data.viewmodels.DrinksViewModel
 import huette.kasse.data.entities.Drink
 
 class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {

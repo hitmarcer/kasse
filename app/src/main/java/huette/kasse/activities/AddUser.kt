@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.NamesAdapter
 import huette.kasse.R
-import huette.kasse.data.UserViewModel
+import huette.kasse.data.viewmodels.UserViewModel
 import huette.kasse.data.entities.User
 
 class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {

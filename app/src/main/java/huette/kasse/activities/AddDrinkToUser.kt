@@ -9,19 +9,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
-import huette.kasse.NamesAdapter
 import huette.kasse.R
 import huette.kasse.Variables
 import huette.kasse.data.AppDatabase
-import huette.kasse.data.AppDatabase_Impl
-import huette.kasse.data.DrinksViewModel
-import huette.kasse.data.UserViewModel
-import huette.kasse.data.daos.UserDrinksDao
 import huette.kasse.data.entities.Drink
-import huette.kasse.data.entities.User
 import huette.kasse.data.entities.UserDrinks
+import huette.kasse.data.viewmodels.DrinksViewModel
 
 class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
+    lateinit var database: AppDatabase
     lateinit var tvAddDrinkToUser: TextView
     lateinit var fullName: String
     var userPosition: Int = 0
@@ -29,6 +25,8 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_drink_to_user)
+
+        database = AppDatabase.getDatabase(this)
 
         val recyclerViewAddDrinkToUser: RecyclerView = findViewById(R.id.recyclerViewAddDrinkToUser)
 
@@ -56,22 +54,20 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         tvAddDrinkToUser = findViewById(R.id.tvAddDrinkUser)
         fullName = Variables.user.firstName + " " + Variables.user.lastName
         userPosition = Variables.position
-        tvAddDrinkToUser.setText("${fullName}\n")
+        tvAddDrinkToUser.setText("${fullName}\n${database.userDrinksDao().getUnpaid(Variables.user.id)} €")
     }
 
     override fun OnItemClick(position: Int, drinks: List<Drink>) {
         Variables.position = position
         Variables.drink = drinks.get(position)
 
-        Toast.makeText(this, "Kann noch nicht hinzugefügt werden, auf dem Weg", Toast.LENGTH_SHORT).show()
-
-
-/*
-        val database: AppDatabase = AppDatabase.getDatabase(this)
-
-        database.userDrinksDao().addDrinkToUser(UserDrinks(Variables.user.id, Variables.drink.id))*/
+        database.userDrinksDao().addDrinkToUser(UserDrinks(Variables.user.id, Variables.drink.id))
+        tvAddDrinkToUser.setText("${fullName}\n${database.userDrinksDao().getUnpaid(Variables.user.id)} €")
         //Variables.alUserOlds.get(userPosition).addAmountToDrink(Variables.alDrinkOlds.get(position))
         //tvAddDrinkToUser.setText("${fullName}\n${Variables.alUserOlds.get(userPosition).userAmount}")
+
+        Toast.makeText(this, "${fullName} (${database.userDrinksDao().getUnpaid(Variables.user.id)} €)", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onBackPressed() {

@@ -2,7 +2,6 @@ package huette.kasse.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.NamesAdapter
 import huette.kasse.R
 import huette.kasse.Variables
-import huette.kasse.data.UserViewModel
 import huette.kasse.data.entities.User
+import huette.kasse.data.viewmodels.UserViewModel
 
 class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
@@ -45,7 +44,6 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         // UserViewModel
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        //userViewModel.addUser(User("Marc", "Bohner"))
 
         userViewModel.getAllUsers.observe(this, Observer { users ->
             namesAdapter.setData(users)
