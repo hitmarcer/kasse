@@ -3,6 +3,10 @@ package huette.kasse.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.sql.Date
+import java.sql.Timestamp
+import java.time.Instant
+import java.time.LocalDateTime
 
 @Entity(tableName = "drinks")
 data class Drink(

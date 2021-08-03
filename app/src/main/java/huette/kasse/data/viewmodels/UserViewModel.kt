@@ -1,9 +1,10 @@
-package huette.kasse.data
+package huette.kasse.data.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import huette.kasse.data.AppDatabase
 import huette.kasse.data.entities.User
 import huette.kasse.data.repositories.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -31,13 +32,6 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             repository.getAllUsers
         }
         return repository.getAllUsers
-    }
-
-    fun getBezahlt(firstName: String, lastName: String): Boolean {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getBezahlt(firstName, lastName)
-        }
-        return repository.getBezahlt(firstName, lastName)
     }
 
 }

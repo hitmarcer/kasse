@@ -1,4 +1,4 @@
-package huette.kasse
+package huette.kasse.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import huette.kasse.data.UserViewModel
+import huette.kasse.NamesAdapter
+import huette.kasse.R
+import huette.kasse.Variables
+import huette.kasse.data.entities.User
+import huette.kasse.data.viewmodels.UserViewModel
 
 class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
@@ -32,16 +36,6 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         val recyclerViewNames: RecyclerView = findViewById(R.id.recyclerViewNames)
 
         // Zu Testzwecken
-        /*Variables.addUser("Marc", "Bohner")
-        Variables.addUser("Adrian", "Sugg")
-        Variables.addUser("Tim", "Disch")
-        Variables.addUser("Tobias", "Fink")
-        Variables.addUser("Luisa", "Gapp")
-        Variables.addUser("Ramona", "Kessler")
-        Variables.addUser("Niko", "Hahn")
-        Variables.addUser("Julia", "Gapp")*/
-        Variables.addDrink("Bier", 1.5)
-        Variables.addDrink("Shot", 1.0)
 
         val namesAdapter = NamesAdapter(this, this)
 
@@ -50,7 +44,6 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         // UserViewModel
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        //userViewModel.addUser(User("Marc", "Bohner"))
 
         userViewModel.getAllUsers.observe(this, Observer { users ->
             namesAdapter.setData(users)
@@ -83,8 +76,9 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
     }
 
-    override fun OnItemClick(position: Int) {
+    override fun OnItemClick(position: Int, users: List<User>) {
         Variables.position = position
+        Variables.user = users.get(position)
         startActivity(Intent(this, AddDrinkToUser::class.java))
     }
 

@@ -1,6 +1,8 @@
 package huette.kasse
 
 import android.widget.Button
+import huette.kasse.data.entities.Drink
+import huette.kasse.data.entities.User
 
 class Variables {
     companion object {
@@ -10,18 +12,21 @@ class Variables {
         //lateinit var database: AppDatabase
         var position: Int = 0
 
+        lateinit var user: User
+        lateinit var drink: Drink
+
         val pw = ""
 
         var function: Int = 0
         var activeUser: String = ""
 
-        fun sortLists() {
+        /*fun sortLists() {
             alUserOlds.sortWith(compareBy({ it.userID }))
             alDrinkOlds.sortWith(compareBy({ it.drinkID }))
-            /*alBtnUsers = alBtnUsers.sortedWith(compareBy({ it.tag.toString() })) as ArrayList<Button>*/
-        }
+            *//*alBtnUsers = alBtnUsers.sortedWith(compareBy({ it.tag.toString() })) as ArrayList<Button>*//*
+        }*/
 
-        fun addUser(firstName: String, lastName: String): Int {
+        /*fun addUser(firstName: String, lastName: String): Int {
             val userID: String = "${firstName.lowercase()}_${lastName.lowercase()}"
             var error: Int = 0
 
@@ -41,9 +46,9 @@ class Variables {
                 // Vorname oder Nachname nicht gefüllt
                 return 2
             }
-        }
+        }*/
 
-        fun addDrink(drinkName: String, price: Double): Int {
+       /* fun addDrink(drinkName: String, price: Double): Int {
             val drinkID: String = drinkName.lowercase()
 
             if (!drinkID.equals("") && price > 0.0) {
@@ -68,10 +73,10 @@ class Variables {
                 return 10
             }
 
-        }
-
+        }*/
+/*
         fun hasPayed(position: Int): Boolean {
             return alUserOlds.get(position).isBezahlt()
-        }
+        }*/
     }
 }

@@ -11,8 +11,4 @@ class UserRepository(private val userDao: UserDao) {
     suspend fun addUser(user: User){
         userDao.addUser(user)
     }
-
-    fun getBezahlt(firstName: String, lastName: String): Boolean{
-        return userDao.getBezahlt(firstName, lastName)
-    }
 }

@@ -8,8 +8,16 @@ class UserDrinksRepository(private val userDrinksDao: UserDrinksDao) {
 
     val getAllData: LiveData<List<UserDrinks>> = userDrinksDao.getAllData()
 
-    suspend fun addDrinkToUser(userDrinks: UserDrinks){
+    fun addDrinkToUser(userDrinks: UserDrinks){
         userDrinksDao.addDrinkToUser(userDrinks)
+    }
+
+    fun getUnpaid(userid: Int): Double {
+        return userDrinksDao.getUnpaid(userid)
+    }
+
+    fun setPaid(userid: Int) {
+        userDrinksDao.setPaid(userid)
     }
 
 }

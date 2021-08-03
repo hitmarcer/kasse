@@ -10,50 +10,50 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kasse">
         <activity
-            android:name=".Uebersicht"
+            android:name=".activities.Uebersicht"
             android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".Pay"
+            android:name=".activities.Pay"
             android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".EditDrink"
+            android:name=".activities.EditDrink"
             android:screenOrientation="landscape"
-            android:parentActivityName=".EditDrinks" />
+            android:parentActivityName=".activities.EditDrinks" />
         <activity
-            android:name=".DeleteDrink"
+            android:name=".activities.DeleteDrink"
             android:screenOrientation="landscape"
-            android:parentActivityName=".EditDrinks" />
+            android:parentActivityName=".activities.EditDrinks" />
         <activity
-            android:name=".Confirm"
+            android:name=".activities.Confirm"
             android:screenOrientation="landscape"
-            android:parentActivityName=".Pay" />
+            android:parentActivityName=".activities.Pay" />
         <activity
-            android:name=".AddUser"
+            android:name=".activities.AddUser"
             android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".AddDrink"
+            android:name=".activities.AddDrink"
             android:screenOrientation="landscape"
-            android:parentActivityName=".EditDrinks" />
+            android:parentActivityName=".activities.EditDrinks" />
         <activity
-            android:name=".EditDrinks"
+            android:name=".activities.EditDrinks"
             android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".DeleteUser"
+            android:name=".activities.DeleteUser"
             android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".AddDrinkToUser"
+            android:name=".activities.AddDrinkToUser"
             android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".Password"
+            android:name=".activities.Password"
             android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
