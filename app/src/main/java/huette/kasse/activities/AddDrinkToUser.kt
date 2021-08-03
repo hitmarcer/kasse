@@ -1,6 +1,7 @@
 package huette.kasse.activities
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,9 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     lateinit var fullName: String
     var userPosition: Int = 0
 
+    val alDrinksUndo = ArrayList<UserDrinks>()
+    val alDrinksRedo = ArrayList<UserDrinks>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_drink_to_user)
@@ -33,16 +37,12 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         val drinksAdapter: DrinksAdapter = DrinksAdapter(this, this)
         //val namesAdapter: NamesAdapter = NamesAdapter(this, this)
 
+        val btnUndo: Button = findViewById(R.id.btnUndo)
+        val btnRedo: Button = findViewById(R.id.btnRedo)
+
         recyclerViewAddDrinkToUser.adapter = drinksAdapter
         recyclerViewAddDrinkToUser.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        // UserViewModel
-        /*val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
-        userViewModel.getAllUsers.observe(this, Observer { users ->
-            namesAdapter.setData(users)
-        })*/
 
         // drinkViewModel
         val drinkViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
@@ -54,27 +54,120 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         tvAddDrinkToUser = findViewById(R.id.tvAddDrinkUser)
         fullName = Variables.user.firstName + " " + Variables.user.lastName
         userPosition = Variables.position
-        tvAddDrinkToUser.setText("${fullName}\n${database.userDrinksDao().getUnpaid(Variables.user.id)} €")
+        tvAddDrinkToUser.setText(
+            "${fullName}\n${
+                database.userDrinksDao().getUnpaid(Variables.user.id)
+            } €"
+        )
+
+        btnUndo.setOnClickListener() {
+            if (undo()) {
+                Toast.makeText(this, "Rückgängig gemacht", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Kann nicht rückgängig gemacht werden (keine Daten vorhanden)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        btnRedo.setOnClickListener() {
+            if (redo()) {
+                Toast.makeText(this, "Wiederholt", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Kann nicht wiederholt werden (keine Daten vorhanden)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun OnItemClick(position: Int, drinks: List<Drink>) {
         Variables.position = position
         Variables.drink = drinks.get(position)
 
-        database.userDrinksDao().addDrinkToUser(UserDrinks(Variables.user.id, Variables.drink.id))
-        tvAddDrinkToUser.setText("${fullName}\n${database.userDrinksDao().getUnpaid(Variables.user.id)} €")
-        //Variables.alUserOlds.get(userPosition).addAmountToDrink(Variables.alDrinkOlds.get(position))
-        //tvAddDrinkToUser.setText("${fullName}\n${Variables.alUserOlds.get(userPosition).userAmount}")
+        val userDrink =
+            UserDrinks(Variables.user.id, Variables.drink.id, System.currentTimeMillis())
 
-        Toast.makeText(this, "${fullName} (${database.userDrinksDao().getUnpaid(Variables.user.id)} €)", Toast.LENGTH_SHORT).show()
+        // In Datenbank einfügen
+        database.userDrinksDao().addDrinkToUser(userDrink)
 
+        // Zwischenspeichern, um rückgängig machen zu ermöglichen
+        alDrinksUndo.add(userDrink)
+
+        // Text von TextView aktualisieren
+        tvAddDrinkToUser.setText(
+            "${fullName}\n${
+                database.userDrinksDao().getUnpaid(Variables.user.id)
+            } €"
+        )
+
+        //Toast.makeText(this, "${fullName} (${database.userDrinksDao().getUnpaid(Variables.user.id)} €)", Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun undo(): Boolean {
+        if (alDrinksUndo.size > 0) {
+            // Von Datenbank löschen
+            // Immer nur den letzten, also an Stelle size - 1
+            val index: Int = alDrinksUndo.size - 1
+            database.userDrinksDao().deleteDrinkFromUser(
+                alDrinksUndo[index].userID,
+                alDrinksUndo[index].drinkID,
+                alDrinksUndo[index].timeStamp
+            )
+            alDrinksRedo.add(
+                UserDrinks(
+                    alDrinksUndo[index].userID,
+                    alDrinksUndo[index].drinkID,
+                    alDrinksUndo[index].timeStamp
+                )
+            )
+            alDrinksUndo.removeAt(index)
+
+            // Text von TextView aktualisieren
+            tvAddDrinkToUser.setText(
+                "${fullName}\n${
+                    database.userDrinksDao().getUnpaid(Variables.user.id)
+                } €"
+            )
+
+            return true
+        } else {
+            return false
+        }
+    }
+
+    private fun redo(): Boolean {
+        return if (alDrinksRedo.size > 0) {
+            // Letzter auf Datenbank schreiben
+            val index: Int = alDrinksRedo.size - 1
+            val userDrink = UserDrinks(
+                alDrinksRedo[index].userID,
+                alDrinksRedo[index].drinkID,
+                System.currentTimeMillis()
+            )
+            alDrinksRedo.removeAt(index)
+            database.userDrinksDao().addDrinkToUser(userDrink)
+            alDrinksUndo.add(userDrink)
+
+            // Text von TextView aktualisieren
+            tvAddDrinkToUser.setText(
+                "${fullName}\n${
+                    database.userDrinksDao().getUnpaid(Variables.user.id)
+                } €"
+            )
+
+            return true
+        } else {
+            return false
+        }
     }
 
     override fun onBackPressed() {
 
     }
-
-    /*override fun OnItemClick(position: Int, users: List<User>) {
-        TODO("Not yet implemented")
-    }*/
 }

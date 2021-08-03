@@ -20,4 +20,12 @@ class UserDrinksRepository(private val userDrinksDao: UserDrinksDao) {
         userDrinksDao.setPaid(userid)
     }
 
+    fun deleteDrinkFromUser(user_id: Int, drink_id: Int, timestamp: Long){
+        userDrinksDao.deleteDrinkFromUser(user_id, drink_id, timestamp)
+    }
+    fun getUsersWithData(): List<UserDrinks> {
+        return userDrinksDao.getUsersWithData()
+    }
+
+
 }

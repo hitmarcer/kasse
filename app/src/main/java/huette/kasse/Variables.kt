@@ -1,21 +1,15 @@
 package huette.kasse
 
-import android.widget.Button
 import huette.kasse.data.entities.Drink
 import huette.kasse.data.entities.User
 
 class Variables {
     companion object {
-        var alBtnDrinks: ArrayList<Button> = ArrayList<Button>()
-        var alUserOlds: ArrayList<UserOld> = ArrayList<UserOld>()
-        var alDrinkOlds: ArrayList<DrinkOld> = ArrayList<DrinkOld>()
-        //lateinit var database: AppDatabase
+        val pw = "Kase"
         var position: Int = 0
 
         lateinit var user: User
         lateinit var drink: Drink
-
-        val pw = ""
 
         var function: Int = 0
         var activeUser: String = ""

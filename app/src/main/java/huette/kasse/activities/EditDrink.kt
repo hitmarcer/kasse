@@ -9,4 +9,8 @@ class EditDrink : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_drink)
     }
+
+    override fun onBackPressed() {
+
+    }
 }

@@ -11,5 +11,9 @@ class DrinkRepository(private val drinkDao: DrinkDao) {
     fun addDrink(drink: Drink){
         drinkDao.addDrink(drink)
     }
+    fun getSingleDrink(drink_id: Int): Drink {
+        return drinkDao.getSingleDrink(drink_id)
+    }
+
 
 }

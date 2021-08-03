@@ -16,4 +16,7 @@ interface DrinkDao {
     @Query("SELECT * FROM drinks ORDER BY id ASC")
     fun getAllDrinks(): LiveData<List<Drink>>
 
+    @Query("SELECT * FROM drinks WHERE id = :drink_id")
+    fun getSingleDrink(drink_id: Int): Drink
+
 }

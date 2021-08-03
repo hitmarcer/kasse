@@ -34,4 +34,18 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         return repository.getAllUsers
     }
 
+    fun getSingleUser(user_id: Int): User {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getSingleUser(user_id)
+        }
+        return repository.getSingleUser(user_id)
+    }
+
+    fun getAllUsersList(): List<User> {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getAllUsersList()
+        }
+        return repository.getAllUsersList()
+    }
+
 }

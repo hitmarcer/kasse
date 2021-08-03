@@ -25,5 +25,5 @@ data class UserDrinks(
     @ColumnInfo(name = "timestamp")
     val timeStamp: Long,
 ){
-    constructor(user_id: Int, drink_id: Int) : this(0, user_id, drink_id, false, System.currentTimeMillis())
+    constructor(user_id: Int, drink_id: Int, timestamp: Long) : this(0, user_id, drink_id, false, timestamp)
 }
