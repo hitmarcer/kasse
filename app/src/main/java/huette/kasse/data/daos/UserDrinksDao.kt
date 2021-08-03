@@ -25,7 +25,10 @@ interface UserDrinksDao {
     @Query("DELETE FROM user_drinks WHERE user_id = :user_id AND drink_id = :drink_id AND timestamp = :timestamp")
     fun deleteDrinkFromUser(user_id: Int, drink_id: Int, timestamp: Long)
 
-    @Query("SELECT * From user_drinks WHERE NOT paid ORDER BY user_id ASC")
+    @Query("SELECT * FROM user_drinks WHERE NOT paid ORDER BY user_id ASC")
     fun getUsersWithData(): List<UserDrinks>
+
+    @Query("SELECT COUNT() FROM user_drinks WHERE user_id = :user_id AND drink_id = :drink_id AND paid = 0")
+    fun getDrinkAmount(user_id: Int, drink_id: Int): Int
 
 }

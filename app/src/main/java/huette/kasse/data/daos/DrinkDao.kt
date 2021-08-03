@@ -22,4 +22,7 @@ interface DrinkDao {
     @Query("SELECT * FROM drinks WHERE drinkname = :name")
     fun getDrinkByName(name: String): Drink
 
+    @Query("SELECT * FROM drinks ORDER BY drinkname ASC")
+    fun getAllDrinksList(): List<Drink>
+
 }

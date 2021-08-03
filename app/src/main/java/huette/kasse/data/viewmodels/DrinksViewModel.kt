@@ -41,4 +41,11 @@ class DrinksViewModel(application: Application): AndroidViewModel(application) {
         return repository.getDrinkByName(name)
     }
 
+    fun getAllDrinksList(): List<Drink> {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getAllDrinksList()
+        }
+        return repository.getAllDrinksList()
+    }
+
 }

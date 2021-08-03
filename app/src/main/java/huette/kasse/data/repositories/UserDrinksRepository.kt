@@ -28,5 +28,8 @@ class UserDrinksRepository(private val userDrinksDao: UserDrinksDao) {
         return userDrinksDao.getUsersWithData()
     }
 
+    fun getDrinkAmount(user_id: Int, drink_id: Int): Int {
+        return userDrinksDao.getDrinkAmount(user_id, drink_id)
+    }
 
 }
