@@ -53,4 +53,11 @@ class UserDrinksViewModel(application: Application): AndroidViewModel(applicatio
         return repository.getUsersWithData()
     }
 
+    fun getDrinkAmount(user_id: Int, drink_id: Int): Int {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getDrinkAmount(user_id, drink_id)
+        }
+        return repository.getDrinkAmount(user_id, drink_id)
+    }
+
 }

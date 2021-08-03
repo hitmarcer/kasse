@@ -19,4 +19,8 @@ class DrinkRepository(private val drinkDao: DrinkDao) {
     fun getDrinkByName(name: String): Drink {
         return drinkDao.getDrinkByName(name)
     }
+
+    fun getAllDrinksList(): List<Drink> {
+        return drinkDao.getAllDrinksList()
+    }
 }
