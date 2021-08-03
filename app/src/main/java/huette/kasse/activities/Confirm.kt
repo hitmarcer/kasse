@@ -45,12 +45,16 @@ class Confirm : AppCompatActivity() {
             if (Variables.function == 2) {
                 val firstName: String = Variables.user.firstName
                 val lastName: String = Variables.user.lastName
+                // Von Datenbank löschen / auf gelöscht setzen
+
                 Toast.makeText(this, "${firstName} ${lastName} wurde gelöscht", Toast.LENGTH_SHORT).show()
-                Variables.alUserOlds.removeAt(position)
+                //Variables.alUserOlds.removeAt(position)
                 startActivity(Intent(this, DeleteUser::class.java))
             } else if (Variables.function == 5) {
+                // Von Datenbank löschen / auf gelöscht setzen
+
                 Toast.makeText(this, "${Variables.drink.drinkName} wurde gelöscht", Toast.LENGTH_SHORT).show()
-                Variables.alDrinkOlds.removeAt(position)
+                //Variables.alDrinkOlds.removeAt(position)
                 startActivity(Intent(this, DeleteDrink::class.java))
             } else if (Variables.function == 8) {
                 val firstName: String = Variables.user.firstName
@@ -77,5 +81,9 @@ class Confirm : AppCompatActivity() {
                 startActivity(Intent(this, Pay::class.java))
             }
         }
+    }
+
+    override fun onBackPressed() {
+
     }
 }

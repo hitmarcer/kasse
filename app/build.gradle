@@ -9,6 +9,7 @@ plugins {
 android {
     compileSdkVersion 29
     buildToolsVersion '29.0.3'
+    archivesBaseName = "Kasse"
 
     defaultConfig {
         applicationId "huette.kasse"

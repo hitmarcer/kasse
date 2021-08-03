@@ -22,4 +22,5 @@
     <string name="uebersicht">Übersicht</string>
     <string name="name">Name</string>
     <string name="addDrink">Getränk hinzufügen</string>
+    <string name="gesamt">Gesamtbetrag</string>
 </resources>

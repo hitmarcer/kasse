@@ -40,4 +40,17 @@ class UserDrinksViewModel(application: Application): AndroidViewModel(applicatio
         }
     }
 
+    fun deleteDrinkFromUser(user_id: Int, drink_id: Int, timestamp: Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteDrinkFromUser(user_id, drink_id, timestamp)
+        }
+    }
+
+    fun getUsersWithData(): List<UserDrinks> {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getUsersWithData()
+        }
+        return repository.getUsersWithData()
+    }
+
 }

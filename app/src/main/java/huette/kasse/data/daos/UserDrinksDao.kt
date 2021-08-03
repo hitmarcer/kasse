@@ -22,4 +22,10 @@ interface UserDrinksDao {
     @Query("UPDATE user_drinks SET paid = 1 WHERE user_id = :userid")
     fun setPaid(userid: Int)
 
+    @Query("DELETE FROM user_drinks WHERE user_id = :user_id AND drink_id = :drink_id AND timestamp = :timestamp")
+    fun deleteDrinkFromUser(user_id: Int, drink_id: Int, timestamp: Long)
+
+    @Query("SELECT * From user_drinks WHERE NOT paid ORDER BY user_id ASC")
+    fun getUsersWithData(): List<UserDrinks>
+
 }

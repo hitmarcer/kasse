@@ -33,4 +33,8 @@ class Password : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+
+    }
 }
