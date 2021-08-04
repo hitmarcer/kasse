@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.NamesAdapter
 import huette.kasse.R
 import huette.kasse.data.AppDatabase
-import huette.kasse.data.viewmodels.UserViewModel
 import huette.kasse.data.entities.User
+import huette.kasse.data.viewmodels.UserViewModel
 
 class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
     // UserViewModel
-
+    lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +30,8 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewAddUser)
 
         val namesAdapter: NamesAdapter = NamesAdapter(this, this)
+
+        database = AppDatabase.getDatabase(application)
 
         recyclerViewAddUser.adapter = namesAdapter
         recyclerViewAddUser.layoutManager =
@@ -47,11 +49,6 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
             val firstName: String = tfFirstName.text.toString()
             val lastName: String = tfLastName.text.toString()
             val error: Int = addUser(userViewModel, firstName, lastName)
-
-            /*Toast.makeText(
-                applicationContext, "MainActivity().function: ${Variables.function}",
-                Toast.LENGTH_SHORT
-            ).show()*/
 
             if (error == 0) {
                 Toast.makeText(
@@ -90,17 +87,18 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         if (!firstName.equals("") && !lastName.equals("")) {
             // Doppelte checken
-            val user = AppDatabase.getDatabase(application).userDao().getUserByName(firstName, lastName)
+            val user = database.userDao().getUserByName(firstName, lastName)
 
-            if(user != null){
-                if(firstName.equals(user.firstName) && lastName.equals((user.lastName))){
+            if (user != null && !user.deleted) {
+                if (firstName.equals(user.firstName) && lastName.equals((user.lastName))) {
                     return 1
                 }
+            } else if (user != null && user.deleted) {
+                userViewModel.reactivateUser(user.id)
+                return 0
             }
-
             userViewModel.addUser(User(firstName, lastName))
             return 0
-            //}
         } else {
             // Vorname oder Nachname nicht gefüllt
             return 2

@@ -3,10 +3,6 @@ package huette.kasse.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
-import java.sql.Timestamp
-import java.time.Instant
-import java.time.LocalDateTime
 
 @Entity(tableName = "drinks")
 data class Drink(
@@ -16,6 +12,8 @@ data class Drink(
     val drinkName: String,
     @ColumnInfo(name = "price")
     val price: Double,
+    @ColumnInfo(name = "deleted")
+    val deleted: Boolean,
 ) {
-    constructor(drinkName: String, price: Double): this(0, drinkName, price)
+    constructor(drinkName: String, price: Double): this(0, drinkName, price, false)
 }

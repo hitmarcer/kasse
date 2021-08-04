@@ -23,4 +23,8 @@ class UserRepository(private val userDao: UserDao) {
     fun getUserByName(firstname: String, lastname: String): User {
         return userDao.getUserByName(firstname, lastname)
     }
+    fun reactivateUser(user_id: Int) {
+        userDao.reactivateUser(user_id)
+    }
+
 }

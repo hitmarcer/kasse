@@ -45,14 +45,16 @@ class Confirm : AppCompatActivity() {
             if (Variables.function == 2) {
                 val firstName: String = Variables.user.firstName
                 val lastName: String = Variables.user.lastName
+                val user_id = Variables.user.id
                 // Von Datenbank löschen / auf gelöscht setzen
+                database.userDao().setUserDeleted(user_id)
+                Toast.makeText(this, "${firstName} ${lastName} wurde gelöscht", Toast.LENGTH_SHORT)
+                    .show()
 
-                Toast.makeText(this, "${firstName} ${lastName} wurde gelöscht", Toast.LENGTH_SHORT).show()
-                //Variables.alUserOlds.removeAt(position)
                 startActivity(Intent(this, DeleteUser::class.java))
             } else if (Variables.function == 5) {
                 // Von Datenbank löschen / auf gelöscht setzen
-
+                database.drinkDao().setDrinkDeleted(Variables.drink.id)
                 Toast.makeText(this, "${Variables.drink.drinkName} wurde gelöscht", Toast.LENGTH_SHORT).show()
                 //Variables.alDrinkOlds.removeAt(position)
                 startActivity(Intent(this, DeleteDrink::class.java))

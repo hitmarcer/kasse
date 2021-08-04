@@ -55,4 +55,10 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         return  repository.getUserByName(firstname, lastname)
     }
 
+    fun reactivateUser(user_id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.reactivateUser(user_id)
+        }
+    }
+
 }
