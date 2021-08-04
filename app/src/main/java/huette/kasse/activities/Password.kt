@@ -20,8 +20,13 @@ class Password : AppCompatActivity() {
         btnConfirm.setOnClickListener() {
             val password = tfPassword.text.toString()
             if (password.equals(Variables.pw)) {
-                if(Variables.function == 3){
+                // Name löschen aufrufen
+                if (Variables.function == 2) {
+                    startActivity(Intent(this, DeleteUser::class.java))
+                // Angebot verwalten aufrufen
+                }else if(Variables.function == 3){
                     startActivity(Intent(this, EditDrinks::class.java))
+                // Bezahlen aufrufen
                 } else if (Variables.function == 7){
                     startActivity(Intent(this, Pay::class.java))
                 }

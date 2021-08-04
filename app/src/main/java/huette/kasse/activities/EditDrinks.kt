@@ -3,7 +3,6 @@ package huette.kasse.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,8 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
-import huette.kasse.data.viewmodels.DrinksViewModel
+import huette.kasse.Variables
 import huette.kasse.data.entities.Drink
+import huette.kasse.data.viewmodels.DrinksViewModel
 
 class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,13 +41,15 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         }
 
         btnDeleteDrink.setOnClickListener() {
-            Toast.makeText(this, "Getränk löschen wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
-            //startActivity(Intent(this, DeleteDrink::class.java))
+            //Toast.makeText(this, "Getränk löschen wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, DeleteDrink::class.java))
         }
     }
 
     override fun OnItemClick(position: Int, drinks: List<Drink>) {
-        Toast.makeText(this, "Getränke können noch nicht bearbeitet werden", Toast.LENGTH_SHORT).show()
+        Variables.drink = drinks[position]
+        startActivity(Intent(this, EditDrink::class.java))
+        //Toast.makeText(this, "Getränke können noch nicht bearbeitet werden", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {

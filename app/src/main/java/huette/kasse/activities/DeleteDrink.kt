@@ -1,5 +1,6 @@
 package huette.kasse.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -8,8 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
-import huette.kasse.data.viewmodels.DrinksViewModel
+import huette.kasse.Variables
 import huette.kasse.data.entities.Drink
+import huette.kasse.data.viewmodels.DrinksViewModel
 
 class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +34,9 @@ class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     }
 
     override fun OnItemClick(position: Int, drinks: List<Drink>) {
+        Variables.function = 5
+        Variables.drink = drinks[position]
+        startActivity(Intent(this, Confirm::class.java))
         //Toast.makeText(this, "Getränk löschen wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
     }
 

@@ -3,7 +3,6 @@ package huette.kasse.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -57,8 +56,9 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         }
 
         btnDeleteUser.setOnClickListener() {
-            Toast.makeText(this, "Wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
-        //startActivity(Intent(this, DeleteUser::class.java))
+            Variables.function = 2
+            //Toast.makeText(this, "Wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, Password::class.java))
         }
 
         btnEditDrinks.setOnClickListener() {
