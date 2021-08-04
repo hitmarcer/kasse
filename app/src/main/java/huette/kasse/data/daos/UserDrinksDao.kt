@@ -31,4 +31,13 @@ interface UserDrinksDao {
     @Query("SELECT COUNT() FROM user_drinks WHERE user_id = :user_id AND drink_id = :drink_id AND paid = 0")
     fun getDrinkAmount(user_id: Int, drink_id: Int): Int
 
+    @Query("SELECT COUNT() FROM user_drinks WHERE drink_id = :drink_id AND paid = 0")
+    fun getSumDrinkAmount(drink_id: Int): Int
+
+    @Query("SELECT SUM(price) FROM user_drinks LEFT JOIN drinks ON drink_id = drinks.id WHERE NOT paid")
+    fun getAllUnpaidDouble(): Double
+
+    @Query("SELECT COUNT() FROM users")
+    fun getAmountUsers(): Int
+
 }

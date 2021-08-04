@@ -29,12 +29,14 @@
         <Button
             android:id="@+id/btnAddUser"
             style="@style/mainButtonStyle"
-            android:text="@string/addUser"/>
+            android:background="@drawable/buttons"
+            android:text="@string/addUser" />
 
         <Button
             android:id="@+id/btnDeleteUser"
             style="@style/mainButtonStyle"
-            android:text="@string/deleteUser"/>
+            android:text="@string/deleteUser"
+            android:textColorHighlight="#FFBBBB" />
 
         <Button
             android:id="@+id/btnEditDrinks"

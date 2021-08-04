@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.data.entities.Drink
-import huette.kasse.data.entities.User
-import java.util.*
 
 class DrinksAdapter constructor() : RecyclerView.Adapter<DrinksAdapter.DrinksViewHolder>() {
     private var drinksList = emptyList<Drink>()
@@ -54,7 +52,7 @@ class DrinksAdapter constructor() : RecyclerView.Adapter<DrinksAdapter.DrinksVie
 
     override fun onBindViewHolder(holder: DrinksAdapter.DrinksViewHolder, position: Int) {
         val drinkName: String =
-            "${drinksList[position].drinkName}\n${drinksList[position].price} €"
+            "${drinksList[position].drinkName}\n${String.format("%.2f", drinksList[position].price)} €"
         holder.tfContent.setText(drinkName)
     }
 
