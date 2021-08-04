@@ -13,7 +13,7 @@ interface DrinkDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addDrink(drink: Drink)
 
-    @Query("SELECT * FROM drinks WHERE NOT deleted ORDER BY id ASC")
+    @Query("SELECT * FROM drinks WHERE NOT deleted ORDER BY price, drinkname ASC")
     fun getAllDrinks(): LiveData<List<Drink>>
 
     @Query("SELECT * FROM drinks WHERE id = :drink_id")
