@@ -13,53 +13,60 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="10dp" />
 
-    <LinearLayout
-        android:id="@+id/layoutControlMain"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewNames"
-        tools:layout_editor_absoluteX="30dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewNames">
 
-        <Button
-            android:id="@+id/btnAddUser"
-            style="@style/mainButtonStyle"
-            android:background="@drawable/buttons"
-            android:text="@string/addUser" />
+        <LinearLayout
+            android:id="@+id/layoutControlMain"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnDeleteUser"
-            style="@style/mainButtonStyle"
-            android:text="@string/deleteUser"
-            android:textColorHighlight="#FFBBBB" />
+            <Button
+                android:id="@+id/btnAddUser"
+                style="@style/mainButtonStyle"
+                android:background="@drawable/buttons"
+                android:text="@string/addUser" />
 
-        <Button
-            android:id="@+id/btnEditDrinks"
-            style="@style/mainButtonStyle"
-            android:text="@string/editDrinks"/>
+            <Button
+                android:id="@+id/btnDeleteUser"
+                style="@style/mainButtonStyle"
+                android:text="@string/deleteUser"
+                android:textColorHighlight="#FFBBBB" />
 
-        <Button
-            android:id="@+id/btnPay"
-            style="@style/mainButtonStyle"
-            android:text="@string/pay"/>
+            <Button
+                android:id="@+id/btnEditDrinks"
+                style="@style/mainButtonStyle"
+                android:text="@string/editDrinks" />
 
-        <Button
-            android:id="@+id/btnUebersicht"
-            style="@style/mainButtonStyle"
-            android:text="@string/uebersicht"/>
-        <!--android:layout_width="230dp"
+            <Button
+                android:id="@+id/btnPay"
+                style="@style/mainButtonStyle"
+                android:text="@string/pay" />
+
+            <Button
+                android:id="@+id/btnUebersicht"
+                style="@style/mainButtonStyle"
+                android:text="@string/uebersicht" />
+            <!--android:layout_width="230dp"
         android:layout_height="230dp"
         android:layout_margin="10dp"
         android:text="@string/uebersicht"
         android:textColor="@color/white"
         android:textSize="30sp"
         app:backgroundTint="@color/buttongreen" />-->
-    </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <!--<LinearLayout
         android:id="@+id/layoutFullMain"

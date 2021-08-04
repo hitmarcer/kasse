@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
@@ -42,7 +43,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         recyclerViewAddDrinkToUser.adapter = drinksAdapter
         recyclerViewAddDrinkToUser.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
 
         // drinkViewModel
         val drinkViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
@@ -131,7 +132,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
             // Text von TextView aktualisieren
             tvAddDrinkToUser.setText(
                 "${fullName}\n${
-                    database.userDrinksDao().getUnpaid(Variables.user.id)
+                    String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
                 } €"
             )
 
@@ -157,7 +158,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
             // Text von TextView aktualisieren
             tvAddDrinkToUser.setText(
                 "${fullName}\n${
-                    database.userDrinksDao().getUnpaid(Variables.user.id)
+                    String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
                 } €"
             )
 

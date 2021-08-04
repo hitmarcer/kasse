@@ -6,6 +6,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
@@ -28,7 +29,7 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         recyclerViewEditDrinks.adapter = drinksAdapter
         recyclerViewEditDrinks.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
 
         val drinksViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
 
