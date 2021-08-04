@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import huette.kasse.R
@@ -21,69 +22,77 @@ class EditDrink : AppCompatActivity() {
         database = AppDatabase.getDatabase(application)
 
         val btnEdit: Button = findViewById(R.id.btnEdit)
-        val tfDrinkName: EditText = findViewById(R.id.tfDrinkNameEdit)
+        //val tfDrinkName: EditText = findViewById(R.id.tfDrinkNameEdit)
+        val tvDrinKEdit: TextView = findViewById(R.id.tvDrinkEdit)
         val tfPrice: EditText = findViewById(R.id.tfDrinkPriceEdit)
 
-        tfDrinkName.setText(Variables.drink.drinkName)
+        tvDrinKEdit.text = Variables.drink.drinkName
         tfPrice.setText(Variables.drink.price.toString())
+        tfPrice.setSelection(tfPrice.text.toString().length)
 
-        btnEdit.setOnClickListener() {
+        btnEdit.setOnClickListener {
             val drink = Variables.drink
-            var newPrice: Double = 0.0
 
             // Programm bricht ab, wenn im Textfeld nichts drin steht und Methode toDouble() ausgeführt wird
-            if (tfPrice.text.toString().equals("")) {
-                newPrice = 0.0
+            val newPrice: Double = if (tfPrice.text.toString() == "") {
+                0.0
             } else {
-                newPrice = tfPrice.text.toString().toDouble()
+                tfPrice.text.toString().toDouble()
             }
 
-            val error: Int = addDrink(drink, newPrice)
-
-            if(error == 0) {
-                Toast.makeText(
-                    this, "${drink.drinkName} geändert",
-                    Toast.LENGTH_SHORT
-                ).show()
-                startActivity(Intent(this, EditDrinks::class.java))
-            } else if (error == 1) {
-                Toast.makeText(
-                    this, "Nicht geändert: gleicher Preis",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else if (error == 3) {
-                Toast.makeText(
-                    this, "Preis eingeben",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(
-                    this, "Unknown error",
-                    Toast.LENGTH_SHORT
-                ).show()
+            when (addDrink(drink, newPrice)) {
+                0 -> {
+                    Toast.makeText(
+                        this, "${drink.drinkName} geändert",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    startActivity(Intent(this, EditDrinks::class.java))
+                }
+                1 -> {
+                    Toast.makeText(
+                        this, "Nicht geändert: gleicher Preis",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                3 -> {
+                    Toast.makeText(
+                        this, "Preis eingeben",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    Toast.makeText(
+                        this, "Unknown error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
 
     private fun addDrink(drink: Drink, newPrice: Double): Int {
 
-        if (newPrice > 0.0) {
-            // Doppelte checken
-            val drinkCheck = database.drinkDao().getSingleDrinkNotDeleted(drink.id)
+        when {
+            newPrice > 0.0 -> {
+                // Doppelte checken
+                val drinkCheck = database.drinkDao().getSingleDrinkNotDeleted(drink.id)
 
-            if(drinkCheck.price == newPrice){
-                return 1
+                if(drinkCheck.price == newPrice){
+                    return 1
+                }
+
+                // Drink davor auf gelöscht setzen
+                database.drinkDao().setDrinkDeleted(drink.id)
+                // Drink neu hinzufügen, um die alten noch berechnen zu können
+                database.drinkDao().addDrink(Drink(drink.drinkName, newPrice))
+                return 0
             }
-
-            // Drink davor auf gelöscht setzen
-            database.drinkDao().setDrinkDeleted(drink.id)
-            // Drink neu hinzufügen, um die alten noch berechnen zu können
-            database.drinkDao().addDrink(Drink(drink.drinkName, newPrice))
-            return 0
-        } else if (newPrice <= 0) {
-            return 3
-        } else {
-            return 10
+            newPrice <= 0 -> {
+                return 3
+            }
+            else -> {
+                return 10
+            }
         }
 
     }
