@@ -38,7 +38,7 @@ class Confirm : AppCompatActivity() {
         } else if (Variables.function == 8) {
             val firstName: String = Variables.user.firstName
             val lastName: String = Variables.user.lastName
-            tvConfirm.setText("${firstName} ${lastName} (${database.userDrinksDao().getUnpaid(Variables.user.id)} €) wirklich auf bezahlt setzen?")
+            tvConfirm.setText("${firstName} ${lastName} (${String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))} €) wirklich auf bezahlt setzen?")
         }
 
         btnYes.setOnClickListener() {

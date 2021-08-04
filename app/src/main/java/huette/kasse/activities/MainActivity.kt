@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.NamesAdapter
 import huette.kasse.R
@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         val namesAdapter = NamesAdapter(this, this)
 
         recyclerViewNames.adapter = namesAdapter
-        recyclerViewNames.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewNames.layoutManager = GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
+        //recyclerViewNames.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // UserViewModel
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)

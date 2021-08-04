@@ -7,70 +7,33 @@
     tools:context=".activities.MainActivity">
 
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/tableScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_margin="10dp"
+        android:scrollbars="horizontal|vertical"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="10dp">
 
-        <TextView
-            android:id="@+id/textView"
+        <HorizontalScrollView
+            android:id="@+id/tableHorizontalView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/uebersicht"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="34sp" />
-
-        <ScrollView
-            android:id="@+id/tableScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="40dp">
+            android:scrollbars="horizontal|vertical">
 
             <TableLayout
                 android:id="@+id/tableUebersicht"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp">
-
-               <!-- <TableRow
-                    android:id="@+id/uebersichtRow1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp">
-
-                    <TextView
-                        android:id="@+id/tvName"
-                        android:layout_width="350dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/name"
-                        android:textColor="#000000"
-                        android:textSize="26sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvGesamt"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/gesamt"
-                        android:textColor="#000000"
-                        android:textSize="26sp"
-                        android:textStyle="bold" />
-                </TableRow>-->
+                android:layout_marginBottom="10dp"
+                android:stretchColumns="*">
 
             </TableLayout>
-        </ScrollView>
+        </HorizontalScrollView>
+    </ScrollView>
 
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

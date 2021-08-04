@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.NamesAdapter
 import huette.kasse.R
@@ -30,7 +30,7 @@ class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         recyclerViewPay.adapter = namesAdapter
         recyclerViewPay.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
 
         // UserViewModel
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)

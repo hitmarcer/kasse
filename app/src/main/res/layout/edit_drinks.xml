@@ -28,14 +28,12 @@
         <Button
             android:id="@+id/btnAddDrink"
             style="@style/mainButtonStyle"
-            android:text="@string/addDrink"
-            app:backgroundTint="@color/buttongreen" />
+            android:text="@string/addDrink" />
 
         <Button
             android:id="@+id/btnDeleteDrink"
             style="@style/mainButtonStyle"
-            android:text="@string/deleteDrink"
-            app:backgroundTint="@color/buttongreen" />
+            android:text="@string/deleteDrink" />
     </LinearLayout>
 
     <LinearLayout
