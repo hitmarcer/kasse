@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,33 +44,33 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         // UserViewModel
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        userViewModel.getAllUsers.observe(this, Observer { users ->
+        userViewModel.getAllUsers.observe(this, { users ->
             namesAdapter.setData(users)
         })
 
         //namesAdapter.notifyDataSetChanged()
 
-        btnAddUser.setOnClickListener() {
+        btnAddUser.setOnClickListener {
             startActivity(Intent(this, AddUser::class.java))
         }
 
-        btnDeleteUser.setOnClickListener() {
+        btnDeleteUser.setOnClickListener {
             Variables.function = 2
             //Toast.makeText(this, "Wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, Password::class.java))
         }
 
-        btnEditDrinks.setOnClickListener() {
+        btnEditDrinks.setOnClickListener {
             Variables.function = 3
             startActivity(Intent(this, Password::class.java))
         }
 
-        btnPay.setOnClickListener() {
+        btnPay.setOnClickListener {
             Variables.function = 7
             startActivity(Intent(this, Password::class.java))
         }
 
-        btnUebersicht.setOnClickListener() {
+        btnUebersicht.setOnClickListener {
             startActivity(Intent(this, Uebersicht::class.java))
         }
 
@@ -79,7 +78,7 @@ class MainActivity : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
     override fun OnItemClick(position: Int, users: List<User>) {
         Variables.position = position
-        Variables.user = users.get(position)
+        Variables.user = users[position]
         startActivity(Intent(this, AddDrinkToUser::class.java))
     }
 

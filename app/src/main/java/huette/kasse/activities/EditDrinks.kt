@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
@@ -25,7 +23,7 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val recyclerViewEditDrinks: RecyclerView = findViewById(R.id.recyclerViewEditDrinks)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, this)
+        val drinksAdapter = DrinksAdapter(this, this)
 
         recyclerViewEditDrinks.adapter = drinksAdapter
         recyclerViewEditDrinks.layoutManager =
@@ -33,15 +31,15 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val drinksViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
 
-        drinksViewModel.getAllDrinks.observe(this, Observer { users ->
+        drinksViewModel.getAllDrinks.observe(this, { users ->
             drinksAdapter.setData(users)
         })
 
-        btnAddDrink.setOnClickListener() {
+        btnAddDrink.setOnClickListener {
             startActivity(Intent(this, AddDrink::class.java))
         }
 
-        btnDeleteDrink.setOnClickListener() {
+        btnDeleteDrink.setOnClickListener {
             //Toast.makeText(this, "Getränk löschen wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, DeleteDrink::class.java))
         }

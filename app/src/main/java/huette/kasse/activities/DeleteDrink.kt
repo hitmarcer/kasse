@@ -3,10 +3,8 @@ package huette.kasse.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
@@ -21,7 +19,7 @@ class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewDeleteDrink)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, this)
+        val drinksAdapter = DrinksAdapter(this, this)
 
         recyclerViewAddUser.adapter = drinksAdapter
         recyclerViewAddUser.layoutManager =
@@ -29,7 +27,7 @@ class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val drinksViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
 
-        drinksViewModel.getAllDrinks.observe(this, Observer { users ->
+        drinksViewModel.getAllDrinks.observe(this, { users ->
             drinksAdapter.setData(users)
         })
     }

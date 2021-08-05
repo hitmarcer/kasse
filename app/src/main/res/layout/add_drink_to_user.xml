@@ -6,25 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <Button
+    <ImageButton
         android:id="@+id/btnUndo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/buttongreen"
+        android:contentDescription="@string/undo"
+        app:layout_constraintEnd_toStartOf="@+id/btnRedo"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewAddDrinkToUser"
+        app:srcCompat="@drawable/ic_undo" />
+
+    <ImageButton
+        android:id="@+id/btnRedo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/buttongreen"
+        android:contentDescription="@string/redo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewAddDrinkToUser"
+        app:srcCompat="@drawable/ic_redo" />
+
+    <!--<Button
+        android:id="@+id/btnUndoX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:text="Undo"
-        app:layout_constraintEnd_toStartOf="@+id/btnRedo"
+        app:layout_constraintEnd_toStartOf="@+id/btnRedoX"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewAddDrinkToUser" />
 
     <Button
-        android:id="@+id/btnRedo"
+        android:id="@+id/btnRedoX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:text="Redo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewAddDrinkToUser" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewAddDrinkToUser" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAddDrinkToUser"

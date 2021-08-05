@@ -17,18 +17,22 @@ class Password : AppCompatActivity() {
         val btnConfirm: Button = findViewById(R.id.btnConfirm)
         val tfPassword: EditText = findViewById(R.id.tfPassword)
 
-        btnConfirm.setOnClickListener() {
+        btnConfirm.setOnClickListener {
             val password = tfPassword.text.toString()
-            if (password.equals(Variables.pw)) {
+            if (password == Variables.pw) {
                 // Name löschen aufrufen
-                if (Variables.function == 2) {
-                    startActivity(Intent(this, DeleteUser::class.java))
-                // Angebot verwalten aufrufen
-                }else if(Variables.function == 3){
-                    startActivity(Intent(this, EditDrinks::class.java))
-                // Bezahlen aufrufen
-                } else if (Variables.function == 7){
-                    startActivity(Intent(this, Pay::class.java))
+                when (Variables.function) {
+                    2 -> {
+                        startActivity(Intent(this, DeleteUser::class.java))
+                        // Angebot verwalten aufrufen
+                    }
+                    3 -> {
+                        startActivity(Intent(this, EditDrinks::class.java))
+                        // Bezahlen aufrufen
+                    }
+                    7 -> {
+                        startActivity(Intent(this, Pay::class.java))
+                    }
                 }
             } else {
                 Toast.makeText(

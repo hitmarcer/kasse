@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +28,7 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewAddUser)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, this)
+        val namesAdapter = NamesAdapter(this, this)
 
         database = AppDatabase.getDatabase(application)
 
@@ -40,57 +39,60 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         //userViewModel.addUser(User("Marc", "Bohner"))
 
-        userViewModel.getAllUsers.observe(this, Observer { users ->
+        userViewModel.getAllUsers.observe(this, { users ->
             namesAdapter.setData(users)
         })
 
 
-        btnAddUser2.setOnClickListener() {
+        btnAddUser2.setOnClickListener {
             val firstName: String = tfFirstName.text.toString()
             val lastName: String = tfLastName.text.toString()
-            val error: Int = addUser(userViewModel, firstName, lastName)
 
-            if (error == 0) {
-                Toast.makeText(
-                    applicationContext, "$firstName $lastName angelegt",
-                    Toast.LENGTH_SHORT
-                ).show()
+            when (addUser(userViewModel, firstName, lastName)) {
+                0 -> {
+                    Toast.makeText(
+                        applicationContext, "$firstName $lastName angelegt",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-                tfFirstName.text.clear()
-                tfLastName.text.clear()
+                    tfFirstName.text.clear()
+                    tfLastName.text.clear()
 
-                //namesAdapter.notifyDataSetChanged()
+                    //namesAdapter.notifyDataSetChanged()
 
-                //startActivity(Intent(this, AddUser::class.java))
-            } else if (error == 1) {
-                Toast.makeText(
-                    applicationContext, "Name schon vorhanden",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else if (error == 2) {
-                Toast.makeText(
-                    applicationContext, "Vorname und Nachname eingeben",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(
-                    applicationContext, "Unknown error",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    //startActivity(Intent(this, AddUser::class.java))
+                }
+                1 -> {
+                    Toast.makeText(
+                        applicationContext, "Name schon vorhanden",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                2 -> {
+                    Toast.makeText(
+                        applicationContext, "Vorname und Nachname eingeben",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    Toast.makeText(
+                        applicationContext, "Unknown error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
 
     fun addUser(userViewModel: UserViewModel, firstName: String, lastName: String): Int {
-        val userID: String = "${firstName.lowercase()}_${lastName.lowercase()}"
-        var error: Int = 0
+        "${firstName.lowercase()}_${lastName.lowercase()}"
 
-        if (!firstName.equals("") && !lastName.equals("")) {
+        if (firstName != "" && lastName != "") {
             // Doppelte checken
             val user = database.userDao().getUserByName(firstName, lastName)
 
             if (user != null && !user.deleted) {
-                if (firstName.equals(user.firstName) && lastName.equals((user.lastName))) {
+                if (firstName == user.firstName && lastName == (user.lastName)) {
                     return 1
                 }
             } else if (user != null && user.deleted) {
@@ -106,7 +108,7 @@ class AddUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
     }
 
     override fun OnItemClick(position: Int, users: List<User>) {
-        Toast.makeText(this, "Position: ${position} geklickt Add User", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Position: $position geklickt Add User", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +25,7 @@ class DeleteUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewDeleteUser)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, this)
+        val namesAdapter = NamesAdapter(this, this)
 
         database = AppDatabase.getDatabase(application)
 
@@ -37,7 +36,7 @@ class DeleteUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         //userViewModel.addUser(User("Marc", "Bohner"))
 
-        userViewModel.getAllUsers.observe(this, Observer { users ->
+        userViewModel.getAllUsers.observe(this, { users ->
             namesAdapter.setData(users)
         })
     }
@@ -52,7 +51,7 @@ class DeleteUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         if (offenerBetrag > 0) {
             Toast.makeText(
                 this,
-                "${firstName} ${lastName} kann nicht gelöscht werden, da noch nicht bezahlt wurde",
+                "$firstName $lastName kann nicht gelöscht werden, da noch nicht bezahlt wurde",
                 Toast.LENGTH_SHORT
             ).show()
         } else {
