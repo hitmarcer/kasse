@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +25,7 @@ class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         val recyclerViewPay: RecyclerView = findViewById(R.id.recyclerViewPay)
 
-        val namesAdapter: NamesAdapter = NamesAdapter(this, this)
+        val namesAdapter = NamesAdapter(this, this)
 
         recyclerViewPay.adapter = namesAdapter
         recyclerViewPay.layoutManager =
@@ -35,21 +34,21 @@ class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         // UserViewModel
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        userViewModel.getAllUsers.observe(this, Observer { users ->
+        userViewModel.getAllUsers.observe(this, { users ->
             namesAdapter.setData(users)
         })
     }
 
     override fun OnItemClick(position: Int, users: List<User>) {
-        if (!everythingPaid(users.get(position))){
-            Variables.user = users.get(position)
+        if (!everythingPaid(users[position])){
+            Variables.user = users[position]
             Variables.function = 8
             startActivity(Intent(this, Confirm::class.java))
         } else {
-            val firstName: String = users.get(position).firstName
-            val lastName: String = users.get(position).lastName
+            val firstName: String = users[position].firstName
+            val lastName: String = users[position].lastName
 
-            Toast.makeText(this, "${firstName} ${lastName} hat schon bezahlt", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "$firstName $lastName hat schon bezahlt", Toast.LENGTH_SHORT).show()
         }
 
     /*if (!Variables.hasPayed(position)) {

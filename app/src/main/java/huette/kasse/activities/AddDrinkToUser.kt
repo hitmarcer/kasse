@@ -1,14 +1,12 @@
 package huette.kasse.activities
 
 import android.os.Bundle
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import huette.kasse.DrinksAdapter
 import huette.kasse.R
@@ -35,11 +33,11 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val recyclerViewAddDrinkToUser: RecyclerView = findViewById(R.id.recyclerViewAddDrinkToUser)
 
-        val drinksAdapter: DrinksAdapter = DrinksAdapter(this, this)
+        val drinksAdapter = DrinksAdapter(this, this)
         //val namesAdapter: NamesAdapter = NamesAdapter(this, this)
 
-        val btnUndo: Button = findViewById(R.id.btnUndo)
-        val btnRedo: Button = findViewById(R.id.btnRedo)
+        val btnUndo: ImageButton = findViewById(R.id.btnUndo)
+        val btnRedo: ImageButton = findViewById(R.id.btnRedo)
 
         recyclerViewAddDrinkToUser.adapter = drinksAdapter
         recyclerViewAddDrinkToUser.layoutManager =
@@ -48,7 +46,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         // drinkViewModel
         val drinkViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
 
-        drinkViewModel.getAllDrinks.observe(this, Observer { drinks ->
+        drinkViewModel.getAllDrinks.observe(this, { drinks ->
             drinksAdapter.setData(drinks)
         })
 
