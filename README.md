@@ -1,4 +1,4 @@
-# kasse
+# Kasse
 Kasse
 
 Kasse für die Hütte
