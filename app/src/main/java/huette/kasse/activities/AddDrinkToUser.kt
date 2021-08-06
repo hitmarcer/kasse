@@ -25,6 +25,8 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     val alDrinksUndo = ArrayList<UserDrinks>()
     val alDrinksRedo = ArrayList<UserDrinks>()
 
+    // Testkommentar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_drink_to_user)
