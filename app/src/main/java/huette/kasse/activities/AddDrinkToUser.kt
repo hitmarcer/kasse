@@ -50,6 +50,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
             drinksAdapter.setData(drinks)
         })
 
+        // Name anzeigen
         tvAddDrinkToUser = findViewById(R.id.tvAddDrinkUser)
         fullName = Variables.user.firstName + " " + Variables.user.lastName
         userPosition = Variables.position
