@@ -129,9 +129,9 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
             // Text von TextView aktualisieren
             tvAddDrinkToUser.setText(
-                "${fullName}\n${
+                "${fullName} (${
                     String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
-                } €"
+                } €)"
             )
 
             return true
@@ -155,9 +155,9 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
             // Text von TextView aktualisieren
             tvAddDrinkToUser.setText(
-                "${fullName}\n${
+                "${fullName} (${
                     String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
-                } €"
+                } €)"
             )
 
             return true
