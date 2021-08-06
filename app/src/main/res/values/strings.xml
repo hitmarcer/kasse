@@ -5,7 +5,7 @@
     <string name="anlegen">Anlegen</string>
     <string name="firstName">Vorname</string>
     <string name="lastName">Nachname</string>
-    <string name="addUser">Name\nhinzufügen</string>
+    <string name="addUser">Name hinzufügen</string>
     <string name="namesDescription">Namen</string>
     <string name="drinksDescription">Drinks</string>
     <string name="price">Preis €</string>
@@ -25,4 +25,7 @@
     <string name="gesamt">Gesamtbetrag</string>
     <string name="undo">Rückgängig</string>
     <string name="redo">Wiederherstellen</string>
+    <string name="home">Home</string>
+    <string name="verwalten">Verwalten</string>
+    <string name="Overview">Übersicht</string>
 </resources>

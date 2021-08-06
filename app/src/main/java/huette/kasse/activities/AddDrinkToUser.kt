@@ -41,7 +41,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         recyclerViewAddDrinkToUser.adapter = drinksAdapter
         recyclerViewAddDrinkToUser.layoutManager =
-            GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, Variables.cols)
 
         // drinkViewModel
         val drinkViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
@@ -54,9 +54,9 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         fullName = Variables.user.firstName + " " + Variables.user.lastName
         userPosition = Variables.position
         tvAddDrinkToUser.setText(
-            "${fullName}\n${
+            "${fullName} (${
                 String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
-            } €"
+            } €)"
         )
 
         btnUndo.setOnClickListener() {
@@ -97,14 +97,14 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         // Zwischenspeichern, um rückgängig machen zu ermöglichen
         alDrinksUndo.add(userDrink)
 
+        val unpaid = database.userDrinksDao().getUnpaid(Variables.user.id)
+        val unpaidString = String.format("%.2f", unpaid)
         // Text von TextView aktualisieren
         tvAddDrinkToUser.setText(
-            "${fullName}\n${
-                String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
-            } €"
+            "${fullName} (${unpaidString} €)"
         )
 
-        //Toast.makeText(this, "${fullName} (${database.userDrinksDao().getUnpaid(Variables.user.id)} €)", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${drinks[position].drinkName} hinzugefügt", Toast.LENGTH_SHORT).show()
 
     }
 

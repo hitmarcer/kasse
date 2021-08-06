@@ -29,7 +29,7 @@ class Pay : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         recyclerViewPay.adapter = namesAdapter
         recyclerViewPay.layoutManager =
-            GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, Variables.cols)
 
         // UserViewModel
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)

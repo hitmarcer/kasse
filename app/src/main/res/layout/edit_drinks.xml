@@ -6,52 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewEditDrinks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
-        android:id="@+id/layoutControlEditDrinks"
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/layoutBottomEditDrinks"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewEditDrinks"
-        tools:layout_editor_absoluteX="20dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnAddDrink"
-            style="@style/mainButtonStyle"
-            android:text="@string/addDrink" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEditDrinks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical" />
 
-        <Button
-            android:id="@+id/btnDeleteDrink"
-            style="@style/mainButtonStyle"
-            android:text="@string/deleteDrink" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutBottomEditDrinks"
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:gravity="center"
+        android:gravity="bottom|end"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/tvEditDrinks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/editDrinks"
-            android:textSize="48sp" />
+        <ImageButton
+            android:id="@+id/btnAddDrink"
+            style="@style/roundButton"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/roundbuttons"
+            android:backgroundTint="@color/addGreen"
+            android:contentDescription="@string/addUser"
+            app:srcCompat="@drawable/ic_add" />
+
+        <ImageButton
+            android:id="@+id/btnRemoveDrink"
+            style="@style/roundButton"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/roundbuttons"
+            android:backgroundTint="@color/deleteRed"
+            android:contentDescription="@string/deleteUser"
+            app:srcCompat="@drawable/ic_remove" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

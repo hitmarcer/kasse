@@ -28,19 +28,6 @@
             android:textSize="34sp"
             tools:text="Bier" />
 
-        <!--<EditText
-            android:id="@+id/tfDrinkNameEdit"
-            android:inputType="none"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:autofillHints="no"
-            android:ems="10"
-            android:fontFamily="sans-serif-medium"
-            android:hint="@string/drink"
-            android:textSize="34sp" />-->
-
         <EditText
             android:id="@+id/tfDrinkPriceEdit"
             android:layout_width="400dp"

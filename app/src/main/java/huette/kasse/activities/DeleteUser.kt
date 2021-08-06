@@ -31,7 +31,7 @@ class DeleteUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         recyclerViewAddUser.adapter = namesAdapter
         recyclerViewAddUser.layoutManager =
-            GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, Variables.cols)
 
         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         //userViewModel.addUser(User("Marc", "Bohner"))
