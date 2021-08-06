@@ -3,6 +3,7 @@ package huette.kasse.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,8 +19,8 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_drinks)
 
-        val btnAddDrink: Button = findViewById(R.id.btnAddDrink)
-        val btnDeleteDrink: Button = findViewById(R.id.btnDeleteDrink)
+        val btnAddDrink: ImageButton = findViewById(R.id.btnAddDrink)
+        val btnDeleteDrink: ImageButton = findViewById(R.id.btnRemoveDrink)
 
         val recyclerViewEditDrinks: RecyclerView = findViewById(R.id.recyclerViewEditDrinks)
 
@@ -27,7 +28,7 @@ class EditDrinks : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         recyclerViewEditDrinks.adapter = drinksAdapter
         recyclerViewEditDrinks.layoutManager =
-            GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, Variables.cols)
 
         val drinksViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
 

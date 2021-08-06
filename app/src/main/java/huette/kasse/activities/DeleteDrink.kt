@@ -23,7 +23,7 @@ class DeleteDrink : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         recyclerViewAddUser.adapter = drinksAdapter
         recyclerViewAddUser.layoutManager =
-            GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, Variables.cols)
 
         val drinksViewModel = ViewModelProvider(this).get(DrinksViewModel::class.java)
 

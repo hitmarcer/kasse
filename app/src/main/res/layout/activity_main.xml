@@ -7,85 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewNames"
+    <FrameLayout
+        android:id="@+id/flMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp" />
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewNames">
+        app:layout_constraintTop_toTopOf="parent">
+    </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/layoutControlMain"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnAddUser"
-                style="@style/mainButtonStyle"
-                android:background="@drawable/buttons"
-                android:text="@string/addUser" />
-
-            <Button
-                android:id="@+id/btnDeleteUser"
-                style="@style/mainButtonStyle"
-                android:text="@string/deleteUser"
-                android:textColorHighlight="#FFBBBB" />
-
-            <Button
-                android:id="@+id/btnEditDrinks"
-                style="@style/mainButtonStyle"
-                android:text="@string/editDrinks" />
-
-            <Button
-                android:id="@+id/btnPay"
-                style="@style/mainButtonStyle"
-                android:text="@string/pay" />
-
-            <Button
-                android:id="@+id/btnUebersicht"
-                style="@style/mainButtonStyle"
-                android:text="@string/uebersicht" />
-            <!--android:layout_width="230dp"
-        android:layout_height="230dp"
-        android:layout_margin="10dp"
-        android:text="@string/uebersicht"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:backgroundTint="@color/buttongreen" />-->
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <!--<LinearLayout
-        android:id="@+id/layoutFullMain"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:gravity="end"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <Button
-            android:id="@+id/btnFullscreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            android:text="@string/fullscreen"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            app:backgroundTint="@color/buttongreen" />
-    </LinearLayout>-->
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/nav_menu"
+        tools:layout_editor_absoluteX="48dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

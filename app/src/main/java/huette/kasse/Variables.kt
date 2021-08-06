@@ -6,7 +6,7 @@ import huette.kasse.data.entities.User
 class Variables {
     companion object {
         val pw = "Kase"
-        val rows: Int = 2
+        val cols: Int = 5
         var position: Int = 0
 
         lateinit var user: User
