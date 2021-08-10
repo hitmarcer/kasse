@@ -2,10 +2,9 @@ package huette.kasse.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageButton
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,8 +20,12 @@ import huette.kasse.data.viewmodels.UserViewModel
 
 class FragmentHome: Fragment(R.layout.home), NamesAdapter.OnItemClickListener {
 
+    lateinit var namesAdapter: NamesAdapter
+
     @Override
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        setHasOptionsMenu(true)
 
         val view = inflater.inflate(R.layout.home, container, false)
 
@@ -33,7 +36,7 @@ class FragmentHome: Fragment(R.layout.home), NamesAdapter.OnItemClickListener {
 
         // Zu Testzwecken
 
-        val namesAdapter = NamesAdapter(view.context, this)
+        namesAdapter = NamesAdapter(view.context, this)
 
         recyclerViewNames.adapter = namesAdapter
         recyclerViewNames.layoutManager =
@@ -66,5 +69,25 @@ class FragmentHome: Fragment(R.layout.home), NamesAdapter.OnItemClickListener {
         Variables.position = position
         Variables.user = users[position]
         startActivity(Intent(this.view?.context, AddDrinkToUser::class.java))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        val item = menu.findItem(R.id.action_search)
+        val searchView: SearchView = item.actionView as SearchView
+        item.expandActionView()
+        searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                namesAdapter.filter.filter(newText)
+                return false
+            }
+        })
+
+        return super.onCreateOptionsMenu(menu, inflater)
     }
 }
