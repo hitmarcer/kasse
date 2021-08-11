@@ -100,7 +100,7 @@ class NamesAdapter constructor() : RecyclerView.Adapter<NamesAdapter.NamesViewHo
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                userFilterList = results?.values as ArrayList<User>
+                userFilterList = results?.values as List<User>
                 notifyDataSetChanged()
             }
         }
