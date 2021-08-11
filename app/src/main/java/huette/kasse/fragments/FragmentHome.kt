@@ -80,15 +80,21 @@ class FragmentHome: Fragment(R.layout.home), NamesAdapter.OnItemClickListener {
         searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 namesAdapter.filter.filter(newText)
-                return false
+                return true
             }
         })
 
+        searchItem.collapseActionView()
+
         return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    fun refreshSearch() {
+        namesAdapter.filter.filter("")
     }
 }
