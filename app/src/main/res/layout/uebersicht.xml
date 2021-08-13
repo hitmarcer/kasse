@@ -26,7 +26,8 @@
             android:id="@+id/tableHorizontalView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbars="horizontal|vertical">
+            android:scrollbars="horizontal|vertical"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <TableLayout
                 android:id="@+id/tableUebersicht"

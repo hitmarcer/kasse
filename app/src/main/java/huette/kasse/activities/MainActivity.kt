@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity()/*, NamesAdapter.OnItemClickListener*/ {
                 R.id.ic_home -> setCurrentFragment(fragmentHome)
                 R.id.ic_edit -> goToEditDrinks()
                 R.id.ic_pay -> gotToPay()
-                R.id.ic_overview -> setCurrentFragment(fragmentOverview)
+                R.id.ic_overview -> goToUebersicht()
+            //R.id.ic_overview -> setCurrentFragment(fragmentOverview)
             }
             true
         }
@@ -41,6 +42,10 @@ class MainActivity : AppCompatActivity()/*, NamesAdapter.OnItemClickListener*/ {
     private fun gotToPay() {
         Variables.function = 7
         startActivity(Intent(this, Password::class.java))
+    }
+
+    private fun goToUebersicht() {
+        startActivity(Intent(this, Uebersicht::class.java))
     }
 
     private fun setCurrentFragment(fragment: Fragment) {

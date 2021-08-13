@@ -58,6 +58,11 @@
             android:screenOrientation="landscape"
             android:parentActivityName=".activities.MainActivity"
             android:label="@string/passwort"/>
+        <activity
+            android:name=".activities.Uebersicht"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".activities.MainActivity"
+            android:label="@string/Overview"/>
         <activity android:name=".activities.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
