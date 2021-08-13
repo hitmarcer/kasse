@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,21 +20,27 @@ import huette.kasse.activities.Password
 import huette.kasse.data.entities.User
 import huette.kasse.data.viewmodels.UserViewModel
 
+
 class FragmentHome: Fragment(R.layout.home), NamesAdapter.OnItemClickListener {
+
+    lateinit var namesAdapter: NamesAdapter
 
     @Override
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        setHasOptionsMenu(true)
 
         val view = inflater.inflate(R.layout.home, container, false)
 
         val btnAddUser: ImageButton = view.findViewById(R.id.btnAdd)
         val btnDeleteUser: ImageButton = view.findViewById(R.id.btnRemove)
+        val searchView: SearchView = view.findViewById(R.id.searchView)
 
         val recyclerViewNames: RecyclerView = view.findViewById(R.id.recyclerViewNames)
 
         // Zu Testzwecken
 
-        val namesAdapter = NamesAdapter(view.context, this)
+        namesAdapter = NamesAdapter(view.context, this)
 
         recyclerViewNames.adapter = namesAdapter
         recyclerViewNames.layoutManager =
@@ -47,6 +54,18 @@ class FragmentHome: Fragment(R.layout.home), NamesAdapter.OnItemClickListener {
             namesAdapter.setData(users)
         })
 
+        searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                namesAdapter.filter.filter(newText)
+                return true
+            }
+        })
+
         //namesAdapter.notifyDataSetChanged()
 
         btnAddUser.setOnClickListener {
@@ -55,7 +74,6 @@ class FragmentHome: Fragment(R.layout.home), NamesAdapter.OnItemClickListener {
 
         btnDeleteUser.setOnClickListener {
             Variables.function = 2
-            //Toast.makeText(this, "Wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
             startActivity(Intent(view.context, Password::class.java))
         }
 
@@ -67,4 +85,32 @@ class FragmentHome: Fragment(R.layout.home), NamesAdapter.OnItemClickListener {
         Variables.user = users[position]
         startActivity(Intent(this.view?.context, AddDrinkToUser::class.java))
     }
+
+
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView: SearchView = searchItem.actionView as SearchView
+        //searchItem.expandActionView()
+
+        searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                namesAdapter.filter.filter(newText)
+                return true
+            }
+        })
+
+        //searchItem.collapseActionView()
+
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    fun refreshSearch() {
+        namesAdapter.filter.filter("")
+    }*/
 }

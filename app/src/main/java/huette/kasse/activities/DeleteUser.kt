@@ -2,6 +2,7 @@ package huette.kasse.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +25,7 @@ class DeleteUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
         Variables.function = 2
 
         val recyclerViewAddUser: RecyclerView = findViewById(R.id.recyclerViewDeleteUser)
+        val searchView: SearchView = findViewById(R.id.searchViewDelete)
 
         val namesAdapter = NamesAdapter(this, this)
 
@@ -38,6 +40,18 @@ class DeleteUser : AppCompatActivity(), NamesAdapter.OnItemClickListener {
 
         userViewModel.getAllUsers.observe(this, { users ->
             namesAdapter.setData(users)
+        })
+
+        searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                namesAdapter.filter.filter(newText)
+                return true
+            }
         })
     }
 

@@ -18,16 +18,20 @@ import huette.kasse.data.viewmodels.DrinksViewModel
 
 class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     lateinit var database: AppDatabase
-    lateinit var tvAddDrinkToUser: TextView
-    lateinit var fullName: String
-    var userPosition: Int = 0
+    private lateinit var tvAddDrinkToUser: TextView
+    private lateinit var fullName: String
+    private var userPosition: Int = 0
 
-    val alDrinksUndo = ArrayList<UserDrinks>()
-    val alDrinksRedo = ArrayList<UserDrinks>()
+    private lateinit var tvAddedDrinks: TextView
+
+    private val alDrinksUndo = ArrayList<UserDrinks>()
+    private val alDrinksRedo = ArrayList<UserDrinks>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_drink_to_user)
+
+        tvAddedDrinks = findViewById(R.id.addedDrinks)
 
         database = AppDatabase.getDatabase(this)
 
@@ -54,13 +58,11 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         tvAddDrinkToUser = findViewById(R.id.tvAddDrinkUser)
         fullName = Variables.user.firstName + " " + Variables.user.lastName
         userPosition = Variables.position
-        tvAddDrinkToUser.setText(
-            "${fullName} (${
-                String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
-            } €)"
-        )
+        tvAddDrinkToUser.text = "$fullName (${
+            String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
+        } €)"
 
-        btnUndo.setOnClickListener() {
+        btnUndo.setOnClickListener {
             if (undo()) {
                 Toast.makeText(this, "Rückgängig gemacht", Toast.LENGTH_SHORT).show()
             } else {
@@ -72,7 +74,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
             }
         }
 
-        btnRedo.setOnClickListener() {
+        btnRedo.setOnClickListener {
             if (redo()) {
                 Toast.makeText(this, "Wiederholt", Toast.LENGTH_SHORT).show()
             } else {
@@ -87,7 +89,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
     override fun OnItemClick(position: Int, drinks: List<Drink>) {
         Variables.position = position
-        Variables.drink = drinks.get(position)
+        Variables.drink = drinks[position]
 
         val userDrink =
             UserDrinks(Variables.user.id, Variables.drink.id, System.currentTimeMillis())
@@ -101,12 +103,37 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         val unpaid = database.userDrinksDao().getUnpaid(Variables.user.id)
         val unpaidString = String.format("%.2f", unpaid)
         // Text von TextView aktualisieren
-        tvAddDrinkToUser.setText(
-            "${fullName} (${unpaidString} €)"
-        )
+        tvAddDrinkToUser.text = "$fullName (${unpaidString} €)"
 
-        Toast.makeText(this, "${drinks[position].drinkName} hinzugefügt", Toast.LENGTH_SHORT).show()
+        addToMid()
+        alDrinksRedo.clear()
 
+        //Toast.makeText(this, "${drinks[position].drinkName} hinzugefügt", Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun addToMid() {
+        tvAddedDrinks.text = ""
+        for(i in alDrinksUndo.indices) {
+            val drinkName = database.drinkDao().getSingleDrink(alDrinksUndo[i].drinkID).drinkName
+            if (i == 0) {
+                tvAddedDrinks.text = drinkName
+            } else {
+                tvAddedDrinks.text = "${tvAddedDrinks.text}, ${drinkName}"
+            }
+        }
+    }
+
+    private fun subFromMid() {
+        var text: String = tvAddedDrinks.text.toString()
+
+        if (text.contains(',')) {
+            text = text.substringBeforeLast(',')
+        } else {
+            text = ""
+        }
+        tvAddedDrinks.text = text
+    //tvAddedDrinks.text = tvAddedDrinks.text.toString().substring(0, tvAddedDrinks.text.lastIndexOf(',', 0, false))
     }
 
     private fun undo(): Boolean {
@@ -129,11 +156,11 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
             alDrinksUndo.removeAt(index)
 
             // Text von TextView aktualisieren
-            tvAddDrinkToUser.setText(
-                "${fullName} (${
-                    String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
-                } €)"
-            )
+            tvAddDrinkToUser.text = "$fullName (${
+                String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
+            } €)"
+
+            subFromMid()
 
             return true
         } else {
@@ -155,15 +182,15 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
             alDrinksUndo.add(userDrink)
 
             // Text von TextView aktualisieren
-            tvAddDrinkToUser.setText(
-                "${fullName} (${
-                    String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
-                } €)"
-            )
+            tvAddDrinkToUser.text = "$fullName (${
+                String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
+            } €)"
 
-            return true
+            addToMid()
+
+            true
         } else {
-            return false
+            false
         }
     }
 

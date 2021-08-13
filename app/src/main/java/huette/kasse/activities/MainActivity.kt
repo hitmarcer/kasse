@@ -26,60 +26,11 @@ class MainActivity : AppCompatActivity()/*, NamesAdapter.OnItemClickListener*/ {
                 R.id.ic_home -> setCurrentFragment(fragmentHome)
                 R.id.ic_edit -> goToEditDrinks()
                 R.id.ic_pay -> gotToPay()
-                R.id.ic_overview -> setCurrentFragment(fragmentOverview)
+                R.id.ic_overview -> goToUebersicht()
+            //R.id.ic_overview -> setCurrentFragment(fragmentOverview)
             }
             true
         }
-
-        /* val btnAddUser: Button = findViewById(R.id.btnAddUser)
-         val btnDeleteUser: Button = findViewById(R.id.btnDeleteUser)
-         val btnEditDrinks: Button = findViewById(R.id.btnEditDrinks)
-         val btnPay: Button = findViewById(R.id.btnPay)
-         val btnUebersicht: Button = findViewById(R.id.btnUebersicht)
-         //val btnFullscreen: Button = findViewById(R.id.btnFullscreen)
-
-         val recyclerViewNames: RecyclerView = findViewById(R.id.recyclerViewNames)
-
-         // Zu Testzwecken
-
-         val namesAdapter = NamesAdapter(this, this)
-
-         recyclerViewNames.adapter = namesAdapter
-         recyclerViewNames.layoutManager = GridLayoutManager(this, Variables.rows, GridLayoutManager.HORIZONTAL, false)
-         //recyclerViewNames.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-         // UserViewModel
-         val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
-         userViewModel.getAllUsers.observe(this, { users ->
-             namesAdapter.setData(users)
-         })
-
-         //namesAdapter.notifyDataSetChanged()
-
-         btnAddUser.setOnClickListener {
-             startActivity(Intent(this, AddUser::class.java))
-         }
-
-         btnDeleteUser.setOnClickListener {
-             Variables.function = 2
-             //Toast.makeText(this, "Wird noch nicht unterstützt", Toast.LENGTH_SHORT).show()
-             startActivity(Intent(this, Password::class.java))
-         }
-
-         btnEditDrinks.setOnClickListener {
-             Variables.function = 3
-             startActivity(Intent(this, Password::class.java))
-         }
-
-         btnPay.setOnClickListener {
-             Variables.function = 7
-             startActivity(Intent(this, Password::class.java))
-         }
-
-         btnUebersicht.setOnClickListener {
-             startActivity(Intent(this, Uebersicht::class.java))
-         }*/
 
     }
 
@@ -93,18 +44,16 @@ class MainActivity : AppCompatActivity()/*, NamesAdapter.OnItemClickListener*/ {
         startActivity(Intent(this, Password::class.java))
     }
 
+    private fun goToUebersicht() {
+        startActivity(Intent(this, Uebersicht::class.java))
+    }
+
     private fun setCurrentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flMain, fragment)
             commit()
         }
     }
-/*
-    override fun OnItemClick(position: Int, users: List<User>) {
-        Variables.position = position
-        Variables.user = users[position]
-        startActivity(Intent(this, AddDrinkToUser::class.java))
-    }*/
 
     override fun onBackPressed() {
 

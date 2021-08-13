@@ -28,4 +28,6 @@
     <string name="home">Home</string>
     <string name="verwalten">Verwalten</string>
     <string name="Overview">Übersicht</string>
+    <string name="search">Suchen</string>
+    <string name="added">Hinzugefügt:</string>
 </resources>
