@@ -1,6 +1,8 @@
 package huette.kasse.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -32,6 +34,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         setContentView(R.layout.add_drink_to_user)
 
         tvAddedDrinks = findViewById(R.id.addedDrinks)
+        val tvCredit: TextView = findViewById(R.id.tvCreditNow)
 
         database = AppDatabase.getDatabase(this)
 
@@ -42,6 +45,12 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
         val btnUndo: ImageButton = findViewById(R.id.btnUndo)
         val btnRedo: ImageButton = findViewById(R.id.btnRedo)
+        val btnAddCredit: Button = findViewById(R.id.btnAddCredit)
+
+        val userID = Variables.user.id
+        val credit = database.userDao().getCredit(userID)
+
+        tvCredit.text = "Guthaben: " + String.format("%.2f", credit) + " €"
 
         recyclerViewAddDrinkToUser.adapter = drinksAdapter
         recyclerViewAddDrinkToUser.layoutManager =
@@ -61,6 +70,10 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         tvAddDrinkToUser.text = "$fullName (${
             String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
         } €)"
+
+        btnAddCredit.setOnClickListener {
+            startActivity(Intent(this, Credit::class.java))
+        }
 
         btnUndo.setOnClickListener {
             if (undo()) {

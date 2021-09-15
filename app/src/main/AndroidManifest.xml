@@ -63,6 +63,11 @@
             android:screenOrientation="landscape"
             android:parentActivityName=".activities.MainActivity"
             android:label="@string/Overview"/>
+        <activity
+            android:name=".activities.Credit"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".activities.AddDrinkToUser"
+            android:label="@string/Overview"/>
         <activity android:name=".activities.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>

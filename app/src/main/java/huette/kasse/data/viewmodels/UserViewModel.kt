@@ -61,4 +61,17 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun setCredit(user_id: Int, credit: Double){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.setCredit(user_id, credit)
+        }
+    }
+
+    fun getCredit(user_id: Int): Double {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getCredit(user_id)
+        }
+        return repository.getCredit(user_id)
+    }
+
 }

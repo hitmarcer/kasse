@@ -27,4 +27,12 @@ class UserRepository(private val userDao: UserDao) {
         userDao.reactivateUser(user_id)
     }
 
+    fun setCredit(user_id: Int, credit: Double){
+        userDao.setCredit(user_id, credit)
+    }
+
+    fun getCredit(user_id: Int): Double{
+        return userDao.getCredit(user_id)
+    }
+
 }

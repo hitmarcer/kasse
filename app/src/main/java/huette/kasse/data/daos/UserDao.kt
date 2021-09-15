@@ -34,4 +34,10 @@ interface UserDao {
     @Query("UPDATE users SET deleted = 0 WHERE id = :user_id")
     fun reactivateUser(user_id: Int)
 
+    @Query("UPDATE users SET credit = :credit WHERE id = :user_id")
+    fun setCredit(user_id: Int, credit: Double)
+
+    @Query("SELECT credit FROM users WHERE id = :user_id")
+    fun getCredit(user_id: Int): Double
+
 }
