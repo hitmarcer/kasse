@@ -56,11 +56,27 @@ class Credit : AppCompatActivity() {
     fun addCredit(credit: Double): Double {
         val userID: Int = Variables.user.id
         val creditString: String = String.format("%.2f", credit)
-        val oldCredit: Double = database.userDao().getCredit(userID)
-        val newCredit: Double = calcCredit(userID, credit)
+        var unpaid: Double = database.userDao().getUnpaidAmount(userID)
+        var newCredit: Double = calcCredit(userID, credit)
+
+        if (unpaid > 0.0) {
+            unpaid -= newCredit
+            if (unpaid < 0.0) {
+                newCredit = unpaid * (-1)
+                unpaid = 0.0
+                database.userDrinksDao().setPaid(userID)
+            } else if (unpaid == 0.0) {
+                newCredit = 0.0
+                database.userDrinksDao().setPaid(userID)
+            } else {
+                newCredit = 0.0
+            }
+        }
 
         // Guthaben hinzufügen
         database.userDao().setCredit(userID, newCredit)
+        // Unpaid aktualisieren
+        database.userDao().setUnpaidAmount(userID, unpaid)
 
         Toast.makeText(this, "$creditString € hinzugefügt", Toast.LENGTH_SHORT).show()
 

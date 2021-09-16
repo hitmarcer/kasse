@@ -35,4 +35,12 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.getCredit(user_id)
     }
 
+    fun setUnpaidAmount(user_id: Int, unpaidAmount: Double){
+        userDao.setUnpaidAmount(user_id, unpaidAmount)
+    }
+
+    fun getUnpaidAmount(user_id: Int): Double{
+        return userDao.getUnpaidAmount(user_id)
+    }
+
 }

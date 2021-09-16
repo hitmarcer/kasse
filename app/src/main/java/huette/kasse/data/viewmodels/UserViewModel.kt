@@ -74,4 +74,17 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         return repository.getCredit(user_id)
     }
 
+    fun setUnpaidAmount(user_id: Int, unpaidAmount: Double){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.setUnpaidAmount(user_id, unpaidAmount)
+        }
+    }
+
+    fun getUnpaidAmount(user_id: Int): Double {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getUnpaidAmount(user_id)
+        }
+        return repository.getUnpaidAmount(user_id)
+    }
+
 }

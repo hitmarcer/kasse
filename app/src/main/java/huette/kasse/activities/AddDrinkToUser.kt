@@ -22,6 +22,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
     lateinit var database: AppDatabase
     private lateinit var tvAddDrinkToUser: TextView
     private lateinit var fullName: String
+    private lateinit var tvCredit: TextView
     private var userPosition: Int = 0
 
     private lateinit var tvAddedDrinks: TextView
@@ -34,7 +35,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         setContentView(R.layout.add_drink_to_user)
 
         tvAddedDrinks = findViewById(R.id.addedDrinks)
-        val tvCredit: TextView = findViewById(R.id.tvCreditNow)
+        tvCredit = findViewById(R.id.tvCreditNow)
 
         database = AppDatabase.getDatabase(this)
 
@@ -68,7 +69,7 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         fullName = Variables.user.firstName + " " + Variables.user.lastName
         userPosition = Variables.position
         tvAddDrinkToUser.text = "$fullName (${
-            String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
+            String.format("%.2f", database.userDao().getUnpaidAmount(Variables.user.id))
         } €)"
 
         btnAddCredit.setOnClickListener {
@@ -113,10 +114,31 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         // Zwischenspeichern, um rückgängig machen zu ermöglichen
         alDrinksUndo.add(userDrink)
 
-        val unpaid = database.userDrinksDao().getUnpaid(Variables.user.id)
+        var unpaid: Double = database.userDao().getUnpaidAmount(Variables.user.id)
+        var credit: Double = database.userDao().getCredit(Variables.user.id)
+
+        if (credit > 0) {
+            credit -= Variables.drink.price
+            if (credit < 0){
+                unpaid = credit * (-1)
+                credit = 0.0
+                database.userDrinksDao().setPaid(Variables.user.id)
+            } else {
+                unpaid = 0.0
+                database.userDrinksDao().setPaid(Variables.user.id)
+            }
+        } else {
+            unpaid += Variables.drink.price
+        }
+
+        database.userDao().setCredit(Variables.user.id, credit)
+        database.userDao().setUnpaidAmount(Variables.user.id, unpaid)
+
         val unpaidString = String.format("%.2f", unpaid)
+        val creditString = String.format("%.2f", credit)
         // Text von TextView aktualisieren
         tvAddDrinkToUser.text = "$fullName (${unpaidString} €)"
+        tvCredit.text = "Guthaben: $creditString €"
 
         addToMid()
         alDrinksRedo.clear()
@@ -154,11 +176,33 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
             // Von Datenbank löschen
             // Immer nur den letzten, also an Stelle size - 1
             val index: Int = alDrinksUndo.size - 1
+            var credit = database.userDao().getCredit(alDrinksUndo[index].userID)
+            var unpaid = database.userDao().getUnpaidAmount(alDrinksUndo[index].userID)
+
             database.userDrinksDao().deleteDrinkFromUser(
                 alDrinksUndo[index].userID,
                 alDrinksUndo[index].drinkID,
                 alDrinksUndo[index].timeStamp
             )
+
+            if (unpaid > 0) {
+                unpaid -= database.drinkDao().getSingleDrink(alDrinksUndo[index].drinkID).price
+
+                if (unpaid < 0) {
+                    credit = unpaid * (-1)
+                    unpaid = 0.0
+                    database.userDrinksDao().setPaid(Variables.user.id)
+                } else {
+                    credit = 0.0
+                }
+            } else {
+                credit += database.drinkDao().getSingleDrink(alDrinksUndo[index].drinkID).price
+                database.userDrinksDao().setPaid(Variables.user.id)
+            }
+
+            database.userDao().setCredit(Variables.user.id, credit)
+            database.userDao().setUnpaidAmount(Variables.user.id, unpaid)
+
             alDrinksRedo.add(
                 UserDrinks(
                     alDrinksUndo[index].userID,
@@ -170,8 +214,10 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
 
             // Text von TextView aktualisieren
             tvAddDrinkToUser.text = "$fullName (${
-                String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
+                String.format("%.2f", database.userDao().getUnpaidAmount(Variables.user.id))
             } €)"
+
+            tvCredit.text = "Guthaben: " + String.format("%.2f", credit) + " €"
 
             subFromMid()
 
@@ -185,19 +231,43 @@ class AddDrinkToUser : AppCompatActivity(), DrinksAdapter.OnItemClickListener {
         return if (alDrinksRedo.size > 0) {
             // Letzter auf Datenbank schreiben
             val index: Int = alDrinksRedo.size - 1
+            var credit = database.userDao().getCredit(alDrinksRedo[index].userID)
+            var unpaid = database.userDao().getUnpaidAmount(alDrinksRedo[index].userID)
+
             val userDrink = UserDrinks(
                 alDrinksRedo[index].userID,
                 alDrinksRedo[index].drinkID,
                 System.currentTimeMillis()
             )
+
+            if (credit > 0) {
+                credit -= database.drinkDao().getSingleDrink(alDrinksRedo[index].drinkID).price
+
+                if (credit < 0){
+                    unpaid = credit * (-1)
+                    credit = 0.0
+                    database.userDrinksDao().setPaid(Variables.user.id)
+                } else {
+                    unpaid = 0.0
+                    database.userDrinksDao().setPaid(Variables.user.id)
+                }
+            } else {
+                unpaid += database.drinkDao().getSingleDrink(alDrinksRedo[index].drinkID).price
+            }
+
+            database.userDao().setCredit(Variables.user.id, credit)
+            database.userDao().setUnpaidAmount(Variables.user.id, unpaid)
+
             alDrinksRedo.removeAt(index)
             database.userDrinksDao().addDrinkToUser(userDrink)
             alDrinksUndo.add(userDrink)
 
             // Text von TextView aktualisieren
             tvAddDrinkToUser.text = "$fullName (${
-                String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))
+                String.format("%.2f", database.userDao().getUnpaidAmount(Variables.user.id))
             } €)"
+
+            tvCredit.text = "Guthaben: " + String.format("%.2f", credit) + " €"
 
             addToMid()
 

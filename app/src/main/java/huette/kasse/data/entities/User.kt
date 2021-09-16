@@ -16,6 +16,8 @@ data class User(
     val deleted: Boolean,
     @ColumnInfo(name = "credit")
     val credit: Double,
+    @ColumnInfo(name = "unpaidAmount")
+    val unpaidAmount: Double,
 ){
-    constructor(firstName: String, lastName: String): this(0, firstName, lastName, false, 0.0)
+    constructor(firstName: String, lastName: String): this(0, firstName, lastName, false, 0.0, 0.0)
 }
