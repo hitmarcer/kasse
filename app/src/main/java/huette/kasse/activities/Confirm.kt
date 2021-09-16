@@ -42,7 +42,7 @@ class Confirm : AppCompatActivity() {
                 val firstName: String = Variables.user.firstName
                 val lastName: String = Variables.user.lastName
                 tvConfirm.text =
-                    "$firstName $lastName (${String.format("%.2f", database.userDrinksDao().getUnpaid(Variables.user.id))} €) wirklich auf bezahlt setzen?"
+                    "$firstName $lastName (${String.format("%.2f", database.userDao().getUnpaidAmount(Variables.user.id))} €) wirklich auf bezahlt setzen?"
             }
         }
 
@@ -67,10 +67,12 @@ class Confirm : AppCompatActivity() {
                     startActivity(Intent(this, DeleteDrink::class.java))
                 }
                 8 -> {
+                    // Auf bezahlt setzen
                     val firstName: String = Variables.user.firstName
                     val lastName: String = Variables.user.lastName
                     Toast.makeText(this, "$firstName $lastName wurde auf bezahlt gesetzt", Toast.LENGTH_SHORT).show()
                     database.userDrinksDao().setPaid(Variables.user.id)
+                    database.userDao().setUnpaidAmount(Variables.user.id, 0.0)
                     startActivity(Intent(this, Pay::class.java))
                 }
             }

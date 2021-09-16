@@ -43,18 +43,21 @@ class Uebersicht : AppCompatActivity() {
     }
 
     private fun setContent(allUsers: List<User>, allDrinks: List<Drink>) {
-        val sumPrice = database.userDrinksDao().getAllUnpaidDouble()
+        var sumAmount = 0.0
+        //val sumPrice = database.userDrinksDao().getAllUnpaidDouble()
         val sumUserAmount = database.userDrinksDao().getAmountUsers()
         var rowBorderColor = 1
 
         val tableUebersicht: TableLayout = findViewById(R.id.tableUebersicht)
         val firstRow = TableRow(this)
 
+        // Kopfzeile link "Name"
         val tvName = TextView(this)
         tvName.text = " Name "
         tvName.setTextAppearance(R.style.headlineStyle)
         firstRow.addView(tvName)
 
+        // Alle Getränke in Kopfzeile schreiben
         for (i in allDrinks.indices) {
             val tvHeader = TextView(this)
             tvHeader.text = " ${allDrinks[i].drinkName} (${String.format("%.2f", allDrinks[i].price)} €) "
@@ -63,8 +66,9 @@ class Uebersicht : AppCompatActivity() {
             firstRow.addView(tvHeader)
         }
 
+        // Gesamtsumme in Kopfzeile als Text hinzufügen
         val tvSumme = TextView(this)
-        tvSumme.text = " Gesamt (${String.format("%.2f", sumPrice)} €) "
+        tvSumme.text = " Gesamt "
         tvSumme.setTextAppearance(R.style.headlineStyle)
         tvSumme.setBackgroundResource(R.drawable.colborder)
         firstRow.addView(tvSumme)
@@ -74,8 +78,9 @@ class Uebersicht : AppCompatActivity() {
         for (i in allUsers.indices) {
             val tableRow = TableRow(this)
             var tvName = TextView(this)
+            val sumPerson: Double = database.userDao().getUnpaidAmount(allUsers[i].id)
 
-            val sumAmount = database.userDrinksDao().getUnpaid(allUsers[i].id)
+            //val sumAmount = database.userDao().getUnpaidAmount(allUsers[i].id)
 
             tvName.text = " ${allUsers[i].firstName} ${allUsers[i].lastName} (${String.format("%.2f", sumAmount)} €) "
             tvName.setTextAppearance(R.style.textStyle)
@@ -84,10 +89,13 @@ class Uebersicht : AppCompatActivity() {
 
             tableRow.addView(tvName)
 
+            sumAmount += database.userDao().getUnpaidAmount(allUsers[i].id)
+
             for (j in allDrinks.indices) {
                 var tvDrink = TextView(this)
                 val drinkAmount =
                     database.userDrinksDao().getDrinkAmount(allUsers[i].id, allDrinks[j].id)
+
                 tvDrink.text = " $drinkAmount "
                 tvDrink.setTextAppearance(R.style.textStyle)
 
@@ -96,8 +104,9 @@ class Uebersicht : AppCompatActivity() {
                 tableRow.addView(tvDrink)
             }
 
+            // Pro Zeile Gesamtsumme für diese Person
             var tvGesamt = TextView(this)
-            tvGesamt.text = " ${String.format("%.2f", sumAmount)} € "
+            tvGesamt.text = " ${String.format("%.2f", sumPerson)} € "
             tvGesamt.setTextAppearance(R.style.textStyle)
 
             tvGesamt = setBackgroundRowBorder(tvGesamt, rowBorderColor)
@@ -110,16 +119,18 @@ class Uebersicht : AppCompatActivity() {
             rowBorderColor += 1
         }
 
+        // letzte Reihe unten links Summe Personen
         val lastRow = TableRow(this)
 
         var tvNamesGesamt = TextView(this)
-        tvNamesGesamt.text = " $sumUserAmount Personen "
+        tvNamesGesamt.text = " $sumUserAmount Personen ($sumAmount €) "
         tvNamesGesamt.setTextAppearance(R.style.headlineStyle)
 
         tvNamesGesamt = setBackgroundFirstColBorder(tvNamesGesamt, rowBorderColor)
 
         lastRow.addView(tvNamesGesamt)
 
+        // letzte Reihe Betrag für die einzelnen Getränke
         for(i in allDrinks.indices) {
             var tvDrinkAmount = TextView(this)
             tvDrinkAmount.text = " ${database.userDrinksDao().getSumDrinkAmount(allDrinks[i].id)} "
@@ -128,8 +139,12 @@ class Uebersicht : AppCompatActivity() {
             lastRow.addView(tvDrinkAmount)
         }
 
+        // Oben rechts Gesamt setzen, da dies erst nach der Schleife gemacht werden kann (in der Schleife wird addiert)
+        tvSumme.text = " Gesamt (${String.format("%.2f", sumAmount)} €) "
+
+        // Gesamt unten rechts
         var tvGesamtAmount = TextView(this)
-        tvGesamtAmount.text = (" ${String.format("%.2f", sumPrice)} € ")
+        tvGesamtAmount.text = (" ${String.format("%.2f", sumAmount)} € ")
         tvGesamtAmount.setTextAppearance(R.style.headlineStyle)
         tvGesamtAmount = setBackgroundRowBorder(tvGesamtAmount, rowBorderColor)
         lastRow.addView(tvGesamtAmount)

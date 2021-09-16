@@ -30,4 +30,7 @@
     <string name="Overview">Übersicht</string>
     <string name="search">Suchen</string>
     <string name="added">Hinzugefügt:</string>
+    <string name="credit">Hinzufügen (€)</string>
+    <string name="addCredit">Hinzufügen</string>
+    <string name="addCredit1">Guthaben hinzufügen</string>
 </resources>

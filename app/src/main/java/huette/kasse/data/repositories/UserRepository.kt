@@ -27,4 +27,20 @@ class UserRepository(private val userDao: UserDao) {
         userDao.reactivateUser(user_id)
     }
 
+    fun setCredit(user_id: Int, credit: Double){
+        userDao.setCredit(user_id, credit)
+    }
+
+    fun getCredit(user_id: Int): Double{
+        return userDao.getCredit(user_id)
+    }
+
+    fun setUnpaidAmount(user_id: Int, unpaidAmount: Double){
+        userDao.setUnpaidAmount(user_id, unpaidAmount)
+    }
+
+    fun getUnpaidAmount(user_id: Int): Double{
+        return userDao.getUnpaidAmount(user_id)
+    }
+
 }
