@@ -44,6 +44,7 @@ class Uebersicht : AppCompatActivity() {
 
     private fun setContent(allUsers: List<User>, allDrinks: List<Drink>) {
         var sumAmount = 0.0
+        var sumCredit = 0.0
         //val sumPrice = database.userDrinksDao().getAllUnpaidDouble()
         val sumUserAmount = database.userDrinksDao().getAmountUsers()
         var rowBorderColor = 1
@@ -51,7 +52,7 @@ class Uebersicht : AppCompatActivity() {
         val tableUebersicht: TableLayout = findViewById(R.id.tableUebersicht)
         val firstRow = TableRow(this)
 
-        // Kopfzeile link "Name"
+        // Kopfzeile links "Name"
         val tvName = TextView(this)
         tvName.text = " Name "
         tvName.setTextAppearance(R.style.headlineStyle)
@@ -73,16 +74,24 @@ class Uebersicht : AppCompatActivity() {
         tvSumme.setBackgroundResource(R.drawable.colborder)
         firstRow.addView(tvSumme)
 
+        // Guthaben zu erster Zeile hinzufügen
+        val tvSumCredit = TextView(this)
+        tvSumCredit.text = " Guthaben "
+        tvSumCredit.setTextAppearance(R.style.headlineStyle)
+        tvSumCredit.setBackgroundResource(R.drawable.colborder)
+        firstRow.addView(tvSumCredit)
+
         tableUebersicht.addView(firstRow)
 
         for (i in allUsers.indices) {
             val tableRow = TableRow(this)
             var tvName = TextView(this)
             val sumPerson: Double = database.userDao().getUnpaidAmount(allUsers[i].id)
+            val creditPerson: Double = database.userDao().getCredit(allUsers[i].id)
 
             //val sumAmount = database.userDao().getUnpaidAmount(allUsers[i].id)
 
-            tvName.text = " ${allUsers[i].firstName} ${allUsers[i].lastName} (${String.format("%.2f", sumAmount)} €) "
+            tvName.text = " ${allUsers[i].firstName} ${allUsers[i].lastName} (${String.format("%.2f", sumPerson)} €) "
             tvName.setTextAppearance(R.style.textStyle)
 
             tvName = setBackgroundFirstColBorder(tvName, rowBorderColor)
@@ -90,6 +99,7 @@ class Uebersicht : AppCompatActivity() {
             tableRow.addView(tvName)
 
             sumAmount += database.userDao().getUnpaidAmount(allUsers[i].id)
+            sumCredit += database.userDao().getCredit(allUsers[i].id)
 
             for (j in allDrinks.indices) {
                 var tvDrink = TextView(this)
@@ -113,6 +123,15 @@ class Uebersicht : AppCompatActivity() {
 
             tableRow.addView(tvGesamt)
 
+            // Pro Zeile Gesamtsumme für diese Person
+            var tvCreditPerson = TextView(this)
+            tvCreditPerson.text = " ${String.format("%.2f", creditPerson)} € "
+            tvCreditPerson.setTextAppearance(R.style.textStyle)
+
+            tvCreditPerson = setBackgroundRowBorder(tvCreditPerson, rowBorderColor)
+
+            tableRow.addView(tvCreditPerson)
+
             tableRow.setBackgroundResource(R.drawable.tableborder)
             tableUebersicht.addView(tableRow)
 
@@ -123,7 +142,7 @@ class Uebersicht : AppCompatActivity() {
         val lastRow = TableRow(this)
 
         var tvNamesGesamt = TextView(this)
-        tvNamesGesamt.text = " $sumUserAmount Personen ($sumAmount €) "
+        tvNamesGesamt.text = " $sumUserAmount Personen (${String.format("%.2f", sumAmount)} €) "
         tvNamesGesamt.setTextAppearance(R.style.headlineStyle)
 
         tvNamesGesamt = setBackgroundFirstColBorder(tvNamesGesamt, rowBorderColor)
@@ -142,12 +161,22 @@ class Uebersicht : AppCompatActivity() {
         // Oben rechts Gesamt setzen, da dies erst nach der Schleife gemacht werden kann (in der Schleife wird addiert)
         tvSumme.text = " Gesamt (${String.format("%.2f", sumAmount)} €) "
 
+        // Oben rechts Guthaben setzen, da dies erst nach der Schleife gemacht werden kann (in der Schleife wird addiert)
+        tvSumCredit.text = " Guthaben (${String.format("%.2f", sumCredit)} €) "
+
         // Gesamt unten rechts
         var tvGesamtAmount = TextView(this)
         tvGesamtAmount.text = (" ${String.format("%.2f", sumAmount)} € ")
         tvGesamtAmount.setTextAppearance(R.style.headlineStyle)
         tvGesamtAmount = setBackgroundRowBorder(tvGesamtAmount, rowBorderColor)
         lastRow.addView(tvGesamtAmount)
+
+        // Guthaben unten rechts
+        var tvGesamtCredit = TextView(this)
+        tvGesamtCredit.text = (" ${String.format("%.2f", sumCredit)} € ")
+        tvGesamtCredit.setTextAppearance(R.style.headlineStyle)
+        tvGesamtCredit = setBackgroundRowBorder(tvGesamtCredit, rowBorderColor)
+        lastRow.addView(tvGesamtCredit)
 
         tableUebersicht.addView(lastRow)
 
